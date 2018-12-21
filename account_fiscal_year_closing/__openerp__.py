@@ -10,6 +10,7 @@
 #    (<http://www.openerp-italia.org>).
 #    Copyright (C) 2012 Agile Business Group sagl (<http://www.agilebg.com>)
 #    Copyright (C) 2012 Domsense srl (<http://www.domsense.com>)
+#    Copyright (C) 2018 Elven Studio snc (<http://www.elvenstudio.it>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published by
@@ -27,12 +28,12 @@
 ##############################################################################
 
 {
-    "name" : "Fiscal Year Closing",
-    "version" : "1.0",
-    "author" : "OpenERP Italian Community, Pexego,Odoo Community Association (OCA)",
-    "website" : "http://www.openerp-italia.org",
+    "name": "Fiscal Year Closing",
+    "version": "1.0",
+    "author": "OpenERP Italian Community, Pexego,Odoo Community Association (OCA), Elven Studio s.n.c.",
+    "website": "http://www.openerp-italia.org",
     "license": "AGPL-3",
-    "category" : "Generic Modules/Accounting",
+    "category": "Generic Modules/Accounting",
     "description": """
 Generalization of l10n_es_fiscal_year_closing ( http://apps.openerp.com/addon/4506 )
 
@@ -50,20 +51,18 @@ with a more advanced all-in-one wizard that will let the users:
 It is stateful, saving all the info about the fiscal year closing, so the
 user can cancel and undo the operations easily.
     """,
-    "license" : "AGPL-3",
-    "depends" : [
-                    "base",
-                    "account",
-                ],
-    "init_xml" : [],
-    "update_xml" : [
-                    "security/ir.model.access.csv",
-                    "fyc_workflow.xml",
-                    "wizard/wizard_run.xml",
-                    "fyc_view.xml",
-                    "hide_account_wizards.xml",
-                    ],
-    "active": False,
-    'installable': False
+    "license": "AGPL-3",
+    "depends": [
+        "base",
+        "account",
+    ],
+    "data": [
+        "security/ir.model.access.csv",
+        "data/fyc_workflow.xml",
+        "wizards/wizard_run.xml",
+        "views/fyc_view.xml",
+        "views/hide_account_wizards.xml",
+    ],
+    "init_xml": [],
+    'installable': True
 }
-
