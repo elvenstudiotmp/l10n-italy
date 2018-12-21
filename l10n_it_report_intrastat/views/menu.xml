@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <menuitem action="report_intrastat.action_report_intrastat_tree_all"
+                  id="menu_l0n_it_report_intrastat"
+                parent="account.menu_finance_reports" sequence="50"/>
+    </data>
+</openerp>
