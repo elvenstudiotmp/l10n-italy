@@ -21,7 +21,7 @@
 ##############################################################################
 {
     'name': 'Italian Localisation - Bill of Entry',
-    'version': '0.1',
+    'version': '8.0.0.2.0',
     'category': 'Localisation/Italy',
     'description': """
 Bolle doganali
@@ -65,14 +65,19 @@ rappresenti(no) l'IVA anticipata alla dogana.
 Alla conferma della fattura spedizioniere, verrà generata la scrittura contabile di giroconto per chiudere la bolla doganale.
 
 """,
-    'author': "Agile Business Group,Odoo Community Association (OCA)",
+    'author': "Agile Business Group,Odoo Community Association (OCA),Elven Studio s.n.c.",
     'website': 'http://www.agilebg.com',
     'license': 'AGPL-3',
-    "depends": ['base', 'account_invoice_template'],
+    "depends": [
+        'base',
+        'account_invoice_template',
+        'product'
+    ],
     "data": [
-        'account_invoice_view.xml',
-        'company_view.xml',
+        'views/product_template_view.xml',
+        'views/account_invoice_view.xml',
+        'views/company_view.xml',
     ],
     "demo": [],
-    'installable': False
+    'installable': True
 }

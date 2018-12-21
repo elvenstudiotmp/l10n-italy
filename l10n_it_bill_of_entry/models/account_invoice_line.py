@@ -22,25 +22,21 @@
 #
 ##############################################################################
 
-from openerp import models, api, _
+from openerp import models, fields, _
 
 
-class WizardSelectInvoiceTemplate(models.TransientModel):
-    _inherit = 'wizard.select.invoice.template'
+class AccountInvoiceLine(models.Model):
+    _inherit = 'account.invoice.line'
 
-    @api.multi
-    def load_template(self):
-        res = super(WizardSelectInvoiceTemplate, self).load_template()
-        invoice_cls = self.env['account.invoice']
-        if self.env.context.get('active_model') == 'account.invoice':
-            invoice = invoice_cls.browse(self.env.context.get('active_id'))
+    # Deprecated, kept for compatibility reason
+    advance_customs_vat = fields.Boolean(string=_('Advance Customs Vat'))
 
-            if invoice and invoice.customs_doc_type == 'forwarder_invoice':
-                invoice_id = res['res_id']
-                invoice_cls.browse(invoice_id).write({
-                    'customs_doc_type': 'bill_of_entry',
-                    'forwarder_invoice_id': invoice.id,
-                    'journal_id': invoice.journal_id.id
-                })
+    forwarded_supplier_invoice_ids = fields.Many2many(
+        comodel_name='account.invoice',
+        relation='fsi_invoice_rel',
+        column1='invoice_line_id',
+        column2='invoice_id',
+        string=_('Forwarded Supplier Invoices'),
+        domain=[('customs_doc_type', '=', 'supplier_invoice')]
+    )
 
-        return res
