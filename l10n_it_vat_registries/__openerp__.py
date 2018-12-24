@@ -35,12 +35,17 @@
         'l10n_it_account'
         ],
     "data": [
-        'reports.xml',
-        'wizard/print_registro_iva.xml',
-        'account_view.xml',
-        'views/report_registro_iva.xml',
         'security/ir.model.access.csv',
         'security/vat_registry_security.xml',
+
+        'report/vat_registry_paperformat.xml',
+        'reports.xml',
+
+        'wizard/print_registro_iva.xml',
+
+        'account_view.xml',
+        'views/report_registro_iva.xml',
+
         'account_journal_view.xml',
         'account_tax_registry_view.xml',
     ],

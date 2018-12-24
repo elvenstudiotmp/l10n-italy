@@ -26,50 +26,57 @@ from openerp.exceptions import Warning as UserError
 
 
 class WizardRegistroIva(models.TransientModel):
-
-    @api.model
-    def _get_period(self):
-        ctx = dict(self._context or {}, account_period_prefer_normal=True)
-        period_ids = self.env[
-            'account.period'].with_context(context=ctx).find()
-        return period_ids
-
     _name = "wizard.registro.iva"
     _rec_name = "type"
 
-    period_ids = fields.Many2many(
-        'account.period',
-        'registro_iva_periods_rel',
-        'period_id',
-        'registro_id',
-        string='Periods',
-        default=_get_period,
-        help='Select periods you want retrieve documents from',
-        required=True)
+    period_id = fields.Many2one(
+        string=_('Period'),
+        comodel_name='account.period',
+        default=lambda self: self._get_period(),
+        help=_('Select period you want retrieve documents from'),
+        required=True
+    )
+
     type = fields.Selection([
         ('customer', 'Customer Invoices'),
         ('supplier', 'Supplier Invoices'),
         ('corrispettivi', 'Corrispettivi'),
         ], 'Layout', required=True,
-        default='customer')
-    tax_registry_id = fields.Many2one('account.tax.registry', 'VAT registry')
+        default='customer'
+    )
+
+    tax_registry_id = fields.Many2one('account.tax.registry', 'VAT registry', required=True)
+
     journal_ids = fields.Many2many(
         'account.journal',
         'registro_iva_journals_rel',
         'journal_id',
         'registro_id',
-        string='Journals',
-        help='Select journals you want retrieve documents from',
-        required=True)
+        string=_('Journals'),
+        help=_('Select journals you want retrieve documents from'),
+        required=True
+    )
+
     tax_sign = fields.Float(
-        string='Tax amount sign',
+        string=_('Tax amount sign'),
         default=1.0,
-        help="Use -1 you have negative tax \
-        amounts and you want to print them prositive")
-    message = fields.Char(string='Message', size=64, readonly=True)
-    only_totals = fields.Boolean(
-        string='Prints only totals')
-    fiscal_page_base = fields.Integer('Last printed page', required=True)
+        help=_('Use -1 you have negative tax amounts and you want to print them prositive')
+    )
+
+    message = fields.Char(string=_('Message'), size=64, readonly=True)
+
+    only_totals = fields.Boolean(string=_('Prints only totals'))
+
+    fiscal_page_base = fields.Integer(
+        string=_('Last printed page'),
+        required=True
+    )
+
+    @api.model
+    def _get_period(self):
+        ctx = dict(self._context or {}, account_period_prefer_normal=True)
+        period_id = self.env['account.period'].with_context(context=ctx).find()
+        return period_id
 
     @api.onchange('tax_registry_id')
     def on_change_vat_registry(self):
@@ -84,17 +91,34 @@ class WizardRegistroIva(models.TransientModel):
     def print_registro(self, cr, uid, ids, context=None):
         wizard = self.browse(cr, uid, ids[0], context=context)
         move_obj = self.pool['account.move']
-        move_ids = move_obj.search(cr, uid, [
-            ('journal_id', 'in', [j.id for j in wizard.journal_ids]),
-            ('period_id', 'in', [p.id for p in wizard.period_ids]),
-            ('state', '=', 'posted'),
-            ], order='date, name')
+        journal_obj = self.pool['account.journal']
+
+        move_ids = []
+        move_dict = {}
+
+        for journal_id in wizard.journal_ids.ids:
+            move_domain = [
+                # ('journal_id', 'in', [j.id for j in wizard.journal_ids]),
+                ('journal_id', '=', journal_id),
+                ('period_id', '=', wizard.period_id.id),
+                ('state', '=', 'posted'),
+            ]
+
+            journal_move_ids = move_obj.search(cr, uid, move_domain, order='date, name')
+            if journal_move_ids:
+                move_dict[journal_id] = journal_move_ids
+
+            move_ids += journal_move_ids
+
         if not move_ids:
             raise UserError(_('No documents found in the current selection'))
-        datas = {}
-        datas_form = {}
-        datas_form['period_ids'] = [p.id for p in wizard.period_ids]
-        datas_form['journal_ids'] = [j.id for j in wizard.journal_ids]
+
+        journal_ids = journal_obj.search(cr, uid, [('id', 'in', wizard.journal_ids.ids)], order='code ASC')
+
+        datas_form = dict()
+        datas_form['period_id'] = wizard.period_id.id
+        datas_form['journal_ids'] = journal_ids
+        datas_form['journal_move_ids'] = move_dict
         datas_form['tax_sign'] = wizard.tax_sign
         datas_form['fiscal_page_base'] = wizard.fiscal_page_base
         datas_form['registry_type'] = wizard.type
@@ -109,8 +133,7 @@ class WizardRegistroIva(models.TransientModel):
             'model': 'account.move',
             'form': datas_form
         }
-        return self.pool['report'].get_action(
-            cr, uid, [], report_name, data=datas, context=context)
+        return self.pool['report'].get_action(cr, uid, [], report_name, data=datas, context=context)
 
     @api.onchange('type')
     def on_type_changed(self):
