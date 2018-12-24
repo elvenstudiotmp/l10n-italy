@@ -10,21 +10,26 @@
 #
 #
 {
-    'name': 'Italian Localization - Account central journal',
-    'version': '8.0.2.0.0',
+    'name': 'Italian Localization - Account Central Journal',
+    'version': '8.0.2.1.0',
     'category': 'Localization/Italy',
     'author': 'Link It Spa, Odoo Community Association (OCA)',
     'website': 'http://www.linkgroup.it',
     'license': 'AGPL-3',
+
     "depends": [
         'account',
         'l10n_it_account'
-        ],
-    "data": [
-        'reports.xml',
-        'wizard/print_giornale.xml',
-        'views/report_account_central_journal.xml',
-        'views/account_view.xml'
     ],
+
+    "data": [
+        'report/paper.xml',
+        'report/central_journal_report.xml',
+
+        'wizard/print_central_journal.xml',
+
+        'views/account_journal_view.xml'
+    ],
+
     "installable": True,
 }

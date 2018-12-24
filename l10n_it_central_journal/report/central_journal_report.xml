@@ -1,0 +1,275 @@
+<?xml version="1.0"?>
+<openerp>
+    <data noupdate="0">
+        <report
+            id="action_report_account_central_journal"
+            model="account.move"
+            string="Account Central Journal"
+            report_type="qweb-pdf"
+            name="l10n_it_central_journal.report_account_central_journal"
+            file="l10n_it_central_journal.report_account_central_journal"
+            menu="False"
+            auto="False"
+        />
+        <record id="l10n_it_central_journal.action_report_account_central_journal" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="l10n_it_central_journal.l10n_it_central_journal_a4_portrait" />
+            <field name="download_filename">Account Central Journal.pdf</field>
+       </record>
+
+
+
+       <template id="report_account_central_journal_header">
+            <div class="header">
+                <div class="row account-central-journal-header-info">
+                    <div class="col-xs-6">
+                        <h4 class="title-doc">Account Central Journal</h4>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <span style="display: none;" id="l10n_it_count_fiscal_page_base" t-esc="l10n_it_count_fiscal_page_base"/>
+                        <ul class="list-inline">Pag:
+                            <li><span t-esc="fiscal_year_name(fiscalyear_id)"/></li>
+                            <li>/</li>
+                            <li><span class="page"/></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Multicompany -->
+                    <t t-if="o and 'company_id' in o">
+                        <t t-set="company" t-value="o.company_id"/>
+                    </t>
+                    <t t-if="not o or not 'company_id' in o">
+                        <t t-set="company" t-value="res_company"/>
+                    </t>
+                    <div class="col-xs-12">
+                        <div class="company-info">
+                            <span class="text-right" t-if="company">
+                                <span>Company:</span>
+                                <b><span t-esc="company.name"/></b>
+                                <span class="address">
+                                    <span class="street" t-esc="company.street"/>, <span class="zip" t-esc="company.zip"/> - <span class="city" t-esc="company.city"/> - <span class="state" t-esc="company.state_id.code"/>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="fiscal-info">
+                            <span class="vat text-right" t-if="company.partner_id.vat">
+                                <span>Vat:</span>
+                                <span t-esc="company.partner_id.vat"/>
+                            </span>
+                            <span class="fiscalcode text-right" t-if="company.partner_id.fiscalcode">
+                                <span>Fiscalcode:</span>
+                                <span t-esc="company.partner_id.fiscalcode"/>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+
+
+        <template id="report_account_central_journal_footer">
+            <div class="row" />
+        </template>
+
+
+        <template id="report_account_central_journal_document">
+            <div class="page">
+                <t t-set="print_details" t-value="1"/>
+                <table style="width:100%; font-size: small;" cellspacing="0">
+                    <style>
+                        table {
+                            border: 0px;
+                            font-size: 8pt;
+                            line-height: 9pt;
+                        }
+
+                        thead {
+                            background: #DEDEDE;
+                            border-bottom: 0.5pt solid #000000;
+                        }
+
+                        .totals {
+                            background: #DEDEDE;
+                            border-bottom: 0.5pt solid #000000;
+                            border-top: 0.5pt solid #000000;
+                            font-weight:bold;
+                        }
+
+                        .left_without_line {
+                            text-align:left; vertical-align:text-top; padding:5px;
+                        }
+
+                        .right_without_line {
+                            text-align:right; vertical-align:text-top; padding:5px;
+                        }
+
+                        .new_move {
+                            border-top: 0.5pt solid #000000;
+                            page-break-inside: avoid;
+                            font-weight:bold;
+                        }
+
+                        .avoid_break {
+                            page-break-inside: avoid;
+                        }
+                    </style>
+                    <thead>
+                        <tr class="avoid_break">
+                            <th class="left_without_line">Row</th>
+                            <th class="left_without_line">Date</th>
+<!--                             <th class="left_without_line">Ref</th> -->
+                            <th class="left_without_line">Move nr.</th>
+<!--                             <th class="left_without_line">Account</th> -->
+                            <th class="left_without_line">Account</th>
+<!--                             <th class="left_without_line">Description</th> -->
+                            <th class="right_without_line">Debit</th>
+                            <th class="right_without_line">Credit</th>
+                        </tr>
+                    </thead>
+
+                    <t t-set="counter" t-value="start_row"/>
+                    <t t-set="save_move_id" t-value="0"/>
+                    <t t-set="tot_credit" t-value="progressive_credit"/>
+                    <t t-set="tot_debit" t-value="progressive_debit"/>
+                    <t t-set="class_new_move" t-value="''"/>
+                    <t t-set="last_date" t-value="False" />
+                    <tbody>
+                        <tr class="avoid_break">
+                            <td class="left_without_line"> </td>
+                            <td class="left_without_line"> </td>
+                            <td class="left_without_line"> </td>
+<!--                             <td class="left_without_line"> </td> -->
+<!--                             <td class="left_without_line"> </td> -->
+<!--                             <td class="left_without_line"> </td> -->
+                            <td class="left_without_line">
+                                <div class="avoid_break">
+                                    <span>Initial Balance at</span><![CDATA[&nbsp;]]><span t-esc="formatLang(date_move_line_from, date=True)"/>
+                                </div>
+                            </td>
+                            <td class="right_without_line">
+                                <div class="avoid_break" t-esc="formatLang(tot_debit)" />
+                            </td>
+                            <td class="right_without_line">
+                                <div class="avoid_break" t-esc="formatLang(tot_credit)" />
+                            </td>
+                        </tr>
+
+                        <t t-foreach="get_move(data['ids'])" t-as="move">
+
+                            <tr class="new_move">
+                                <!-- Journal -->
+                                <td class="left_without_line" colspan="3">
+                                    <div class="avoid_break" t-esc="move.journal_id.name" />
+                                </td>
+
+                                <td class="left_without_line" colspan="3">
+                                    <t t-if="move.journal_id.type != 'situation'">
+                                        <t t-esc="move.partner_id.name if move.partner_id else ''" />
+                                       </t>
+                                       <t t-if="move.journal_id.type == 'situation'">
+                                        <t t-esc="move.ref" />
+                                       </t>
+                                </td>
+                                    <!-- <td class="right_without_line"><![CDATA[&nbsp;]]></td> -->
+                                    <!-- <td class="right_without_line"><![CDATA[&nbsp;]]></td> -->
+                            </tr>
+
+
+                            <t t-set="lines" t-value="_get_move_line_ids(move.id)" />
+                            <t t-foreach="lines" t-as="line">
+                                <t t-set="counter" t-value="counter + 1"/>
+                                <t t-log="line" />
+                                <t t-set="tot_credit" t-value="tot_credit + line['credit']"/>
+                                <t t-set="tot_debit" t-value="tot_debit + line['debit']"/>
+                                <tr class="avoid_break">
+
+                                    <!-- Row -->
+                                    <td class="left_without_line">
+                                        <t t-esc="counter"/>
+                                    </td>
+
+                                    <!-- Date -->
+                                    <td class="left_without_line">
+                                        <t t-esc="formatLang(move.date, date=True)"/>
+                                    </td>
+
+                                    <!-- ref -->
+                                    <!--<td class="left_without_line">-->
+                                        <!--<div t-esc="line['ref']" />-->
+                                    <!--</td>-->
+
+                                    <!-- Account move name-->
+                                    <td class="left_without_line">
+                                        <t style="page-break-inside: avoid" t-esc="move.name" />
+                                    </td>
+
+                                    <!-- Account code-->
+<!--                                     <td class="left_without_line"> -->
+<!--                                         <t t-esc="line['account_id']" /> -->
+<!--                                     </td> -->
+
+                                    <!-- Account name -->
+                                    <td class="left_without_line">
+                                        <t t-esc="line['account_id'][1]" />
+                                    </td>
+
+                                    <!-- Name -->
+<!--                                     <td class="left_without_line"> -->
+<!--                                         <div t-esc="line['name']" /> -->
+<!--                                     </td> -->
+
+                                    <!-- Debit -->
+                                    <td class="right_without_line">
+                                        <t t-esc="formatLang(line['debit'])" />
+                                    </td>
+
+                                    <!-- Credit -->
+                                    <td class="right_without_line">
+                                        <t t-esc="formatLang(line['credit'])" />
+                                    </td>
+                                </tr>
+
+                                <t t-set="last_date" t-value="move.date" />
+                            </t>
+
+                        </t>
+
+                        <tr class="totals avoid_break" >
+                            <td class="left_without_line"> </td>
+                            <td class="left_without_line"> </td>
+                            <!--<td class="left_without_line"> </td>-->
+                            <td class="left_without_line"> </td>
+<!--                             <td class="left_without_line"> </td> -->
+<!--                             <td class="left_without_line"> </td> -->
+                            <td class="left_without_line">
+                                <div class="avoid_break">
+                                    <span>Final Balance at</span><![CDATA[&nbsp;]]><span t-esc="formatLang(date_move_line_to, date=True)"/>
+                                </div>
+                            </td>
+                            <td class="right_without_line">
+                                <div class="avoid_break" t-esc="formatLang(tot_debit)" />
+                            </td>
+                            <td class="right_without_line">
+                                <div class="avoid_break" t-esc="formatLang(tot_credit)" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br/>
+            </div>
+            <t t-set="save_move_id" t-value="save_print_info(fiscalyear_id,date_move_line_to,counter,tot_debit,tot_credit)"/>
+        </template>
+
+        <template id="report_account_central_journal">
+            <t t-call="report.html_container">
+                <t t-call="l10n_it_central_journal.report_account_central_journal_header"/>
+                <t t-call="l10n_it_central_journal.report_account_central_journal_document"/>
+                <!--<t t-call="l10n_it_central_journal.report_account_central_journal_footer"/>-->
+            </t>
+        </template>
+
+    </data>
+</openerp>
+
