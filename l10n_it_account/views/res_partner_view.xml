@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Add vat to search fields -->
+        <record id="l10n_it_account_res_partner_search_view" model="ir.ui.view">
+            <field name="name">l10n.it.account.res.partner.search.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <field name="parent_id" position="after">
+                    <field name="vat" />
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

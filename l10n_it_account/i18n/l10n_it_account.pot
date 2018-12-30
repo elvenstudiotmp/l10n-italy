@@ -6,6 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2018-12-30 12:40+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -66,12 +67,26 @@ msgstr ""
 
 #. module: l10n_it_account
 #: field:account.account,inverse_user_type:0
+#: code:addons/l10n_it_account/models/account.py:31
+#, python-format
 msgid "Inverse Account Type"
 msgstr ""
 
 #. module: l10n_it_account
 #: field:account.account,inverse_parent_id:0
+#: code:addons/l10n_it_account/models/account.py:40
+#, python-format
 msgid "Inverse Parent"
+msgstr ""
+
+#. module: l10n_it_account
+#: model:ir.model,name:l10n_it_account.model_account_invoice
+msgid "Invoice"
+msgstr ""
+
+#. module: l10n_it_account
+#: model:ir.model,name:l10n_it_account.model_account_invoice_line
+msgid "Invoice Line"
 msgstr ""
 
 #. module: l10n_it_account
@@ -97,6 +112,14 @@ msgid "Not every tax linked to tax code %s is linked to the same base code"
 msgstr ""
 
 #. module: l10n_it_account
+#: help:account.account,refund_invoice_account_id:0
+#: code:addons/l10n_it_account/models/account.py:50
+#, python-format
+msgid "On credit note invoice, use this account instead of the main account.\n"
+"In italian account chart, profit and loss accounts must be used as credit account or debit account only."
+msgstr ""
+
+#. module: l10n_it_account
 #: view:website:l10n_it_account.internal_layout
 msgid "Pag:"
 msgstr ""
@@ -104,6 +127,18 @@ msgstr ""
 #. module: l10n_it_account
 #: help:account.tax,nondeductible:0
 msgid "Partially or totally non-deductible."
+msgstr ""
+
+#. module: l10n_it_account
+#: model:ir.model,name:l10n_it_account.model_res_partner
+msgid "Partner"
+msgstr ""
+
+#. module: l10n_it_account
+#: field:account.account,refund_invoice_account_id:0
+#: code:addons/l10n_it_account/models/account.py:49
+#, python-format
+msgid "Refund Invoice Account"
 msgstr ""
 
 #. module: l10n_it_account
@@ -155,7 +190,9 @@ msgstr ""
 #. module: l10n_it_account
 #: help:account.account,inverse_parent_id:0
 #: help:account.account,inverse_user_type:0
-msgid "Used on balance sheet to report this account when its balance is         negative"
+#: code:addons/l10n_it_account/models/account.py:32
+#, python-format
+msgid "Used on balance sheet to report this account when its balance is negative"
 msgstr ""
 
 #. module: l10n_it_account
