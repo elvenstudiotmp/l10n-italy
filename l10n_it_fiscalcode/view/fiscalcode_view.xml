@@ -11,9 +11,22 @@
                     <label for="fiscalcode" />
                     <div name="fiscalcode_info">
                         <field name="fiscalcode" class="oe_inline" />
-                        <field name="individual" colspan="1" />
+                        <span name="individual_field">
+                            (<field name="individual" nolabel="1" /> <label for="individual" string="Is an individual person?"/>)
+                        </span>
                     </div>
                 </xpath>
+            </field>
+        </record>
+
+        <record id="l10n_it_fiscalcode_res_partner_search_view" model="ir.ui.view">
+            <field name="name">l10n.it.fiscalcode.res.partner.search.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <field name="parent_id" position="after">
+                    <field name="fiscalcode" />
+                </field>
             </field>
         </record>
 
