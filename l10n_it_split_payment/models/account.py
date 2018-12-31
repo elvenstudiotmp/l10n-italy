@@ -44,12 +44,21 @@ class AccountInvoice(models.Model):
         'Split Payment',
         related='fiscal_position.split_payment')
 
+    amount_sp_total = fields.Float(
+        string='Total with Split Payment',
+        digits=dp.get_precision('Account'),
+        store=True,
+        readonly=True,
+        compute='_compute_amount'
+    )
+
     @api.one
     @api.depends('invoice_line.price_subtotal', 'tax_line.amount')
     def _compute_amount(self):
         super(AccountInvoice, self)._compute_amount()
         self.amount_sp = 0
         if self.fiscal_position.split_payment:
+            self.amount_sp_total = self.amount_total
             self.amount_sp = self.amount_tax
             self.amount_tax = 0
         self.amount_total = self.amount_untaxed + self.amount_tax
