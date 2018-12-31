@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="l10n_it_vat_communication_supplier_invoice_number_form_view" model="ir.ui.view">
+            <field name="name">l10n.it.vat.communication.supplier.invoice.number.form.view</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <field name="supplier_invoice_number" position="attributes">
+                    <attribute name="required">1</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

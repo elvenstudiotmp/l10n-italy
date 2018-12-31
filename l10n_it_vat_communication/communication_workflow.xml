@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="workflow" id="wkf_vat_communication">
+            <field name="name">workflow.vat.communication</field>
+            <field name="osv">account.vat.communication</field>
+            <field name="on_create">True</field>
+        </record>
+
+        <record model="workflow.activity" id="act_draft">
+            <field name="wkf_id" ref="wkf_vat_communication" />
+            <field name="flow_start">True</field>
+            <field name="name">draft</field>
+            <field name="kind">function</field>
+            <field name="action">communication_draft()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_open">
+            <field name="wkf_id" ref="wkf_vat_communication" />
+            <field name="name">open</field>
+            <field name="kind">function</field>
+            <field name="action">communication_open()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_closed">
+            <field name="wkf_id" ref="wkf_vat_communication" />
+            <field name="name">closed</field>
+            <field name="kind">function</field>
+            <field name="action">communication_closed()</field>
+        </record>
+
+        <record model="workflow.transition" id="trans_act_draft_to_act_open">
+            <field name="act_from" ref="act_draft" />
+            <field name="act_to" ref="act_open" />
+            <field name="signal">set_open</field>
+        </record>
+
+        <record model="workflow.transition" id="trans_act_open_to_act_draft">
+            <field name="act_from" ref="act_open" />
+            <field name="act_to" ref="act_draft" />
+            <field name="signal">set_draft</field>
+        </record>
+
+        <record model="workflow.transition" id="trans_act_open_to_act_closed">
+            <field name="act_from" ref="act_open" />
+            <field name="act_to" ref="act_closed" />
+            <field name="signal">set_closed</field>
+        </record>
+    </data>
+</openerp>
