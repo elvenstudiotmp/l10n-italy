@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="wizard_export_vat_communication_form_view" model="ir.ui.view">
+            <field name="name">Export VAT Communication</field>
+            <field name="model">wizard.vat.communication</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Export VAT Communication">
+                    <header>
+                        <button name="export_vat_communication_DTE" string="Customer Invoices" type="object" class="oe_highlight" />
+                        <button name="export_vat_communication_DTR" string="Supplier Invoices" type="object" class="oe_highlight" />
+                        <field name="state" widget="statusbar" />
+                    </header>
+                    <group states="create">
+                        <span>
+                            <b>
+                                Select witch export you want to download.
+                            </b>
+                        </span>
+                        <p>
+
+                        </p>
+                    </group>
+                    <group states="get">
+                        <separator colspan="5" string="Your download is ready"/>
+                        <field name="data" filename="name"/>
+                        <field name="name" select="1" invisible="1" />
+                    </group>
+                    <footer>
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="wizard_export_vat_communication_correction_form_view" model="ir.ui.view">
+            <field name="name">Export VAT Communication Correction</field>
+            <field name="model">wizard.vat.communication</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Export VAT Communication Correction">
+                    <header>
+                        <button name="export_vat_communication_ANN" string="Communication Correction" type="object" class="oe_highlight" />
+                        <field name="state" widget="statusbar" />
+                    </header>
+                    <group states="create">
+                        <group>
+                            <field name="id_file" required="True" />
+                            <field name="position" />
+                        </group>
+                        <group></group>
+                    </group>
+                    <group states="get">
+                        <separator colspan="5" string="Your download is ready"/>
+                        <field name="data" filename="name"/>
+                        <field name="name" select="1" invisible="1" />
+                    </group>
+                    <footer>
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="action_wizard_export_vat_communication"
+                    name="Export VAT Communication"
+                    res_model="wizard.vat.communication"
+                    src_model="account.vat.communication"
+                    target="new"
+                    view_id="wizard_export_vat_communication_form_view"
+                    view_mode="form">
+        </act_window>
+
+        <act_window id="action_wizard_export_vat_communication_correction"
+                    name="Export VAT Communication Correction"
+                    res_model="wizard.vat.communication"
+                    src_model="account.vat.communication"
+                    target="new"
+                    view_id="wizard_export_vat_communication_correction_form_view"
+                    view_mode="form">
+        </act_window>
+
+<!--
+        <act_window id="action_wizard_export_vat_communication"
+                    name="Export VAT Communication"
+                    res_model="wizard.vat.communication"
+                    src_model="account.vat.communication"
+                    target="new"
+                    view_id="wizard_export_vat_communication_form_view"
+                    view_mode="form"
+                    context="{'search_default_in_location':1}" 
+                    key2="client_action_multi">
+        </act_window>
+-->
+    </data>
+</openerp>

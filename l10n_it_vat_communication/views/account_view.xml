@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_account_vat_communication" model="ir.ui.view">
+            <field name="name">account.vat.communication.form</field>
+            <field name="model">account.vat.communication</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Vat Communication">
+                    <header>
+                        <button name="set_open" states="draft" string="Open communication" class="oe_highlight" />
+                        <button name="set_closed" states="open" string="Close communication" class="oe_highlight" />
+
+                        <button type='action' name="%(action_add_period)d" string="Add period" attrs="{'invisible': [('state', '!=', 'draft')]}" />
+                        <button type='action' name="%(action_remove_period)d" string="Remove period" attrs="{'invisible': [('state', '!=', 'draft')]}" />
+                        <button type="object" name="compute_amounts" string="Recompute amounts" attrs="{'invisible': [('state', '=', 'closed')]}" />
+
+                        <button name="set_draft" states="open" string="Set to draft" />
+
+                        <field name="state" select="1" widget="statusbar"/>
+                    </header>
+                    <sheet string="Vat statement">
+                        <h1 attrs="{'invisible': [('name','=',False)]}">
+                            <span>Vat Communication: </span> <field name="name" nolabel="1" class="oe_inline" />
+                        </h1>
+                        <h1 attrs="{'invisible': [('name','!=',False)]}">
+                            <span>New Vat Communication</span>
+                        </h1>
+                        <group>
+                            <group>
+                                 <field name="soggetto_codice_fiscale" colspan="1"
+                                        on_change="onchange_fiscalcode(soggetto_codice_fiscale, 'soggetto_codice_fiscale')" />
+                                    <field name="codice_carica" colspan="1"/>
+                            </group>
+                            <group>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="date" />
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Sale Summary">
+                                <field name="dte_amount_total"/>
+                                <field name="dte_amount_taxable"/>
+                                <field name="dte_amount_tax"/>
+                                <field name="dte_amount_discarded"/>
+                            </group>
+                            <group string="Purchase Summary">
+                                <field name="dtr_amount_total"/>
+                                <field name="dtr_amount_taxable"/>
+                                <field name="dtr_amount_tax"/>
+                                <field name="dtr_amount_discarded"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Periods">
+                                <field name="period_ids" nolabel="1" readonly="1" />
+                            </page>
+                            <page string="Sale invoices">
+                                 <field name="account_vat_communication_dte_line_ids" nolabel="1">
+                                     <tree editable="bottom" string="Sale invoice Lines">
+                                         <field name="invoice_id" invisible="1"/>
+                                         <field name="invoice_number" />
+                                         <field name="invoice_date" />
+                                         <field name="tax_id" />
+                                         <field name="xml_TipoDocumento" />
+                                         <field name="partner_id" />
+                                         <field name="xml_IdPaese" />
+                                         <field name="xml_IdCodice" />
+                                         <field name="xml_CodiceFiscale" />
+                                         <field name="amount_total" />
+                                         <field name="amount_taxable" />
+                                         <field name="amount_tax" />
+                                         <field name="tax_rate" />
+                                         <!--<field name="xml_Detraibile" />-->
+                                         <field name="tax_nature" />
+                                         <field name="tax_payability" />
+                                     </tree>
+                                     <form>
+                                         <field name="invoice_id" />
+                                         <field name="invoice_number" />
+                                         <field name="invoice_date" />
+                                         <field name="tax_id" />
+                                         <field name="xml_TipoDocumento" />
+                                         <field name="partner_id" />
+                                         <field name="xml_IdPaese" readonly="1" />
+                                         <field name="xml_IdCodice" readonly="1" />
+                                         <field name="xml_CodiceFiscale" readonly="1" />
+                                         <field name="amount_total" />
+                                         <field name="amount_taxable" />
+                                         <field name="amount_tax" />
+                                         <field name="tax_rate" readonly="1" />
+                                         <!--<field name="xml_Detraibile" readonly="1" />-->
+                                         <field name="tax_nature"  readonly="1" />
+                                         <field name="tax_payability" />
+                                     </form>
+                                 </field>
+                            </page>
+                            <page string="Purchase invoices">
+                                 <field name="account_vat_communication_dtr_line_ids" nolabel="1">
+                                     <tree editable="bottom" string="Purchase invoice Lines">
+                                         <field name="invoice_id" invisible="1" />
+                                         <field name="invoice_number" />
+                                         <field name="invoice_registration_date" />
+                                         <field name="tax_id" />
+                                         <field name="xml_TipoDocumento" />
+                                         <field name="partner_id" />
+                                         <field name="xml_IdPaese" />
+                                         <field name="xml_IdCodice" />
+                                         <field name="xml_CodiceFiscale" />
+                                         <field name="amount_total" />
+                                         <field name="amount_taxable" />
+                                         <field name="amount_tax" />
+                                         <field name="tax_rate" />
+                                         <!--<field name="xml_Detraibile" />-->
+                                         <field name="tax_nature" />
+                                         <field name="tax_payability" />
+                                     </tree>
+                                     <form>
+                                         <field name="invoice_id" />
+                                         <field name="invoice_number" />
+                                         <field name="invoice_registration_date" />
+                                         <field name="tax_id" />
+                                         <field name="xml_TipoDocumento" />
+                                         <field name="partner_id" />
+                                         <field name="xml_IdPaese" readonly="1" />
+                                         <field name="xml_IdCodice" readonly="1" />
+                                         <field name="xml_CodiceFiscale" readonly="1" />
+                                         <field name="amount_total" />
+                                         <field name="amount_taxable" />
+                                         <field name="amount_tax" />
+                                         <field name="tax_rate" readonly="1" />
+                                         <!--<field name="xml_Detraibile" readonly="1" />-->
+                                         <field name="tax_nature"  readonly="1" />
+                                         <field name="tax_payability" />
+                                     </form>
+                                 </field>
+                            </page>
+                            <page string="Attachments">
+                                 <field name="attachment_ids" nolabel="1"
+                                        context="{'default_res_model': 'account.vat.communication','default_res_id': id, 'default_company_id': company_id}">
+                                     <tree string="Attachments">
+                                        <field name="name" />
+                                     </tree>
+                                 </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_account_vat_communication_tree" model="ir.ui.view">
+            <field name="name">account.vat.communication.tree</field>
+            <field name="model">account.vat.communication</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Vat Communication">
+                    <field name="name" />
+                    <field name="date" />
+                    <field name="soggetto_codice_fiscale" />
+                    <field name="state" />
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_account_vat_communication_search" model="ir.ui.view">
+            <field name="name">account.vat.communication.search</field>
+            <field name="model">account.vat.communication</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search Vat Communications">
+                    <field name="name" />
+                    <field name="date" />
+                    <field name="period_ids" />
+                    <field name="state" />
+
+                    <filter name="state_draft" string="Draft" domain="[('state','=','draft')]"/>
+					<filter name="state_open" string="Open" domain="[('state','=','open')]"/>
+					<filter name="state_closed" string="Closed" domain="[('state','=','closed')]"/>
+                    <separator />
+
+                    <group expand="0" string="Group By">
+                        <filter string="State" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Company" domain="[]" context="{'group_by':'company_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_account_vat_communication" model="ir.actions.act_window">
+            <field name="name">Vat Communication</field>
+            <field name="res_model">account.vat.communication</field>
+        </record>
+
+        <menuitem id="menu_account_vat_communication" action="action_account_vat_communication"
+                  name="VAT communications" parent="account.menu_account_end_year_treatments"/>
+
+    </data>
+</openerp>
