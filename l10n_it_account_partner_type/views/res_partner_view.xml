@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Hide is_company boolean field from base -->
+        <record id="res_partner_hide_is_company_form_view" model="ir.ui.view">
+            <field name="name">res.partner.hide.is.company.form.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='oe_title oe_left']/div[@class='oe_edit_only']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Hide vat_subjected boolean field from base_vat -->
+        <record id="res_partner_hide_vat_subjected_form_view" model="ir.ui.view">
+            <field name="name">res.partner.hide.vat.subjected.form.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base_vat.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="vat_subjected" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <!-- Hide individual boolean field from l10n_it_fiscalcode -->
+        <record id="res_partner_hide_individual_form_view" model="ir.ui.view">
+            <field name="name">res.partner.hide.individual.form.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="l10n_it_fiscalcode.view_partner_form_fiscalcode_data"/>
+            <field name="arch" type="xml">
+                <span name="individual_field" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </span>
+            </field>
+        </record>
+
+        <!-- Hide is_pa boolean field from l10n_it_ipa -->
+        <record id="res_partner_hide_is_pa_form_view" model="ir.ui.view">
+            <field name="name">res.partner.hide.is.pa.form.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="l10n_it_ipa.view_partner_ipa_form"/>
+            <field name="arch" type="xml">
+                <field name="is_pa" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <!-- Add partner type filters -->
+        <record id="l10n_it_account_partner_type_res_partner_search_view" model="ir.ui.view">
+            <field name="name">l10n.it.account.partner.type.res.partner.search.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <field name="parent_id" position="after">
+                    <field name="partner_type" />
+                    <group expand="0" string="Contact Type">
+                        <filter string="Contact"  domain="[('partner_type','=','contact')]"/>
+                        <filter string="Company"  domain="[('partner_type','=','company')]"/>
+                        <filter string="Individual"  domain="[('partner_type','=','individual')]"/>
+                        <filter string="Public"  domain="[('partner_type','=','public')]"/>
+                        <filter string="Person"  domain="[('partner_type','=','person')]"/>
+                        <separator/>
+                    </group>
+                </field>
+            </field>
+        </record>
+
+        <!-- Hide fiscal fields when partner type is person -->
+        <record id="l10n_it_account_partner_type_fiscal_data_form_view" model="ir.ui.view">
+            <field name="name">l10n.it.account.partner.type.fiscal.data.form.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='accounting']/group/group" position="attributes">
+                    <attribute name="string">Fiscal Data</attribute>
+                    <attribute name="attrs">{'invisible': [('partner_type', '=', 'contact')]}</attribute>
+                </xpath>
+                <field name="property_account_position" position="attributes">
+                    <attribute name="attrs">{'required': [('partner_type', '!=', 'contact')]}</attribute>
+                </field>
+            </field>
+        </record>
+
+        <!-- Adds partner type to the form view -->
+        <record id="l10n_it_account_partner_type_form_view" model="ir.ui.view">
+            <field name="name">l10n.it.account.partner.type.form.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="parent_id" position="before">
+                    <field name="partner_type" />
+                </field>
+            </field>
+        </record>
+
+        <!-- Firstname and Lastname required when contact is person or individual -->
+        <record id="l10n_it_account_partner_type_partner_firstname_form_view" model="ir.ui.view">
+            <field name="name">l10n.it.account.partner.type.partner.firstname.form.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="partner_firstname.view_partner_form_firstname"/>
+            <field name="arch" type="xml">
+                <!-- TODO enable if partner_firstname uses the split action -->
+                <!--<button string="Split name" position="attributes">-->
+                    <!--<attribute name="attrs">{'required': [('partner_type', 'in', ['person', 'individual'])], 'invisible': [('partner_type', 'not in', ['contact', 'person', 'individual'])]}</attribute>-->
+                <!--</button>-->
+
+                <field name="firstname" position="attributes">
+                    <attribute name="attrs">{'required': [('partner_type', 'in', ['person', 'individual'])], 'invisible': [('partner_type', 'not in', ['contact', 'person', 'individual'])]}</attribute>
+                </field>
+
+                <field name="lastname" position="attributes">
+                    <attribute name="attrs">{'required': [('partner_type', 'in', ['person', 'individual'])], 'invisible': [('partner_type', 'not in', ['contact', 'person', 'individual'])]}</attribute>
+                </field>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>

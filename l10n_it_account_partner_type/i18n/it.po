@@ -1,0 +1,120 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * l10n_it_account_partner_type
+#
+# Translators:
+# Domenico Stragapede <d.stragapede@elvenstudio.it>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: l10n-italy (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-12-30 12:40+0000\n"
+"PO-Revision-Date: 2018-12-30 12:40+0000\n"
+"Last-Translator: Domenico Stragapede\n"
+"Language-Team: Italian (http://www.transifex.com/oca/OCA-l10n-italy-8-0/"
+"language/it/)\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: l10n_it_account_partner_type
+#: code:addons/l10n_it_account_partner_type/models/res_partner.py:38
+#, python-format
+msgid "Choose the partner type due to your needed, in order to fill the right fields.\n"
+" - Generic Contact: generic partner without any fiscal information.\n"
+" - Company: Company contact, use this when registering a new company.\n"
+" - Individual Company: A company that has fiscal information related to a person.\n"
+" - Public administration: A company that has fiscal information related to a public organization.\n"
+" - Person: A private citizen contact, used in sale or purchase invoices."
+msgstr "Scegli il tipo di contatto in base alle tue esigenze, così da inserire i dati nei giusti campi.\n"
+" - Contatto generico: partner generico senza dati fiscali.\n"
+" - Azienda: Contatto aziendale, usa questo tipo quando registri una nuova azienda.\n"
+" - Ditta individuale: Un'azienda che ha i dati fiscali relativi ad una persona fisica.\n"
+" - Pubblica amministrazione: un'azienda che ha i dati fiscali relativi ad una pubblica amministrazione.\n"
+" - Persona fisica: Un contatto di una persona fisica, usata nelle fatture di vendita o acquisto."
+
+#. module: l10n_it_account_partner_type
+#: code:addons/l10n_it_account_partner_type/models/res_partner.py:31
+#: view:res.partner:l10n_it_account_partner_type.l10n_it_account_partner_type_res_partner_search_view
+#, python-format
+msgid "Company"
+msgstr "Azienda"
+
+#. module: l10n_it_account_partner_type
+#: view:res.partner:l10n_it_account_partner_type.l10n_it_account_partner_type_res_partner_search_view
+msgid "Contact"
+msgstr "Contatto"
+
+#. module: l10n_it_account_partner_type
+#: view:res.partner:l10n_it_account_partner_type.l10n_it_account_partner_type_res_partner_search_view
+msgid "Contact Type"
+msgstr "Tipo Anagrafica"
+
+#. module: l10n_it_account_partner_type
+#: view:res.partner:l10n_it_account_partner_type.l10n_it_account_partner_type_fiscal_data_form_view
+msgid "Fiscal Data"
+msgstr "Dati Fiscali"
+
+#. module: l10n_it_account_partner_type
+#: code:addons/l10n_it_account_partner_type/models/res_partner.py:30
+#, python-format
+msgid "Generic Contact"
+msgstr "Contatto Generico"
+
+#. module: l10n_it_account_partner_type
+#: view:res.partner:l10n_it_account_partner_type.l10n_it_account_partner_type_res_partner_search_view
+msgid "Individual"
+msgstr "Individuale"
+
+#. module: l10n_it_account_partner_type
+#: code:addons/l10n_it_account_partner_type/models/res_partner.py:32
+#, python-format
+msgid "Individual Company"
+msgstr "Ditta Individuale"
+
+#. module: l10n_it_account_partner_type
+#: model:ir.model,name:l10n_it_account_partner_type.model_res_partner
+msgid "Partner"
+msgstr "Partner"
+
+#. module: l10n_it_account_partner_type
+#: code:addons/l10n_it_account_partner_type/models/res_partner.py:28
+#, python-format
+msgid "Partner Type"
+msgstr "Tipo di partner"
+
+#. module: l10n_it_account_partner_type
+#: code:addons/l10n_it_account_partner_type/models/res_partner.py:34
+#: view:res.partner:l10n_it_account_partner_type.l10n_it_account_partner_type_res_partner_search_view
+#, python-format
+msgid "Person"
+msgstr "Persona Fisica"
+
+#. module: l10n_it_account_partner_type
+#: view:res.partner:l10n_it_account_partner_type.l10n_it_account_partner_type_res_partner_search_view
+msgid "Public"
+msgstr "Pubblica"
+
+#. module: l10n_it_account_partner_type
+#: code:addons/l10n_it_account_partner_type/models/res_partner.py:33
+#, python-format
+msgid "Public Administration"
+msgstr "Pubblica amministrazione"
+
+#. module: l10n_it_account_partner_type
+#: view:res.partner:l10n_it_account_partner_type.l10n_it_account_partner_type_fiscal_data_form_view
+msgid "{'invisible': [('partner_type', '=', 'contact')]}"
+msgstr "{'invisible': [('partner_type', '=', 'contact')]}"
+
+#. module: l10n_it_account_partner_type
+#: view:res.partner:l10n_it_account_partner_type.l10n_it_account_partner_type_fiscal_data_form_view
+msgid "{'required': [('partner_type', '!=', 'contact')]}"
+msgstr "{'required': [('partner_type', '!=', 'contact')]}"
+
+#. module: l10n_it_account_partner_type
+#: view:res.partner:l10n_it_account_partner_type.l10n_it_account_partner_type_partner_firstname_form_view
+msgid "{'required': [('partner_type', 'in', ['person', 'individual'])], 'invisible': [('partner_type', 'not in', ['contact', 'person', 'individual'])]}"
+msgstr "{'required': [('partner_type', 'in', ['person', 'individual'])], 'invisible': [('partner_type', 'not in', ['contact', 'person', 'individual'])]}"
+
