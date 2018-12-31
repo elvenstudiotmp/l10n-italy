@@ -21,18 +21,52 @@
 #
 ##############################################################################
 
-from openerp import models, fields
+from openerp import models, fields, _
 
 
 class ResCompany(models.Model):
     _inherit = 'res.company'
 
     of_account_end_vat_statement_interest = fields.Boolean(
-        'Interest on End Vat Statement',
-        help="Apply interest on end vat statement")
+        string=_('Interest on End Vat Statement'),
+        help=_('Apply interest on end vat statement')
+    )
+
     of_account_end_vat_statement_interest_percent = fields.Float(
-        'Interest on End Vat Statement - %',
-        help="Apply interest on end vat statement")
+        string=_('Interest on End Vat Statement - %'),
+        help=_('Apply interest on end vat statement')
+    )
+
     of_account_end_vat_statement_interest_account_id = fields.Many2one(
-        'account.account', 'Interest on End Vat Statement - Account',
-        help="Apply interest on end vat statement")
+        comodel_name='account.account',
+        string=_('Interest on End Vat Statement - Account'),
+        help=_('Apply interest on end vat statement')
+    )
+
+    of_account_end_vat_statement_tax_authority = fields.Many2one(
+        comodel_name='res.partner',
+        string=_('Tax Autority on End Vat Statement'),
+        help=_('Set the default tax autority to use '
+               'into the end vat statement.')
+    )
+
+    of_account_end_vat_statement_journal_id = fields.Many2one(
+        comodel_name='account.journal',
+        string=_('End Vat Statement Journal'),
+        help=_('Set the default account journal to use '
+               'into the end vat statement.')
+    )
+
+    of_account_end_vat_statement_credit_account_id = fields.Many2one(
+        comodel_name='account.account',
+        string=_('End Vat Statement Credit Account'),
+        help=_('Set the default account when the end vat statement total '
+               'is less than zero.')
+    )
+
+    of_account_end_vat_statement_debit_account_id = fields.Many2one(
+        comodel_name='account.account',
+        string=_('End Vat Statement Debit Account'),
+        help=_('Set the default account when the end vat statement total '
+               'is greater than zero.')
+    )

@@ -29,6 +29,8 @@ import time
 from openerp.osv import orm
 from openerp.report import report_sxw
 from openerp.tools.translate import _
+# import logging
+# _log = logging.getLogger(__name__)
 
 
 class Report(orm.Model):
@@ -36,7 +38,7 @@ class Report(orm.Model):
 
 
 class VatPeriodEndStatementReport(report_sxw.rml_parse):
-    _name = 'report.vat.period.end.statement'
+    # _name = 'report.vat.period.end.statement'
 
     def __init__(self, cr, uid, name, context=None):
         if context is None:
@@ -53,6 +55,7 @@ class VatPeriodEndStatementReport(report_sxw.rml_parse):
             'statement': self._get_statement,
             'tax_codes_amounts': self._get_tax_codes_amounts,
             'account_vat_amounts': self._get_account_vat_amounts,
+            'fiscal_year_name': self._get_fiscal_year_name,
             'l10n_it_count_fiscal_page_base': self._get_fiscal_page_base,
         })
         self.context = context
@@ -61,23 +64,147 @@ class VatPeriodEndStatementReport(report_sxw.rml_parse):
         statement_obj = self.pool['account.vat.period.end.statement']
         statement = False
         if statement_id:
-            statement = statement_obj.browse(
-                self.cr, self.uid, statement_id, self.context)
+            statement = statement_obj.browse(self.cr, self.uid, statement_id, self.context)
         return statement
 
-    def _get_fiscal_page_base(self, statement_id):
-        statement_obj = self.pool['account.vat.period.end.statement']
-        statement = False
-        if statement_id:
-            statement = statement_obj.browse(
-                self.cr, self.uid, statement_id, self.context)
-        return statement.fiscal_page_base
+    def _get_fiscal_year_name(self, statement_id):
+        statement = self._get_statement(statement_id)
 
-    def _get_tax_codes_amounts(self, period_id, tax_code_ids=None,
-                               context=None):
+        if statement.is_summary_statement:
+            # the summary statement will have only one period as special period
+            fiscal_year_name = statement.period_ids[0].fiscalyear_id.name
+        elif statement.state != 'draft' and statement.move_id:
+            # get the fiscal year from the statement entry
+            fiscal_year_name = statement.move_id.period_id.fiscalyear_id.name
+        else:
+            # the statement is in draft, no fiscal year will be specified in the print
+            fiscal_year_name = 'draft'
+
+        return fiscal_year_name
+
+    def _get_fiscal_page_base(self, statement_id):
+        return self._get_statement(statement_id).fiscal_page_base
+
+    def _compute_tax_amount(self, tax, tax_code, base_code, context=None):
+        '''
+        The Tax is child of another main tax.
+        The main tax has more childs:
+        - Child with tax_code_id are deductible
+        - Child without tax_code_id are undeductible
+        '''
+        res = {}
+        vat_deductible = 0
+        vat_undeductible = 0
+        vat_name = False
+        if tax.parent_id:
+            vat_code = tax.parent_id.description
+            vat_name = tax.parent_id.name
+            for child in tax.parent_id.child_ids:
+                # deductibile
+                if (
+                    child.tax_code_id and
+                    child.tax_code_id.vat_statement_account_id and
+                    not child.nondeductible
+                ):
+                    vat_deductible = child.tax_code_id.sum_period
+                # undeductibile
+                else:
+                    vat_undeductible = child.tax_code_id.sum_period
+        else:
+            vat_code = tax_code.code
+            vat_name = tax_code.name
+            vat_deductible = tax_code.sum_period
+
+        res[vat_name] = {
+            'code': vat_code,
+            'tax_code_name': vat_name,
+            'vat': vat_deductible + vat_undeductible,
+            'vat_deductible': vat_deductible,
+            'vat_undeductible': vat_undeductible,
+            'base': base_code.sum_period
+        }
+
+        return res
+
+    def _build_codes_dict(self, tax_code, res=None, context=None):
+
+        if context is None:
+            context = {}
+        if res is None:
+            res = {}
+        tax_pool = self.pool.get('account.tax')
+
+        # search for taxes linked to that code
+        tax_ids = tax_pool.search(
+            self.cr, self.uid, [('tax_code_id', '=', tax_code.id)],
+            context=context)
+
+        if tax_ids:
+            tax = tax_pool.browse(
+                self.cr, self.uid, tax_ids[0], context=context)
+            # search for the related base code
+            base_code = (
+                tax.base_code_id or tax.parent_id and
+                tax.parent_id.base_code_id or False)
+            if not base_code:
+                raise orm.except_orm(
+                    _('Error'),
+                    _('No base code found for tax code %s') % tax_code.name)
+            # check if every tax is linked to the same tax code and base code
+            for tax in tax_pool.browse(
+                self.cr, self.uid, tax_ids, context=context
+            ):
+                test_base_code = (
+                    tax.base_code_id or tax.parent_id and
+                    tax.parent_id.base_code_id or False)
+                if test_base_code.id != base_code.id:
+                    raise orm.except_orm(
+                        _('Error'),
+                        _('Not every tax linked to tax code %s is linked to '
+                          'the same base code')
+                        % tax_code.name)
+            if tax_code.sum_period or base_code.sum_period:
+                tax_vals = self._compute_tax_amount(tax, tax_code, base_code, context)
+
+                for tax_key in tax_vals:
+                    if tax_key in res:
+                        res[tax_key]['base'] += tax_vals[tax_key]['base']
+                        res[tax_key]['vat'] += tax_vals[tax_key]['vat']
+                        res[tax_key]['vat_deductible'] += tax_vals[tax_key]['vat_deductible']
+                        res[tax_key]['vat_undeductible'] += tax_vals[tax_key]['vat_undeductible']
+                    else:
+                        res.update(tax_vals)
+
+        for child_code in tax_code.child_ids:
+            res = self._build_codes_dict(
+                child_code, res=res, context=context)
+
+        return res
+
+    def _get_tax_codes_amounts(self, period_id, tax_code_ids=None, context=None):
+        if context is None:
+            context = {}
+        if tax_code_ids is None:
+            tax_code_ids = []
+
         code_pool = self.pool.get('account.tax.code')
-        return code_pool._get_tax_codes_amounts(
-            self.cr, self.uid, period_id, tax_code_ids, context)
+
+        period = self.pool.get('account.period').browse(self.cr, self.uid, period_id, context=context)
+
+        period_ids_to_evaluate = []
+        if period.special:
+            fy_period_ids = period.fiscalyear_id.period_ids.filtered(lambda p: not p.special).ids
+            period_ids_to_evaluate += fy_period_ids
+        else:
+            period_ids_to_evaluate.append(period.id)
+
+        res = {}
+        for period_id in period_ids_to_evaluate:
+            context['period_id'] = period_id
+            for tax_code in code_pool.browse(self.cr, self.uid, tax_code_ids, context=context):
+                res = self._build_codes_dict(tax_code, res=res, context=context)
+
+        return res
 
     def _get_account_vat_amounts(
         self, type='credit', statement_account_line=None, context=None
@@ -101,12 +228,12 @@ class VatPeriodEndStatementReport(report_sxw.rml_parse):
                 }
             else:
                 account_amounts[account_id]['amount'] += line.amount
+
         return account_amounts
 
 
 class ReportVatPeriodEndStatement(orm.AbstractModel):
-    _name = ('report.account_vat_period_end_statement.'
-             'report_vatperiodendstatement')
+    _name = 'report.account_vat_period_end_statement.report_vat_period_end_statement'
     _inherit = 'report.abstract_report'
-    _template = 'account_vat_period_end_statement.report_vatperiodendstatement'
+    _template = 'account_vat_period_end_statement.report_vat_period_end_statement'
     _wrapped_report_class = VatPeriodEndStatementReport

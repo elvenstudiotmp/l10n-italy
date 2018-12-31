@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="wizard_export_vat_settlement_form_view" model="ir.ui.view">
+            <field name="name">Export VAT Settlement</field>
+            <field name="model">wizard.vat.settlement</field>
+            <field name="arch" type="xml">
+                <form string="Export VAT Settlement">
+                    <group string="Your download is ready, choose the statement progressive number and click on start export to begin the download.">
+                        <group>
+                            <field name="statement_number" />
+                        </group>
+                        <group>
+                            <field name="data" filename="name" invisible="1" />
+                            <field name="name" invisible="1" />
+                            <field name="state" invisible="1" />
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="export_vat_settlemet" string="Start Export" type="object" class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="action_wizard_export_vat_settlement"
+                    key2="client_action_multi"
+                    name="Export VAT settlement"
+                    res_model="wizard.vat.settlement"
+                    src_model="account.vat.period.end.statement"
+                    target="new"
+                    view_id="wizard_export_vat_settlement_form_view"
+                    view_mode="form" />
+    </data>
+</openerp>

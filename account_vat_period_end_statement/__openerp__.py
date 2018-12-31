@@ -26,13 +26,14 @@
 
 {
     "name": "Period End VAT Statement",
-    "version": "8.0.3.0.0",
+    "version": "8.0.3.0.3",
     'category': 'Generic Modules/Accounting',
     'license': 'AGPL-3',
     "depends": [
-        "l10n_it_account",
-        "account_voucher",
         "report",
+        "account_voucher",
+        "l10n_it_account",
+        "l10n_it_vat_registries",
         "l10n_it_fiscalcode",
         ],
     "author": "Agile Business Group, Odoo Community Association (OCA)"
@@ -41,13 +42,18 @@
     'data': [
         'wizard/add_period.xml',
         'wizard/remove_period.xml',
+        # 'wizard/vat_settlement.xml',
         'statement_workflow.xml',
         'security/ir.model.access.csv',
         'security/security.xml',
+        'report/account_vat_period_end_statement_paperformat.xml',
         'reports.xml',
         'views/report_vatperiodendstatement.xml',
         'views/config.xml',
         'views/account_view.xml',
     ],
+    'external_dependencies': {
+        'python': ['pyxb'],
+    },
     'installable': True,
 }
