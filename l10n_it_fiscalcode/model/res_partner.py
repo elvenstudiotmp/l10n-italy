@@ -20,9 +20,19 @@
 ##############################################################################
 
 from openerp import models, fields, api
+from openerp.exceptions import ValidationError
+from openerp.tools.translate import _
+
+import logging
+_logger = logging.getLogger(__name__)
+
+try:
+    import codicefiscale
+except ImportError as err:
+    _logger.debug(err)
 
 
-class res_partner(models.Model):
+class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     @api.multi
@@ -41,7 +51,42 @@ class res_partner(models.Model):
         'Individual', default=False,
         help="If checked the C.F. is referred to a Individual Person")
 
-    _constraints = [
-        (check_fiscalcode,
-         "The fiscal code doesn't seem to be correct.", ["fiscalcode"])
-    ]
+    @api.one
+    @api.constrains('fiscalcode', 'individual')
+    def check_fiscalcode(self):
+        if self.individual:
+            if len(self.fiscalcode) != 16:
+                raise ValidationError(_(
+                    'The fiscal code doesn\'t seem to be correct.'))
+
+            control_value = codicefiscale.control_code(self.fiscalcode[0:15])
+            if self.fiscalcode[15:16] != control_value:
+                value = self.fiscalcode[0:15] + control_value
+                raise ValidationError(_(
+                    'Invalid fiscalcode! \n Fiscal code could be %s' % value))
+
+        elif self.fiscalcode:
+            if self.country_id.code:
+                fiscalcode = self.fiscalcode.replace(self.country_id.code, '')
+            else:
+                fiscalcode = self.fiscalcode
+
+            if len(fiscalcode) != 11:
+                raise ValidationError(_(
+                    'The fiscal code refers to a vat number '
+                    'but doesn\'t seem to be correct.'))
+
+            if len(fiscalcode) == 11 and \
+               self.country_id and \
+               not self.simple_vat_check(self.country_id.code, fiscalcode):
+                raise ValidationError(_(
+                    'The fiscal code is not a valid vat number!'))
+
+    @api.multi
+    def write(self, vals):
+        if 'fiscalcode' in vals and isinstance(vals['fiscalcode'], basestring):
+            # remove white space at the end of fiscalcode
+            vals['fiscalcode'] = vals['fiscalcode'].rstrip()
+
+        return super(ResPartner, self).write(vals)
+

@@ -41,17 +41,37 @@ class wizard_compute_fc(models.TransientModel):
     _description = "Compute Fiscal Code"
     _rec_name = 'fiscalcode_surname'
 
-    fiscalcode_surname = fields.Char('Surname', size=64)
-    fiscalcode_firstname = fields.Char('First name', size=64)
-    birth_date = fields.Date('Date of birth')
+    fiscalcode_surname = fields.Char(
+        string=_('Surname'),
+        size=64
+    )
+
+    fiscalcode_firstname = fields.Char(
+        string=_('First name'),
+        size=64
+    )
+
+    birth_date = fields.Date(
+        string=_('Date of birth')
+    )
+
     birth_city = fields.Many2one(
-        'res.city.it.code.distinct', string='City of birth')
+        comodel_name='res.city.it.code.distinct',
+        string=_('City of birth')
+    )
+
     birth_province = fields.Many2one(
-        'res.city.it.code.province', string='Province')
-    sex = fields.Selection([
-        ('M', 'Male'),
-        ('F', 'Female'),
-        ], "Sex")
+        comodel_name='res.city.it.code.province',
+        string=_('Province')
+    )
+
+    sex = fields.Selection(
+        string=_('Sex'),
+        selection=[
+            ('M', _('Male')),
+            ('F', _('Female')),
+        ]
+    )
 
     @api.multi
     def onchange_birth_city(self, birth_city):
@@ -156,7 +176,7 @@ class wizard_compute_fc(models.TransientModel):
             if (not f.fiscalcode_surname or not f.fiscalcode_firstname or
                     not f.birth_date or not f.birth_city or not f.sex):
                 raise except_orm(
-                    _('Error'), ('One or more fields are missing'))
+                    _('Error'), _('One or more fields are missing'))
             nat_code = self._get_national_code(
                 f.birth_city.name, f.birth_province.name, f.birth_date)
             if not nat_code:
@@ -165,7 +185,7 @@ class wizard_compute_fc(models.TransientModel):
             CF = build(f.fiscalcode_surname, f.fiscalcode_firstname,
                        birth_date, f.sex, nat_code)
             if partner.fiscalcode and partner.fiscalcode != CF:
-                raise except_orm(_('Error'), (
+                raise except_orm(_('Error'), _(
                     'Existing fiscal code %s is different from the computed'
                     ' one (%s). If you want to use the computed one, remove'
                     ' the existing one') % (partner.fiscalcode, CF))
