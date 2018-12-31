@@ -11,8 +11,6 @@
                     <page string="Italy AdE">
                         <group>
                             <field name="non_taxable_nature" />
-                            <field name="law_reference" attrs="{'required': [('non_taxable_nature', '!=', False),('type_tax_use', '!=', 'purchase')], 'invisible': ['|',('non_taxable_nature', '=', False),('type_tax_use', '=', 'purchase')]}" />
-                            <field name="payability"/>
                         </group>
                     </page>
                 </notebook>
