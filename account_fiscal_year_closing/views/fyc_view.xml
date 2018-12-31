@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+#
+#    OpenERP - Spanish Fiscal Year Closing
+#    Copyright (C) 2009 Pexego Sistemas Informáticos. All Rights Reserved
+#    $Id$
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+-->
+<!--
+Authors: Borja López Soilán (Pexego) - borja@kami.es
+-->
+<openerp>
+    <data>
+
+        <!-- Wizard tree view -->
+        <record model="ir.ui.view" id="view_fyc_tree">
+            <field name="name">account_fiscal_year_closing.fyc.tree</field>
+            <field name="model">account_fiscal_year_closing.fyc</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Fiscal Year Closings" colors="red:state=='new';blue:state=='draft';green:state=='in_progress'">
+                    <field name="company_id" />
+                    <field name="name" />
+                    <field name="closing_fiscalyear_id" />
+                    <field name="opening_fiscalyear_id" />
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Wizard form view -->
+        <record model="ir.ui.view" id="view_fyc_form">
+            <field name="name">account_fiscal_year_closing.fyc.form</field>
+            <field name="model">account_fiscal_year_closing.fyc</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Fiscal Year Closing">
+                    <header>
+                        <button name="draft" string="Continue" states="new" class="oe_highlight" />
+                        <button name="%(fyc_run_action)d" type="action" string="Perform the operations" class="oe_highlight" states="draft"/>
+                        <button name="%(fyc_run_action)d" type="action" string="Perform the operations" states="in_progress"/>
+                        <button name="confirm" string="Confirm" states="in_progress" class="oe_highlight" />
+                        <button name="cancel" string="Cancel" states="in_progress,done"/>
+                        <button name="action_recover" string="Reset to draft" type="object" states="canceled" />
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,done" />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" attrs="{'readonly':[('state','!=','new')]}" /></h1>
+                            <label string="Please, select the fiscal year to close and fiscal year to open." colspan="4" states="new" />
+                        </div>
+
+                        <group>
+                            <group>
+                        <field name="closing_fiscalyear_id" attrs="{'readonly':[('state','!=','new')]}"/>
+                        <field name="opening_fiscalyear_id" attrs="{'readonly':[('state','!=','new')]}"/>
+                    </group>
+                            <group>
+                                <field name="company_id" />
+                    </group>
+                                    </group>
+
+                        <group string="Checks" attrs="{'invisible':[('state','=','new')], 'readonly':[('state','in',('done','cancel'))]}">
+                            <group>
+                                <field name="check_draft_moves" />
+                                <field name="check_unbalanced_moves" />
+                                <field name="check_invalid_period_moves" />
+                            </group>
+                            <group></group>
+                                    </group>
+
+                        <group string="Configurations" attrs="{'invisible':[('state','=','new')]}">
+                            <notebook>
+                                <page string="Income statement">
+                                    <group>
+                                        <group>
+                                            <field name="create_loss_and_profit"/>
+                                            <field name="lp_description" attrs="{'required': [('create_loss_and_profit','=',True)],'readonly':['|', ('create_loss_and_profit','=', False), ('state','in',('done','cancel'))]}"/>
+                                            <field name="lp_journal_id" attrs="{'required': [('create_loss_and_profit','=',True)],'readonly':['|', ('create_loss_and_profit','=', False), ('state','in',('done','cancel'))]}"/>
+                                </group>
+                                        <group>
+                                            <field name="lp_date" attrs="{'required': [('create_loss_and_profit','=',True)],'readonly':['|', ('create_loss_and_profit','=', False), ('state','in',('done','cancel'))]}"/>
+                                            <field name="lp_period_id" domain="[('special','=',True)]" attrs="{'required': [('create_loss_and_profit','=',True)],'readonly':['|', ('create_loss_and_profit','=', False), ('state','in',('done','cancel'))]}"/>
+                                            <field name="loss_and_profit_move_id"/>
+                                </group>
+                                    </group>
+                                    <group string="Account mappings">
+                                        <field name="lp_account_mapping_ids" colspan="4" nolabel="1" attrs="{'readonly':['|', ('create_loss_and_profit','=', False), ('state','in',('done','cancel'))]}">
+                                            <tree string="Account mappings" editable="top">
+                                                <field name="name"/>
+                                                <field name="source_account_id"/>
+                                                <field name="dest_account_id"/>
+                                            </tree>
+                                        </field>
+                                    </group>
+                                    </page>
+
+                                <page string="Net profit and loss">
+                                    <group>
+                                        <group>
+                                            <field name="create_net_loss_and_profit" />
+                                            <field name="nlp_description" attrs="{'required': [('create_net_loss_and_profit','=',True)],'readonly':['|', ('create_net_loss_and_profit','=', False), ('state','in',('done','cancel'))]}"/>
+                                            <field name="nlp_journal_id" attrs="{'required': [('create_net_loss_and_profit','=',True)],'readonly':['|', ('create_net_loss_and_profit','=', False), ('state','in',('done','cancel'))]}"/>
+                                        </group>
+                                        <group>
+                                            <field name="nlp_date"  attrs="{'required': [('create_net_loss_and_profit','=',True)],'readonly':['|', ('create_net_loss_and_profit','=', False), ('state','in',('done','cancel'))]}"/>
+                                            <field name="nlp_period_id" domain="[('special','=',True)]" attrs="{'required': [('create_net_loss_and_profit','=',True)],'readonly':['|', ('create_net_loss_and_profit','=', False), ('state','in',('done','cancel'))]}"/>
+                                            <field name="net_loss_and_profit_move_id"/>
+                                        </group>
+                                    </group>
+                                    <group string="Account mappings">
+                                        <field name="nlp_account_mapping_ids" colspan="4" nolabel="1"  attrs="{'readonly':['|', ('create_net_loss_and_profit','=', False), ('state','in',('done','cancel'))]}">
+                                            <tree string="Account mappings" editable="top">
+                                                <field name="name"/>
+                                                <field name="source_account_id"/>
+                                                <field name="dest_account_id"/>
+                                            </tree>
+                                        </field>
+                                    </group>
+                                    </page>
+
+                                <page string="Closing balance sheet">
+                                    <group>
+                                        <group>
+                                            <field name="create_closing" />
+                                            <field name="c_description" attrs="{'required': [('create_closing','=',True)],'readonly':['|', ('create_closing','=',False), ('state','in',('done','cancel'))]}" />
+                                            <field name="c_journal_id"  attrs="{'required': [('create_closing','=',True)],'readonly':['|', ('create_closing','=',False), ('state','in',('done','cancel'))]}" />
+                                        </group>
+                                        <group>
+                                            <field name="c_date" attrs="{'required': [('create_closing','=',True)], 'readonly':['|', ('create_closing','=',False), ('state','in',('done','cancel'))]}" />
+                                            <field name="c_period_id" domain="[('special','=',True)]" attrs="{'required': [('create_closing','=',True)], 'readonly':['|', ('create_closing','=',False), ('state','in',('done','cancel'))]}" />
+                                            <field name="closing_move_id" />
+                                        </group>
+                                    </group>
+                                    <group string="Account mappings">
+                                        <field name="c_account_mapping_ids" colspan="4" nolabel="1" attrs="{'readonly':['|', ('create_closing','=',False), ('state','in',('done','cancel'))]}">
+                                            <tree string="Accounts to close" editable="top">
+                                                <field name="name"/>
+                                                <field name="source_account_id"/>
+                                                <field name="dest_account_id"/>
+                                            </tree>
+                                        </field>
+                                    </group>
+                                    </page>
+
+                                <page string="Opening balance sheet">
+                                    <group>
+                                        <group>
+                                            <field name="create_opening" />
+                                            <field name="o_description" attrs="{'required': [('create_opening','=',True)],'readonly':['|', ('create_opening','=', False), ('state','in',('done','cancel'))]}"/>
+                                            <field name="o_journal_id" attrs="{'required': [('create_opening','=',True)],'readonly':['|', ('create_opening','=', False), ('state','in',('done','cancel'))]}" />
+                                        </group>
+                                        <group>
+                                            <field name="o_date" attrs="{'required': [('create_opening','=',True)],'readonly':['|', ('create_opening','=', False), ('state','in',('done','cancel'))]}" />
+                                            <field name="o_period_id" domain="[('special','=',True)]" attrs="{'required': [('create_opening','=',True)],'readonly':['|', ('create_opening','=', False), ('state','in',('done','cancel'))]}" />
+                                            <field name="opening_move_id"/>
+                                        </group>
+                                    </group>
+                            </page>
+                        </notebook>
+                    </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_view_fyc_tree">
+            <field name="name">Fiscal Years Closings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account_fiscal_year_closing.fyc</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_fyc_tree"/>
+        </record>
+
+        <menuitem id="menu_fyc_list"
+                    parent="account.menu_account_end_year_treatments"
+                    name="Fiscal Years Closings"
+                    action="action_view_fyc_tree"
+                    sequence="11"/>
+
+    </data>
+</openerp>

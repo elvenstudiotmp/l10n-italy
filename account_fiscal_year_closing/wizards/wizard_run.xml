@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <openerp>
     <data>
         
@@ -9,9 +8,16 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Fiscal Year Closing">
-                    <label string="This wizard will perform the selected operations. It will create account moves for the operations you selected, skipping those already created. Non-selected operations will be canceled." colspan="4"/>
-                    <button string="Cancel" special="cancel" icon="gtk-cancel" colspan="2"/>
-                    <button string="Run" name="run" type="object" icon="gtk-ok" colspan="2"/>
+                    <p>
+                        This wizard will perform the selected operations. <br/>
+                        It will create account moves for the operations you selected, skipping those already created.<br />
+                        Non-selected operations will be canceled.
+                    </p>
+                    <footer>
+                        <button string="Run" name="run" type="object" class="oe_highlight" />
+                        or
+                        <button string="Cancel" special="cancel" class="oe_link" />
+                    </footer>
                 </form>
             </field>
         </record>
@@ -25,7 +31,6 @@
             <field name="view_mode">form</field>
             <field name="target">new</field>
             <field name="view_id" ref="fyc_run_view"/>
-
         </record>
         
     </data>
