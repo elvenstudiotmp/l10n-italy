@@ -35,18 +35,7 @@ class AccountTax(orm.Model):
             ('N7', 'IVA assolta in altro stato UE'),
             ('FC', 'FC applicazione IVA'),
             ], string="Non taxable nature"),
-        'payability': fields.selection([
-            ('I', 'Immediate payability'),
-            ('D', 'Deferred payability'),
-            ('S', 'Split payment'),
-            ], string="VAT payability"),
-        'law_reference': fields.char(
-            'Law reference', size=128),
     }
-
-    # _defaults = {
-    #     'payability': 'I',
-    # }
 
     def get_tax_by_invoice_tax(self, cr, uid, invoice_tax, context=None):
         if ' - ' in invoice_tax:

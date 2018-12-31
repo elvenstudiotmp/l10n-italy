@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-31 15:18+0000\n"
-"PO-Revision-Date: 2018-12-31 15:18+0000\n"
+"PO-Revision-Date: 2018-12-31 16:01+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -64,6 +64,11 @@ msgstr "CF del soggetto che presenta la comunicazione se PF o DI o con la specif
 #: view:remove.period.from.vat.commitment:l10n_it_vat_communication.remove_period
 msgid "Cancel"
 msgstr "Cancella"
+
+#. module: l10n_it_vat_communication
+#: help:account.journal,rev_charge:0
+msgid "Check if reverse charge EU invoices journal"
+msgstr ""
 
 #. module: l10n_it_vat_communication
 #: view:account.vat.communication:l10n_it_vat_communication.view_account_vat_communication
@@ -189,10 +194,10 @@ msgid "Erede"
 msgstr "Erede"
 
 #. module: l10n_it_vat_communication
-#: code:addons/l10n_it_vat_communication/models/account_tax.py:59
-#: code:addons/l10n_it_vat_communication/models/account_tax.py:63
-#: code:addons/l10n_it_vat_communication/models/account_tax.py:72
-#: code:addons/l10n_it_vat_communication/models/account_tax.py:76
+#: code:addons/l10n_it_vat_communication/models/account_tax.py:48
+#: code:addons/l10n_it_vat_communication/models/account_tax.py:52
+#: code:addons/l10n_it_vat_communication/models/account_tax.py:61
+#: code:addons/l10n_it_vat_communication/models/account_tax.py:65
 #: code:addons/l10n_it_vat_communication/wizard/add_period.py:41
 #: code:addons/l10n_it_vat_communication/wizard/add_period.py:46
 #: code:addons/l10n_it_vat_communication/wizard/add_period.py:63
@@ -232,6 +237,11 @@ msgid "Error!"
 msgstr "Errore!"
 
 #. module: l10n_it_vat_communication
+#: selection:account.tax,non_taxable_nature:0
+msgid "FC applicazione IVA"
+msgstr "FC applicazione IVA"
+
+#. module: l10n_it_vat_communication
 #: field:account.vat.communication.dte.line,xml_CodiceFiscale:0
 #: field:account.vat.communication.dtr.line,xml_CodiceFiscale:0
 msgid "Fiscalcode"
@@ -257,6 +267,11 @@ msgstr "ID"
 #, python-format
 msgid "ID File"
 msgstr "ID File"
+
+#. module: l10n_it_vat_communication
+#: selection:account.tax,non_taxable_nature:0
+msgid "IVA assolta in altro stato UE"
+msgstr "IVA assolta in altro stato UE"
 
 #. module: l10n_it_vat_communication
 #: code:addons/l10n_it_vat_communication/wizard/wizard_export.py:122
@@ -418,13 +433,14 @@ msgid "New Vat Communication"
 msgstr "Nuova comunicazione"
 
 #. module: l10n_it_vat_communication
-#: code:addons/l10n_it_vat_communication/models/account_tax.py:59
-#: code:addons/l10n_it_vat_communication/models/account_tax.py:72
+#: code:addons/l10n_it_vat_communication/models/account_tax.py:48
+#: code:addons/l10n_it_vat_communication/models/account_tax.py:61
 #, python-format
 msgid "No tax %s found"
 msgstr "No tax %s found"
 
 #. module: l10n_it_vat_communication
+#: field:account.tax,non_taxable_nature:0
 #: field:account.vat.communication.dte.line,tax_nature:0
 #: field:account.vat.communication.dtr.line,tax_nature:0
 msgid "Non taxable nature"
@@ -583,6 +599,11 @@ msgid "Remove period"
 msgstr "Rimuovi periodo"
 
 #. module: l10n_it_vat_communication
+#: field:account.journal,rev_charge:0
+msgid "Reverse Charge Journal"
+msgstr ""
+
+#. module: l10n_it_vat_communication
 #: view:account.vat.communication:l10n_it_vat_communication.view_account_vat_communication
 msgid "Sale Summary"
 msgstr "Riepilogo vendite"
@@ -663,11 +684,11 @@ msgid "Taxable amount"
 msgstr "Imponibile/Importo"
 
 #. module: l10n_it_vat_communication
-#: code:addons/l10n_it_vat_communication/models/account_tax.py:63
-#: code:addons/l10n_it_vat_communication/models/account_tax.py:76
+#: code:addons/l10n_it_vat_communication/models/account_tax.py:52
+#: code:addons/l10n_it_vat_communication/models/account_tax.py:65
 #, python-format
 msgid "Too many tax %s found"
-msgstr "Too many tax %s found"
+msgstr ""
 
 #. module: l10n_it_vat_communication
 #: help:account.vat.communication,dtr_amount_discarded:0
@@ -828,8 +849,38 @@ msgid "Vat statement"
 msgstr "Comunicazione IVA"
 
 #. module: l10n_it_vat_communication
+#: selection:account.tax,non_taxable_nature:0
+msgid "escluse ex art. 15"
+msgstr "escluse ex art. 15"
+
+#. module: l10n_it_vat_communication
+#: selection:account.tax,non_taxable_nature:0
+msgid "esenti"
+msgstr "esenti"
+
+#. module: l10n_it_vat_communication
+#: selection:account.tax,non_taxable_nature:0
+msgid "inversione contabile (acq. in reverse charge)"
+msgstr "inversione contabile (acq. in reverse charge)"
+
+#. module: l10n_it_vat_communication
+#: selection:account.tax,non_taxable_nature:0
+msgid "non imponibili"
+msgstr "non imponibili"
+
+#. module: l10n_it_vat_communication
+#: selection:account.tax,non_taxable_nature:0
+msgid "non soggette"
+msgstr "non soggette"
+
+#. module: l10n_it_vat_communication
 #: view:add.period.to.vat.commitment:l10n_it_vat_communication.add_period
 #: view:remove.period.from.vat.commitment:l10n_it_vat_communication.remove_period
 msgid "or"
 msgstr "oppure"
+
+#. module: l10n_it_vat_communication
+#: selection:account.tax,non_taxable_nature:0
+msgid "regime del margine/IVA non esposta"
+msgstr "regime del margine/IVA non esposta"
 

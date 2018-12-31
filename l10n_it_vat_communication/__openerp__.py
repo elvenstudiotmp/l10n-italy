@@ -28,6 +28,8 @@
     "depends": [
         'l10n_it_ipa',
         'l10n_it_account',
+        'l10n_it_account_tax_kind',
+        'l10n_it_esigibilita_iva',
         'l10n_it_fiscalcode',
         'account_invoice_entry_date',
         'l10n_it_vat_registries',
