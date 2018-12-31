@@ -9,13 +9,14 @@
 # Lorenzo Battistini <lorenzo.battistini@agilebg.com>, 2016
 # Paolo Valier, 2016
 # Paolo Valier, 2016-2017
+# Domenico Stragapede, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: l10n-italy (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-07-29 03:34+0000\n"
-"PO-Revision-Date: 2017-08-11 19:01+0000\n"
-"Last-Translator: Paolo Valier\n"
+"PO-Revision-Date: 2018-12-30 12:40+0000\n"
+"Last-Translator: Domenico Stragapede\n"
 "Language-Team: Italian (http://www.transifex.com/oca/OCA-l10n-italy-8-0/"
 "language/it/)\n"
 "Language: it\n"
@@ -77,24 +78,38 @@ msgstr "Codice fiscale:"
 
 #. module: l10n_it_account
 #: field:account.account,inverse_user_type:0
+#: code:addons/l10n_it_account/models/account.py:31
+#, python-format
 msgid "Inverse Account Type"
 msgstr "Tipo di conto inverso"
 
 #. module: l10n_it_account
 #: field:account.account,inverse_parent_id:0
+#: code:addons/l10n_it_account/models/account.py:40
+#, python-format
 msgid "Inverse Parent"
 msgstr "Inverse Parent"
 
 #. module: l10n_it_account
+#: model:ir.model,name:l10n_it_account.model_account_invoice
+msgid "Invoice"
+msgstr "Fattura"
+
+#. module: l10n_it_account
+#: model:ir.model,name:l10n_it_account.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Righe Fattura"
+
+#. module: l10n_it_account
 #: field:account.tax.code,is_base:0
 msgid "Is base"
-msgstr "È imponibile"
+msgstr "E' imponibile"
 
 #. module: l10n_it_account
 #: code:addons/l10n_it_account/models/account_tax.py:102
 #, python-format
 msgid "No base code found for tax code %s"
-msgstr ""
+msgstr "Nessun conto imponibile trovato per il conto imposta %s"
 
 #. module: l10n_it_account
 #: field:account.tax,nondeductible:0
@@ -105,7 +120,16 @@ msgstr "Indetraibile"
 #: code:addons/l10n_it_account/models/account_tax.py:111
 #, python-format
 msgid "Not every tax linked to tax code %s is linked to the same base code"
-msgstr ""
+msgstr "Non tutte le tasse collegate al conto imposta %s sono collegate allo stesso conto imponibile"
+
+#. module: l10n_it_account
+#: help:account.account,refund_invoice_account_id:0
+#: code:addons/l10n_it_account/models/account.py:50
+#, python-format
+msgid "On credit note invoice, use this account instead of the main account.\n"
+"In italian account chart, profit and loss accounts must be used as credit account or debit account only."
+msgstr "Nelle note di credito, utilizza questo conto invece di quello predefinito.\n"
+"Nel piano dei conti italiano, i conti economici devono essere unilaterati."
 
 #. module: l10n_it_account
 #: view:website:l10n_it_account.internal_layout
@@ -116,6 +140,18 @@ msgstr "Pag:"
 #: help:account.tax,nondeductible:0
 msgid "Partially or totally non-deductible."
 msgstr "Parzialmente o totalmente indetraibile"
+
+#. module: l10n_it_account
+#: model:ir.model,name:l10n_it_account.model_res_partner
+msgid "Partner"
+msgstr "Partner"
+
+#. module: l10n_it_account
+#: field:account.account,refund_invoice_account_id:0
+#: code:addons/l10n_it_account/models/account.py:49
+#, python-format
+msgid "Refund Invoice Account"
+msgstr "Conto Note Credito"
 
 #. module: l10n_it_account
 #: help:l10n_it.config.settings,skip_it_account_check:0
@@ -176,12 +212,14 @@ msgstr "Tipo"
 #. module: l10n_it_account
 #: help:account.account,inverse_parent_id:0
 #: help:account.account,inverse_user_type:0
+#: code:addons/l10n_it_account/models/account.py:32
+#, python-format
 msgid ""
 "Used on balance sheet to report this account when its balance is         "
 "negative"
 msgstr ""
-"Used on balance sheet to report this account when its balance is         "
-"negative"
+"Usato nella stampa del bilancio per riportalo in questo conto quando il suo "
+"importo totale è negativo"
 
 #. module: l10n_it_account
 #: view:account.tax.code:l10n_it_account.view_tax_code_form_vat
