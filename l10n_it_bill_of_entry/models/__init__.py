@@ -1,10 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2013 Agile Business Group sagl
-#    (<http://www.agilebg.com>)
-#    Copyright (C) 2013
-#    Associazione OpenERP Italia (<http://www.openerp-italia.org>)
 #    Copyright (C) 2017 ElvenStudio S.N.C.
 #    (<http://www.elvenstudio.it>)
 #
@@ -23,5 +19,7 @@
 #
 ##############################################################################
 
-import models
-import wizard
+import company
+import account_invoice
+import account_invoice_line
+import product_template

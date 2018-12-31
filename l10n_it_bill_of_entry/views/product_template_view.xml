@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+       <record id="l10n_it_bill_of_entry_product_template_form_view" model="ir.ui.view">
+            <field name="name">l10n.it.bill.of.entry.product.template.form.view</field>
+            <field name="model">product.template</field>
+            <field name="priority" eval="30"/>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <div name="options" position="inside">
+                    <div>
+                        <field name="is_bill_of_entry_tax"/>
+                        <label for="is_bill_of_entry_tax"/>
+                    </div>
+                </div>
+            </field>
+        </record>
+    </data>
+</openerp>

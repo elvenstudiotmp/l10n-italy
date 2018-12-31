@@ -4,6 +4,8 @@
 #    Copyright (C) 2013 Agile Business Group sagl (<http://www.agilebg.com>)
 #    Copyright (C) 2013
 #    Associazione OpenERP Italia (<http://www.openerp-italia.org>)
+#    Copyright (C) 2017 ElvenStudio S.N.C.
+#    (<http://www.elvenstudio.it>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -20,22 +22,25 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, orm
+from openerp import models, fields, _
 
-class res_company(orm.Model):
+
+class ResCompany(models.Model):
     _inherit = 'res.company'
-    _columns = {
-        'bill_of_entry_journal_id': fields.many2one('account.journal','Bill of entry Storno journal',
-            help="Journal used for reconciliation of customs supplier"),
-        }
+
+    bill_of_entry_journal_id = fields.Many2one(
+        comodel_name='account.journal',
+        string=_('Bill of entry Storno journal'),
+        help=_('Journal used for reconciliation of customs supplier')
+    )
     
-class account_config_settings(orm.TransientModel):
+
+class AccountConfigSettings(models.TransientModel):
     _inherit = 'account.config.settings'
-    _columns = {
-        'bill_of_entry_journal_id': fields.related(
-            'company_id', 'bill_of_entry_journal_id',
-            type='many2one',
-            relation="account.journal",
-            string="Bill of entry Storno journal",
-            help='Journal used for reconciliation of customs supplier'),
-    }
+
+    bill_of_entry_journal_id = fields.Many2one(
+        comodel_name='account.journal',
+        string=_('Bill of entry Storno journal'),
+        related='company_id.bill_of_entry_journal_id',
+        help=_('Journal used for reconciliation of customs supplier')
+    )
