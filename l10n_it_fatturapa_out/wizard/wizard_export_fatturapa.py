@@ -594,7 +594,7 @@ class WizardExportFatturapa(models.TransientModel):
                     price_precision
                 ) + 'f') % prezzo_unitario,
                 Quantita=('%.' + str(
-                    uom_precision
+                    max(uom_precision, 2)
                 ) + 'f') % line.quantity,
                 UnitaMisura=line.uos_id and (
                     unidecode(line.uos_id.name)) or None,
