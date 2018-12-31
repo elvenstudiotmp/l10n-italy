@@ -10,9 +10,14 @@
         
             <xpath expr="//page[@string='Configuration']/group" position="after">
 					<group string="Vat period end statement">
-						<field name="of_account_end_vat_statement_interest"/>
-						<field name="of_account_end_vat_statement_interest_percent"/>
-						<field name="of_account_end_vat_statement_interest_account_id"/>
+						<field name="of_account_end_vat_statement_tax_authority" />
+						<field name="of_account_end_vat_statement_journal_id" />
+
+						<field name="of_account_end_vat_statement_interest" />
+						<field name="of_account_end_vat_statement_interest_percent" />
+						<field name="of_account_end_vat_statement_interest_account_id" />
+						<field name="of_account_end_vat_statement_credit_account_id" />
+						<field name="of_account_end_vat_statement_debit_account_id" />
 					</group>
            	</xpath>
            	

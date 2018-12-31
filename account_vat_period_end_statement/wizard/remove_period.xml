@@ -7,14 +7,18 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Remove period">
-                    <field name="period_id"></field>
-                    <group col="2" colspan="4">
-                        <button icon="gtk-cancel" special="cancel" string="Cancel"/>
-                        <button icon="gtk-ok" name="remove_period" string="Remove" type="object"/>
+                    <group string="Choose the period to remove from the vat statement">
+                        <field name="period_id" />
                     </group>
+                    <footer>
+                        <button name="remove_period" string="Remove" type="object" class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
                 </form>
             </field>
         </record>
+
         <record id="action_remove_period" model="ir.actions.act_window">
             <field name="name">Remove period</field>
             <field name="type">ir.actions.act_window</field>

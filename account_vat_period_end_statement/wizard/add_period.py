@@ -36,15 +36,36 @@ class AddPeriod(orm.TransientModel):
     }
 
     def add_period(self, cr, uid, ids, context=None):
-        if 'active_id' not in context:
+        if not isinstance(context, dict) or 'active_id' not in context:
             raise orm.except_orm(_('Error'), _('Current statement not found'))
+
         statement_pool = self.pool.get('account.vat.period.end.statement')
+        statement = statement_pool.browse(cr, uid, context['active_id'], context=context)
+
         wizard = self.browse(cr, uid, ids, context)[0]
+
         if wizard.period_id.vat_statement_id:
             raise orm.except_orm(
                 _('Error'), _('Period %s is associated to statement %s yet') %
                 (wizard.period_id.name, wizard.period_id.vat_statement_id.date)
             )
+
+        if wizard.period_id.special and statement.period_ids:
+            raise orm.except_orm(
+                _('Error'),
+                _('Cannot add the opening/closing period %s to '
+                  'the statement %s because it has other periods associated.'
+                  ) % (wizard.period_id.name, statement.name)
+            )
+
+        if statement.is_summary_statement:
+            raise orm.except_orm(
+                _('Error'),
+                _('Cannot add the period %s to the statement %s '
+                  'because it is a summary statement.'
+                  ) % (wizard.period_id.name, statement.name)
+            )
+
         wizard.period_id.write({'vat_statement_id': context['active_id']})
         statement_pool.compute_amounts(
             cr, uid, [context['active_id']], context=context)

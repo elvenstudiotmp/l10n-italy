@@ -22,6 +22,13 @@
             <field name="action">create_move()</field>
         </record>
 
+        <record model="workflow.activity" id="act_summary_statement_confirmed">
+            <field name="wkf_id" ref="wkf_vat_period_end_statement" />
+            <field name="name">summary_statement_confirmed</field>
+            <field name="kind">function</field>
+            <field name="action">confirm_summary_statement()</field>
+        </record>
+
         <record model="workflow.activity" id="act_statement_paid">
             <field name="wkf_id" ref="wkf_vat_period_end_statement" />
             <field name="name">paid</field>
@@ -56,5 +63,16 @@
             <field name="signal">set_draft</field>
         </record>
 
+        <record model="workflow.transition" id="t5">
+            <field name="act_from" ref="act_draft" />
+            <field name="act_to" ref="act_summary_statement_confirmed" />
+            <field name="signal">confirm_summary_statement</field>
+        </record>
+
+        <record model="workflow.transition" id="t6">
+            <field name="act_from" ref="act_summary_statement_confirmed" />
+            <field name="act_to" ref="act_draft" />
+            <field name="signal">set_draft</field>
+        </record>
     </data>
 </openerp>
