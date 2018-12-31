@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="l10n_it_report_intrastat_tree_view" model="ir.ui.view">
+            <field name="name">l10n.it.report.intrastat.tree.view</field>
+            <field name="model">report.intrastat</field>
+            <field name="inherit_id" ref="report_intrastat.view_report_intrastat_tree"/>
+            <field name="arch" type="xml">
+
+                <field name="ref" position="after">
+                    <field name="invoice_supplier_ref" />
+                </field>
+
+                <field name="ref" position="before">
+                    <field name="partner_id" />
+                    <field name="partner_vat" />
+                </field>
+
+                <field name="month" position="replace">
+                    <field name="month" />
+                </field>
+
+                <field name="weight" position="attributes">
+                    <attribute name="sum">total_weight</attribute>
+                </field>
+
+                <field name="value" position="replace">
+                    <field name="value" sum="total_value" />
+                </field>
+
+                <field name="type" position="before">
+                    <field name="invoice_type" />
+                </field>
+
+            </field>
+        </record>
+
+        <record id="l10n_it_report_intrastat_search_view" model="ir.ui.view">
+            <field name="name">l10n.it.report.intrastat.search.view</field>
+            <field name="model">report.intrastat</field>
+            <field name="inherit_id" ref="report_intrastat.view_report_intrastat_search"/>
+            <field name="arch" type="xml">
+
+                <search string="Intrastat Data" position="inside">
+
+                    <filter name="type_import" string="Import" domain="[('type','=', 'import')]" />
+                    <filter name="type_export" string="Export" domain="[('type','=', 'export')]" />
+                    <separator />
+
+                    <filter name="without_vat" string="Without Vat" domain="[('partner_vat','=', False)]" />
+                    <filter name="without_invoice_ref" string="Without invoice ref" domain="[('type','=','import'), ('invoice_supplier_ref','=', False)]" />
+                    <separator />
+
+                    <group string="Document Types">
+                        <filter name="out_invoice" string="Sale Invoice" domain="[('invoice_type','=', 'out_invoice')]"/>
+                        <filter name="out_refund" string="Sale Refund" domain="[('invoice_type','=', 'out_refund')]"/>
+                        <filter name="in_invoice" string="Purchase Invoice" domain="[('invoice_type','=', 'in_invoice')]"/>
+                        <filter name="in_refund"  string="Purchase Refund" domain="[('invoice_type','=', 'in_refund')]"/>
+                        <separator />
+                    </group>
+
+                    <group string="Quarters">
+                        <filter name="quarter_1" string="I Quarter" domain="[('month','in', ['01','02','03'])]"/>
+                        <filter name="quarter_2" string="II Quarter" domain="[('month','in', ['04','05','06'])]"/>
+                        <filter name="quarter_3" string="III Quarter" domain="[('month','in', ['07','08','09'])]"/>
+                        <filter name="quarter_4" string="IV Quarter" domain="[('month','in', ['10','11','12'])]"/>
+                        <separator />
+                    </group>
+
+                    <group string="Group By">
+                        <filter string="Year" domain="[]" context="{'group_by':'name'}"/>
+                        <filter string="Month" domain="[]" context="{'group_by':'month'}"/>
+                        <filter string="Partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Invoice Type" domain="[]" context="{'group_by':'invoice_type'}"/>
+                    </group>
+                </search>
+
+                <field name="month" postion="before">
+                    <field name="name" />
+                    <field name="name" string="Partner" filter_domain="[('partner_id','ilike',self)]"/>
+                    <field name="name" string="VAT" filter_domain="[('vat','ilike',self)]"/>
+                    <field name="name" string="Ref" filter_domain="[('ref','ilike',self)]"/>
+                    <field name="name" string="Supplier Ref" filter_domain="[('invoice_supplier_ref','ilike',self)]"/>
+                </field>
+
+            </field>
+        </record>
+        
+    </data>
+</openerp>
