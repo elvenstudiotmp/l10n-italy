@@ -252,3 +252,45 @@ class FatturaPAAttachmentOut(models.Model):
                     "You can only delete 'ready to send' files"
                 ))
         return super(FatturaPAAttachmentOut, self).unlink()
+
+    @api.model
+    def cron_create_and_send_fatturapa_out(self, limit=10):
+        domain = [
+            ('type', 'in', ['out_invoice', 'out_refund']),
+            ('fatturapa_attachment_out_id', '=', False),
+            ('date_invoice', '>=', '2019-01-01'),
+            ('state', 'in', ['open', 'paid'])
+        ]
+        invoice_cls = self.env['account.invoice']
+        invoices = invoice_cls.search(domain, limit=limit)
+        if invoices:
+            wizard_cls = self.env['wizard.export.fatturapa']
+            context = self.env.context.copy()
+            context['active_model'] = invoice_cls._name
+            context['active_ids'] = invoices.ids
+            wizard = wizard_cls.with_context(context).create({})
+
+            ir_values_cls = self.env['ir.values']
+            for invoice in invoices:
+                # simulate invoice print to gather default report data
+                report_data = invoice.invoice_print()
+                report_model = report_data['type']
+                report_name = report_data['report_name']
+                report_domain = [('report_name', '=', report_name)]
+                report = self.env[report_model].search(report_domain)
+                # attach PDF only if a valid report is defined
+                if report:
+                    menu_domain = [('value', '=', report_model + ',' + str(report.id))]
+                    report_menu = ir_values_cls.search(menu_domain)
+                    wizard.report_print_menu = report_menu
+                    wizard.generate_attach_report(invoice)
+
+            # clear report_print_menu field to avoid pdf regeneration
+            wizard.report_print_menu = ir_values_cls
+
+            # export XML file and send via PEC
+            wizard.exportFatturaPA()
+            invoices.mapped('fatturapa_attachment_out_id').send_via_pec()
+
+        return True
+
