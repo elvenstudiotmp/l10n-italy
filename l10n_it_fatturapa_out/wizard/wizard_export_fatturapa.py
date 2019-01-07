@@ -497,11 +497,15 @@ class WizardExportFatturapa(models.TransientModel):
             for causale in caus_list:
                 if not causale:
                     continue
-                # Remove non latin chars, but go back to unicode string,
-                # as expected by String200LatinType
-                causale = causale.encode(
-                    'latin', 'ignore').decode('latin')
-                body.DatiGenerali.DatiGeneraliDocumento.Causale.append(causale)
+                causale_list_200 = \
+                    [causale[i:i+200] for i in range(0, len(causale), 200)]
+                for causale200 in causale_list_200:
+                    # Remove non latin chars, but go back to unicode string,
+                    # as expected by String200LatinType
+                    causale = causale200.encode(
+                        'latin', 'ignore').decode('latin')
+                    body.DatiGenerali.DatiGeneraliDocumento.Causale\
+                        .append(causale)
 
         if invoice.company_id.fatturapa_art73:
             body.DatiGenerali.DatiGeneraliDocumento.Art73 = 'SI'
@@ -668,16 +672,19 @@ class WizardExportFatturapa(models.TransientModel):
     def setDatiPagamento(self, invoice, body):
         if invoice.payment_term:
             DatiPagamento = DatiPagamentoType()
-            if not invoice.payment_term.fatturapa_pt_id:
+
+            if not invoice.fatturapa_pt_id:
                 raise UserError(
                     _('Payment term %s does not have a linked e-invoice '
                       'payment term') % invoice.payment_term.name)
-            if not invoice.payment_term.fatturapa_pm_id:
+
+            if not invoice.fatturapa_pm_id:
                 raise UserError(
                     _('Payment term %s does not have a linked e-invoice '
                       'payment method') % invoice.payment_term.name)
+
             DatiPagamento.CondizioniPagamento = (
-                invoice.payment_term.fatturapa_pt_id.code)
+                invoice.fatturapa_pt_id.code)
             move_line_pool = self.env['account.move.line']
             payment_line_ids = invoice.move_line_id_payment_get()
             for move_line_id in payment_line_ids:
@@ -685,7 +692,7 @@ class WizardExportFatturapa(models.TransientModel):
                 ImportoPagamento = '%.2f' % move_line.debit
                 DettaglioPagamento = DettaglioPagamentoType(
                     ModalitaPagamento=(
-                        invoice.payment_term.fatturapa_pm_id.code),
+                        invoice.fatturapa_pm_id.code),
                     DataScadenzaPagamento=move_line.date_maturity,
                     ImportoPagamento=ImportoPagamento
                 )
@@ -822,11 +829,11 @@ class WizardExportFatturapa(models.TransientModel):
 
     @api.v8
     def generate_attach_report(self, inv):
-        action_report_model, action_report_id = (
-            self.report_print_menu.value.split(',')[0],
-            int(self.report_print_menu.value.split(',')[1]))
-        action_report = self.env[action_report_model] \
-            .browse(action_report_id)
+        action_report_data = self.report_print_menu.value.split(',')
+        action_report_model = action_report_data[0]
+        action_report_id = int(action_report_data[1])
+
+        action_report = self.env[action_report_model].browse(action_report_id)
         report_model = self.pool['report']
         attachment_model = self.env['ir.attachment']
         # Generate the PDF: if report_action.attachment is set

@@ -453,7 +453,6 @@ msgstr ""
 msgid "Mime Type"
 msgstr "Mime Type"
 
-#. module: l10n_it_fatturapa_out
 #: code:addons/l10n_it_fatturapa_out/wizard/wizard_export_fatturapa.py:658
 #, fuzzy, python-format
 msgid "No 'law reference' field for tax %s"

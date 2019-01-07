@@ -6,22 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-01-07 17:24+0000\n"
+"PO-Revision-Date: 2019-01-07 17:27+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: l10n_it_fatturapa
-#: model:account.tax,name:l10n_it_fatturapa.tax_22
-msgid "22% ftPA"
-msgstr ""
-
-#. module: l10n_it_fatturapa
-#: model:account.tax,name:l10n_it_fatturapa.tax_22_acq
-msgid "22% ftPA acq"
-msgstr ""
 
 #. module: l10n_it_fatturapa
 #: field:fatturapa.payment.detail,payment_bank_abi:0
@@ -110,6 +102,11 @@ msgid "Attachment Name"
 msgstr ""
 
 #. module: l10n_it_fatturapa
+#: field:fatturapa.attachments,website_url:0
+msgid "Attachment URL"
+msgstr ""
+
+#. module: l10n_it_fatturapa
 #: field:fatturapa.payment.detail,payment_bank_bic:0
 msgid "BIC"
 msgstr ""
@@ -163,11 +160,6 @@ msgstr ""
 #. module: l10n_it_fatturapa
 #: field:fatturapa.related_document_type,cup:0
 msgid "CUP Code"
-msgstr ""
-
-#. module: l10n_it_fatturapa
-#: field:account.invoice,carrier_id:0
-msgid "Carrier"
 msgstr ""
 
 #. module: l10n_it_fatturapa
@@ -306,6 +298,11 @@ msgid "Database Data"
 msgstr ""
 
 #. module: l10n_it_fatturapa
+#: field:fatturapa.attachments,datas_checksum:0
+msgid "Datas checksum"
+msgstr ""
+
+#. module: l10n_it_fatturapa
 #: field:fatturapa.related_ddt,date:0
 #: field:fatturapa.related_document_type,date:0
 msgid "Date"
@@ -401,21 +398,6 @@ msgstr ""
 #: code:addons/l10n_it_fatturapa/models/account_tax.py:50
 #, python-format
 msgid "Error"
-msgstr ""
-
-#. module: l10n_it_fatturapa
-#: model:account.tax,name:l10n_it_fatturapa.tax_00_e15
-msgid "Esculso Art. 15"
-msgstr ""
-
-#. module: l10n_it_fatturapa
-#: model:account.tax,name:l10n_it_fatturapa.tax_00_minimi
-msgid "Esente"
-msgstr ""
-
-#. module: l10n_it_fatturapa
-#: model:account.tax,name:l10n_it_fatturapa.tax_00_minimi_acq
-msgid "Esente Acq"
 msgstr ""
 
 #. module: l10n_it_fatturapa
@@ -623,11 +605,6 @@ msgid "Intermediary"
 msgstr ""
 
 #. module: l10n_it_fatturapa
-#: model:account.tax,name:l10n_it_fatturapa.tax_00_rc
-msgid "Inversione Contabile"
-msgstr ""
-
-#. module: l10n_it_fatturapa
 #: model:ir.model,name:l10n_it_fatturapa.model_account_invoice
 msgid "Invoice"
 msgstr ""
@@ -736,6 +713,11 @@ msgid "Member Type"
 msgstr ""
 
 #. module: l10n_it_fatturapa
+#: field:fatturapa.attachments,mimetype:0
+msgid "Mime Type"
+msgstr ""
+
+#. module: l10n_it_fatturapa
 #: selection:account.invoice,ftpa_withholding_type:0
 msgid "Natural Person"
 msgstr ""
@@ -760,16 +742,6 @@ msgstr ""
 #. module: l10n_it_fatturapa
 #: field:fatturapa.payment.detail,recepit_name:0
 msgid "Nome Quietanzante"
-msgstr ""
-
-#. module: l10n_it_fatturapa
-#: model:account.tax,name:l10n_it_fatturapa.tax_00_ni
-msgid "Non Imponibile"
-msgstr ""
-
-#. module: l10n_it_fatturapa
-#: model:account.tax,name:l10n_it_fatturapa.tax_00_ns
-msgid "Non soggetto Iva"
 msgstr ""
 
 #. module: l10n_it_fatturapa
@@ -1049,6 +1021,11 @@ msgid "Related payments Data"
 msgstr ""
 
 #. module: l10n_it_fatturapa
+#: field:fatturapa.attachments,datas_big:0
+msgid "Resized file content"
+msgstr ""
+
+#. module: l10n_it_fatturapa
 #: field:fatturapa.attachments,res_id:0
 msgid "Resource ID"
 msgstr ""
@@ -1071,11 +1048,6 @@ msgstr ""
 #. module: l10n_it_fatturapa
 #: field:faturapa.summary.data,rounding:0
 msgid "Rounding"
-msgstr ""
-
-#. module: l10n_it_fatturapa
-#: model:account.tax,name:l10n_it_fatturapa.tax_22_SP
-msgid "SP22%"
 msgstr ""
 
 #. module: l10n_it_fatturapa
