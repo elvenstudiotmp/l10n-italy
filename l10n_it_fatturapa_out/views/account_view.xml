@@ -79,5 +79,35 @@
                 </xpath>
             </field>
         </record>
+
+        <record id="account_invoice_fatturapa_out_search" model="ir.ui.view">
+            <field name="name">account.invoice.fatturapa.out.search</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <group expand="0" string="Group By" position="before">
+                    <group string="FatturaPA">
+                        <filter name="fatturapa_missing_data"
+                                string="Partners with missing E-Invoice data"
+                                domain="[
+                                    '|',
+                                    ('partner_id.electronic_invoice_subjected','=', False),
+                                    '&amp;',
+                                        '|',
+                                            ('partner_id.codice_destinatario','=', False),
+                                            ('partner_id.codice_destinatario','=', '0000000'),
+                                        '&amp;',
+                                            ('partner_id.pec_destinatario','=', False),
+                                            ('partner_id.fiscalcode','=', False),
+                                ]"
+
+                                help="Show invoices with partners which are missing one or more e-invoice data (eg. SDI code, PEC email or fiscal code for individual person." />
+                        <separator />
+                    </group>
+                </group>
+
+            </field>
+        </record>
+
     </data>
 </openerp>
