@@ -259,12 +259,12 @@ class FatturaPAAttachmentOut(models.Model):
             ('date_invoice', '>=', '2019-01-01'),
             ('state', 'in', ['open', 'paid']),
             '|',
-                ('codice_destinatario', '!=', '0000000'),
+                ('partner_id.codice_destinatario', '!=', '0000000'),
                 '|',
-                    ('pec_destinatario', '!=', False),
+                    ('partner_id.pec_destinatario', '!=', False),
                     '|',
-                        ('vat', '!=', False),
-                        ('fiscalcode', '!=', False),
+                        ('partner_id.vat', '!=', False),
+                        ('partner_id.fiscalcode', '!=', False),
         ]
         invoice_cls = self.env['account.invoice']
         invoices = invoice_cls.search(domain, order='date_invoice ASC', limit=limit)
