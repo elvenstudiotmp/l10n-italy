@@ -267,7 +267,7 @@ class FatturaPAAttachmentOut(models.Model):
                         ('partner_id.fiscalcode', '!=', False),
         ]
         invoice_cls = self.env['account.invoice']
-        invoices = invoice_cls.search(domain, order='date_invoice ASC', limit=limit)
+        invoices = invoice_cls.search(domain, order='date_invoice ASC, number ASC', limit=limit)
         if invoices:
             wizard_cls = self.env['wizard.export.fatturapa']
             context = self.env.context.copy()
