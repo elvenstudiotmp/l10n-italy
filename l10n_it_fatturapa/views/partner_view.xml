@@ -43,15 +43,17 @@
                          <filter name="fatturapa_missing_data"
                                  string="Partners without E-Invoice data"
                                  domain="[
+                                     ('parent_id', '=', False),
                                      '|',
-                                     ('electronic_invoice_subjected','=', False),
-                                     '&amp;',
-                                         '|',
-                                             ('codice_destinatario','=', False),
-                                             ('codice_destinatario','=', '0000000'),
-                                         '&amp;',
-                                             ('pec_destinatario','=', False),
-                                             ('fiscalcode','=', False),
+                                        '&amp;',
+                                            ('vat', '!=', False),
+                                            ('fiscalcode', '!=', False),
+
+                                        '&amp;',
+                                            ('electronic_invoice_subjected', '=', True),
+                                            '&amp;',
+                                                ('codice_destinatario', '=', '0000000'),
+                                                ('pec_destinatario', '=', False),
                                  ]"
                                  help="Show partners which are missing one or more e-invoice data (eg. SDI code, PEC email or fiscal code for individual person." />
 
