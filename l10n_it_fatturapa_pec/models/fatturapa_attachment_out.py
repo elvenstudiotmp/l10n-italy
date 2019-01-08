@@ -257,10 +257,17 @@ class FatturaPAAttachmentOut(models.Model):
             ('type', 'in', ['out_invoice', 'out_refund']),
             ('fatturapa_attachment_out_id', '=', False),
             ('date_invoice', '>=', '2019-01-01'),
-            ('state', 'in', ['open', 'paid'])
+            ('state', 'in', ['open', 'paid']),
+            '|',
+                ('codice_destinatario', '!=', '0000000'),
+                '|',
+                    ('pec_destinatario', '!=', False),
+                    '|',
+                        ('vat', '!=', False),
+                        ('fiscalcode', '!=', False),
         ]
         invoice_cls = self.env['account.invoice']
-        invoices = invoice_cls.search(domain, limit=limit)
+        invoices = invoice_cls.search(domain, order='date_invoice ASC', limit=limit)
         if invoices:
             wizard_cls = self.env['wizard.export.fatturapa']
             context = self.env.context.copy()
