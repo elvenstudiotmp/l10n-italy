@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-07 17:24+0000\n"
-"PO-Revision-Date: 2019-01-07 17:28+0000\n"
+"PO-Revision-Date: 2019-01-08 12:46+0000\n"
 "Last-Translator: Domenico Stragapede <d.stragapede@elvenstudio.it>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -89,7 +89,7 @@ msgstr "Come Pubblica amministrazione, il codice IPA per il partner %s deve esse
 #: code:addons/l10n_it_fatturapa/models/partner.py:69
 #, python-format
 msgid "As a natural person, partner %s must have Name and Surname"
-msgstr "Come persona fisica, il partner %s deve avere nome e cognome"
+msgstr "As a natural person, partner %s must have Name and Surname"
 
 #. module: l10n_it_fatturapa
 #: field:fatturapa.attachments,ir_attachment_id:0
@@ -528,6 +528,11 @@ msgid "Gross Weight"
 msgstr "Peso Lordo"
 
 #. module: l10n_it_fatturapa
+#: view:res.partner:l10n_it_fatturapa.fatturapa_res_partner_search
+msgid "Group By"
+msgstr "Raggruppa per"
+
+#. module: l10n_it_fatturapa
 #: field:fatturapa.payment.detail,payment_bank_iban:0
 msgid "IBAN"
 msgstr "IBAN"
@@ -815,6 +820,11 @@ msgid "Partner %s, must have VAT Number or Fiscal Code"
 msgstr "Partner %s, partita iva o codice fiscale obbligatorio"
 
 #. module: l10n_it_fatturapa
+#: view:res.partner:l10n_it_fatturapa.fatturapa_res_partner_search
+msgid "Partners without E-Invoice data"
+msgstr "Partner senza dati Fatt. Elettronica"
+
+#. module: l10n_it_fatturapa
 #: field:fatturapa.payment.detail,payment_amount:0
 msgid "Payment Amount"
 msgstr "Importo pagamento"
@@ -1066,6 +1076,11 @@ msgstr "Sequenza"
 #, python-format
 msgid "Sequence %s already used by journal %s. Please select another one"
 msgstr "Sequence %s already used by journal %s. Please select another one"
+
+#. module: l10n_it_fatturapa
+#: view:res.partner:l10n_it_fatturapa.fatturapa_res_partner_search
+msgid "Show partners which are missing one or more e-invoice data (eg. SDI code, PEC email or fiscal code for individual person."
+msgstr "Mostra i partner con dati di fatturazione elettronica mancanti (es. codice SDI, email PEC o codice fiscale per persone fisiche."
 
 #. module: l10n_it_fatturapa
 #: help:account.invoice,efatt_stabile_organizzazione_provincia:0

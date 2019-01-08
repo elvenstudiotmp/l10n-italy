@@ -86,7 +86,7 @@
             <field name="inherit_id" ref="account.view_account_invoice_filter"/>
             <field name="arch" type="xml">
                 <group expand="0" string="Group By" position="before">
-                    <group string="FatturaPA">
+                    <group name="fatturapa_filters" string="Electronic Invoice">
                         <filter name="fatturapa_missing_data"
                                 string="Partners with missing E-Invoice data"
                                 domain="[

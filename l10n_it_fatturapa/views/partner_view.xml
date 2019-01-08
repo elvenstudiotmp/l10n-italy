@@ -32,5 +32,34 @@
             </field>
         </record>
 
+        <record id="fatturapa_res_partner_search" model="ir.ui.view">
+            <field name="name">fatturapa.res.partner.search</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+
+                <group string="Group By" position="before">
+                     <group name="fatturapa_filters" string="Electronic Invoice">
+                         <filter name="fatturapa_missing_data"
+                                 string="Partners without E-Invoice data"
+                                 domain="[
+                                     '|',
+                                     ('electronic_invoice_subjected','=', False),
+                                     '&amp;',
+                                         '|',
+                                             ('codice_destinatario','=', False),
+                                             ('codice_destinatario','=', '0000000'),
+                                         '&amp;',
+                                             ('pec_destinatario','=', False),
+                                             ('fiscalcode','=', False),
+                                 ]"
+                                 help="Show partners which are missing one or more e-invoice data (eg. SDI code, PEC email or fiscal code for individual person." />
+
+                     </group>
+                </group>
+
+            </field>
+        </record>
+
     </data>
 </openerp>

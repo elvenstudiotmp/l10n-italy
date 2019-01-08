@@ -78,11 +78,6 @@ msgstr ""
 
 #. module: l10n_it_fatturapa_pec
 #: view:account.invoice:l10n_it_fatturapa_pec.view_account_invoice_fatturapa_out_pec_filter
-msgid "FatturaPA"
-msgstr ""
-
-#. module: l10n_it_fatturapa_pec
-#: view:account.invoice:l10n_it_fatturapa_pec.view_account_invoice_fatturapa_out_pec_filter
 msgid "Group By"
 msgstr ""
 
