@@ -10,12 +10,12 @@
                 <notebook position="inside">
                     <page name="fatturapa" string="Fattura Elettronica" groups="account.group_account_invoice">
                         <group name="fatturapa_group">
-                            <field name="electronic_invoice_subjected"/>
-                            <group attrs="{'invisible': [('electronic_invoice_subjected', '=', False)]}">
-                                <field name="ipa_code" placeholder="IPA123" attrs="{'invisible': [('is_pa','=', False)]}"/>
-                                <field name="codice_destinatario" attrs="{'invisible': [('is_pa', '=', True)]}"/>
-                                <field name="pec_destinatario" attrs="{'invisible': [('is_pa', '=', True)]}"/>
-                                <field name="eori_code"/>
+                            <group>
+                                <field name="electronic_invoice_subjected"/>
+                                <field name="ipa_code" placeholder="IPA123" attrs="{'invisible': ['|', ('is_pa','=', False), ('electronic_invoice_subjected', '=', False)]}"/>
+                                <field name="codice_destinatario" attrs="{'invisible': ['|', ('is_pa', '=', True), ('electronic_invoice_subjected', '=', False)]}"/>
+                                <field name="pec_destinatario" attrs="{'invisible': ['|', ('is_pa', '=', True), ('electronic_invoice_subjected', '=', False)]}"/>
+                                <field name="eori_code" attrs="{'invisible': [('electronic_invoice_subjected', '=', False)]}" />
                             </group>
                         </group>
                     </page>
@@ -43,17 +43,11 @@
                          <filter name="fatturapa_missing_data"
                                  string="Partners without E-Invoice data"
                                  domain="[
-                                     ('parent_id', '=', False),
-                                     '|',
-                                        '&amp;',
-                                            ('vat', '!=', False),
-                                            ('fiscalcode', '!=', False),
-
-                                        '&amp;',
-                                            ('electronic_invoice_subjected', '=', True),
-                                            '&amp;',
-                                                ('codice_destinatario', '=', '0000000'),
-                                                ('pec_destinatario', '=', False),
+                                    ('parent_id', '=', False),
+                                    ('is_company', '=', True),
+                                    ('electronic_invoice_subjected', '=', True),
+                                    ('codice_destinatario', '=', '0000000'),
+                                    ('pec_destinatario', '=', False)
                                  ]"
                                  help="Show partners which are missing one or more e-invoice data (eg. SDI code, PEC email or fiscal code for individual person." />
 
@@ -62,6 +56,5 @@
 
             </field>
         </record>
-
     </data>
 </openerp>

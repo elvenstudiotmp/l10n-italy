@@ -12,9 +12,11 @@
                     <field name="state" widget="statusbar" statusbar_visible="ready,sent,validated" />
                 </header>
 
-                <xpath expr="//page[@name='history']/group/group[last()]" position="inside">
-                    <field name="last_sdi_response" attrs="{'invisible':[('state', '=', 'ready')]}"/>
-                </xpath>
+                <page name="history" position="inside">
+                    <group name="last_sdi_response" string="Last SDI response" attrs="{'invisible':[('state', '=', 'ready')]}">
+                        <field name="last_sdi_response" nolabel="1" />
+                    </group>
+                </page>
 
                 <field name="datas" position="attributes">
                     <attribute name="attrs">{'readonly': [('state', 'not in', ['ready', 'sender_error'])]}</attribute>
@@ -23,14 +25,18 @@
                 <div name="creation_div" position="after">
                     <label for="sending_user" string="Sent by" attrs="{'invisible': [('sending_user' ,'=', False)]}"/>
                     <div name="sending_user" attrs="{'invisible': [('sending_user' ,'=', False)]}">
-                        <field name="sending_user" readonly="1" class="oe_inline"/> on
+                        <field name="sending_user" readonly="1" class="oe_inline"/> <span class="oe_form_field oe_inline">on</span>
                         <field name="sending_date" readonly="1" class="oe_inline"/>
                     </div>
+                </div>
+
+                <xpath expr="//page[@name='history']/group/group[last()]" position="inside">
                     <label for="delivered_date" string="Delivered" attrs="{'invisible': [('delivered_date' ,'=', False)]}"/>
                     <div name="delivered_date" attrs="{'invisible': [('delivered_date' ,'=', False)]}">
                         <field name="delivered_date" readonly="1" class="oe_inline"/>
                     </div>
-                </div>
+                </xpath>
+
             </field>
         </record>
 
