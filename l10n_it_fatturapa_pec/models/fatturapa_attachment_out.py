@@ -296,7 +296,11 @@ class FatturaPAAttachmentOut(models.Model):
 
             # export XML file and send via PEC
             wizard.exportFatturaPA()
-            invoices.mapped('fatturapa_attachment_out_id').send_via_pec()
+
+            # filter public administration invoices,
+            # because they need to be signed before send
+            invoices_to_send = invoices.filtered(lambda i: not i.partner_id.is_pa)
+            invoices_to_send.mapped('fatturapa_attachment_out_id').send_via_pec()
 
         return True
 
