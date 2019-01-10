@@ -102,6 +102,11 @@ msgid "Last Response from Exchange System"
 msgstr ""
 
 #. module: l10n_it_fatturapa_pec
+#: view:fatturapa.attachment.out:l10n_it_fatturapa_pec.view_fatturapa_out_pec_attachment_form
+msgid "Last SDI response"
+msgstr ""
+
+#. module: l10n_it_fatturapa_pec
 #: field:wizard.fatturapa.send.pec,write_uid:0
 msgid "Last Updated by"
 msgstr ""
@@ -129,8 +134,14 @@ msgid "Ready to Send"
 msgstr ""
 
 #. module: l10n_it_fatturapa_pec
+#: view:fatturapa.attachment.out:l10n_it_fatturapa_pec.view_fatturapa_out_attachment_search_state
 #: selection:fatturapa.attachment.out,state:0
 msgid "Recipient Error"
+msgstr ""
+
+#. module: l10n_it_fatturapa_pec
+#: view:fatturapa.attachment.out:l10n_it_fatturapa_pec.view_fatturapa_out_attachment_search_state
+msgid "Rejected"
 msgstr ""
 
 #. module: l10n_it_fatturapa_pec
@@ -165,6 +176,7 @@ msgid "Send Via PEC"
 msgstr ""
 
 #. module: l10n_it_fatturapa_pec
+#: view:fatturapa.attachment.out:l10n_it_fatturapa_pec.view_fatturapa_out_attachment_search_state
 #: selection:fatturapa.attachment.out,state:0
 msgid "Sender Error"
 msgstr ""
@@ -176,6 +188,7 @@ msgstr ""
 
 #. module: l10n_it_fatturapa_pec
 #: selection:account.invoice,fatturapa_state:0
+#: view:fatturapa.attachment.out:l10n_it_fatturapa_pec.view_fatturapa_out_attachment_search_state
 #: selection:fatturapa.attachment.out,state:0
 msgid "Sent"
 msgstr ""
@@ -194,6 +207,11 @@ msgstr ""
 #: view:fatturapa.attachment.out:l10n_it_fatturapa_pec.view_fatturapa_out_attachment_search_state
 #: field:fatturapa.attachment.out,state:0
 msgid "State"
+msgstr ""
+
+#. module: l10n_it_fatturapa_pec
+#: view:fatturapa.attachment.out:l10n_it_fatturapa_pec.view_fatturapa_out_attachment_search_state
+msgid "Validated"
 msgstr ""
 
 #. module: l10n_it_fatturapa_pec
