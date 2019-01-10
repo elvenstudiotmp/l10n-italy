@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-07 17:28+0000\n"
-"PO-Revision-Date: 2019-01-08 12:46+0000\n"
+"PO-Revision-Date: 2019-01-10 15:28+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -41,7 +41,7 @@ msgstr "Consegnata"
 #. module: l10n_it_fatturapa_pec
 #: field:fatturapa.attachment.out,delivered_date:0
 msgid "Delivered date"
-msgstr "data consegna"
+msgstr "Data consegna"
 
 #. module: l10n_it_fatturapa_pec
 #: field:wizard.fatturapa.send.pec,display_name:0
@@ -104,6 +104,11 @@ msgid "Last Response from Exchange System"
 msgstr "Ultima risposta dal sistema di interscambio"
 
 #. module: l10n_it_fatturapa_pec
+#: view:fatturapa.attachment.out:l10n_it_fatturapa_pec.view_fatturapa_out_pec_attachment_form
+msgid "Last SDI response"
+msgstr "Ultima messaggio da SDI"
+
+#. module: l10n_it_fatturapa_pec
 #: field:wizard.fatturapa.send.pec,write_uid:0
 msgid "Last Updated by"
 msgstr ""
@@ -131,9 +136,15 @@ msgid "Ready to Send"
 msgstr "Pronta per l'invio"
 
 #. module: l10n_it_fatturapa_pec
+#: view:fatturapa.attachment.out:l10n_it_fatturapa_pec.view_fatturapa_out_attachment_search_state
 #: selection:fatturapa.attachment.out,state:0
 msgid "Recipient Error"
 msgstr "Errore Destinatario"
+
+#. module: l10n_it_fatturapa_pec
+#: view:fatturapa.attachment.out:l10n_it_fatturapa_pec.view_fatturapa_out_attachment_search_state
+msgid "Rejected"
+msgstr "Rifiutata"
 
 #. module: l10n_it_fatturapa_pec
 #: selection:fatturapa.attachment.out,state:0
@@ -167,6 +178,7 @@ msgid "Send Via PEC"
 msgstr "Invia via PEC"
 
 #. module: l10n_it_fatturapa_pec
+#: view:fatturapa.attachment.out:l10n_it_fatturapa_pec.view_fatturapa_out_attachment_search_state
 #: selection:fatturapa.attachment.out,state:0
 msgid "Sender Error"
 msgstr "Errore Mittente"
@@ -178,6 +190,7 @@ msgstr ""
 
 #. module: l10n_it_fatturapa_pec
 #: selection:account.invoice,fatturapa_state:0
+#: view:fatturapa.attachment.out:l10n_it_fatturapa_pec.view_fatturapa_out_attachment_search_state
 #: selection:fatturapa.attachment.out,state:0
 msgid "Sent"
 msgstr "Inviata"
@@ -197,6 +210,11 @@ msgstr "Data invio"
 #: field:fatturapa.attachment.out,state:0
 msgid "State"
 msgstr "Stato"
+
+#. module: l10n_it_fatturapa_pec
+#: view:fatturapa.attachment.out:l10n_it_fatturapa_pec.view_fatturapa_out_attachment_search_state
+msgid "Validated"
+msgstr "Confermata"
 
 #. module: l10n_it_fatturapa_pec
 #: view:account.invoice:l10n_it_fatturapa_pec.view_account_invoice_fatturapa_out_pec_filter

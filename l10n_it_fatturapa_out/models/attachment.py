@@ -15,6 +15,11 @@ class FatturaPAAttachment(models.Model):
     _inherit = ['mail.thread']
     _order = 'id desc'
 
+    number = fields.Char(
+        required=True,
+        readonly=True
+    )
+
     ir_attachment_id = fields.Many2one(
         'ir.attachment', 'Attachment', required=True, ondelete="cascade")
     out_invoice_ids = fields.One2many(
