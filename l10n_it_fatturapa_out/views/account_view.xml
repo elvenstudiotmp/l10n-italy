@@ -94,7 +94,8 @@
                                     ('partner_id.is_company', '=', True),
                                     ('partner_id.electronic_invoice_subjected', '=', True),
                                     ('partner_id.codice_destinatario', '=', '0000000'),
-                                    ('partner_id.pec_destinatario', '=', False)
+                                    ('partner_id.pec_destinatario', '=', False),
+                                    ('partner_id.ipa_code', '=', False)
                                  ]"
                                 help="Show invoices with partners which are missing one or more e-invoice data (eg. SDI code, PEC email or fiscal code for individual person." />
                         <separator />

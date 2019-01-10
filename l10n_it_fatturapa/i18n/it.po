@@ -392,6 +392,11 @@ msgid "Effective date of Penality"
 msgstr "Data Decorrenza Penale"
 
 #. module: l10n_it_fatturapa
+#: view:res.partner:l10n_it_fatturapa.fatturapa_res_partner_search
+msgid "Electronic Invoice"
+msgstr "Fattura Elettronica"
+
+#. module: l10n_it_fatturapa
 #: code:addons/l10n_it_fatturapa/models/account_tax.py:35
 #: code:addons/l10n_it_fatturapa/models/account_tax.py:39
 #: code:addons/l10n_it_fatturapa/models/account_tax.py:46
