@@ -23,15 +23,19 @@ RESPONSE_MAIL_REGEX = '[A-Z]{2}[a-zA-Z0-9]{11,16}_[a-zA-Z0-9]{,5}_[A-Z]{2}_' \
 class FatturaPAAttachmentOut(models.Model):
     _inherit = 'fatturapa.attachment.out'
 
-    state = fields.Selection([('ready', 'Ready to Send'),
-                              ('sent', 'Sent'),
-                              ('sender_error', 'Sender Error'),
-                              ('recipient_error', 'Recipient Error'),
-                              ('rejected', 'Rejected (PA)'),
-                              ('validated', 'Delivered'),
-                              ],
-                             string='State',
-                             default='ready',)
+    state = fields.Selection(
+        selection=[
+            ('ready', 'Ready to Send'),
+            ('sent', 'Sent'),
+            ('sender_error', 'Sender Error'),
+            ('recipient_error', 'Recipient Error'),
+            ('rejected', 'Rejected (PA)'),
+            ('validated', 'Delivered'),
+            ('manually_delivered', 'Manually Delivered')
+        ],
+        string='State',
+        default='ready'
+    )
 
     last_sdi_response = fields.Text(
         string='Last Response from Exchange System', default='No response yet',
@@ -44,7 +48,7 @@ class FatturaPAAttachmentOut(models.Model):
     def reset_to_ready(self):
         for att in self:
             if att.state != 'sender_error':
-                raise UserError(_("Yo can only reset 'sender error' files"))
+                raise UserError(_("You can only reset 'sender error' files"))
             att.state = 'ready'
 
     @api.multi
@@ -250,6 +254,19 @@ class FatturaPAAttachmentOut(models.Model):
                     "You can only delete 'ready to send' files"
                 ))
         return super(FatturaPAAttachmentOut, self).unlink()
+
+    @api.multi
+    def set_manually_delivered(self):
+        states = self.mapped('state')
+        if set(states) != set(['recipient_error']):
+            raise UserError(_("You can manually set to delivered only files "
+                              "in Recipient Error state"))
+        self.message_post(
+            subject=_("E-invoice manually delivered"),
+            body=_("User %s has manually sent e-invoice "
+                   "to the customer.") % self.env.user.login)
+
+        return self.write({'state': 'manually_delivered'})
 
     @api.model
     def cron_create_and_send_fatturapa_out(self, limit=10):
