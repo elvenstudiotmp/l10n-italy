@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: l10n-italy (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-30 12:40+0000\n"
-"PO-Revision-Date: 2018-12-30 12:40+0000\n"
+"PO-Revision-Date: 2019-01-12 15:37+0000\n"
 "Last-Translator: Domenico Stragapede\n"
 "Language-Team: Italian (http://www.transifex.com/oca/OCA-l10n-italy-8-0/"
 "language/it/)\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: l10n_it_account_partner_type
-#: code:addons/l10n_it_account_partner_type/models/res_partner.py:38
+#: code:addons/l10n_it_account_partner_type/models/res_partner.py:39
 #, python-format
 msgid "Choose the partner type due to your needed, in order to fill the right fields.\n"
 " - Generic Contact: generic partner without any fiscal information.\n"
@@ -75,6 +75,17 @@ msgid "Individual Company"
 msgstr "Ditta Individuale"
 
 #. module: l10n_it_account_partner_type
+#: view:res.partner:l10n_it_account_partner_type.l10n_it_account_partner_type_res_partner_search_view
+msgid "Non Profit"
+msgstr "Non Profit"
+
+#. module: l10n_it_account_partner_type
+#: code:addons/l10n_it_account_partner_type/models/res_partner.py:33
+#, python-format
+msgid "Non Profit Organization"
+msgstr "Organizzazione Non Profit"
+
+#. module: l10n_it_account_partner_type
 #: model:ir.model,name:l10n_it_account_partner_type.model_res_partner
 msgid "Partner"
 msgstr "Partner"
@@ -86,7 +97,7 @@ msgid "Partner Type"
 msgstr "Tipo di partner"
 
 #. module: l10n_it_account_partner_type
-#: code:addons/l10n_it_account_partner_type/models/res_partner.py:34
+#: code:addons/l10n_it_account_partner_type/models/res_partner.py:35
 #: view:res.partner:l10n_it_account_partner_type.l10n_it_account_partner_type_res_partner_search_view
 #, python-format
 msgid "Person"
@@ -98,7 +109,7 @@ msgid "Public"
 msgstr "Pubblica"
 
 #. module: l10n_it_account_partner_type
-#: code:addons/l10n_it_account_partner_type/models/res_partner.py:33
+#: code:addons/l10n_it_account_partner_type/models/res_partner.py:34
 #, python-format
 msgid "Public Administration"
 msgstr "Pubblica amministrazione"
@@ -107,6 +118,16 @@ msgstr "Pubblica amministrazione"
 #: view:res.partner:l10n_it_account_partner_type.l10n_it_account_partner_type_fiscal_data_form_view
 msgid "{'invisible': [('partner_type', '=', 'contact')]}"
 msgstr "{'invisible': [('partner_type', '=', 'contact')]}"
+
+#. module: l10n_it_account_partner_type
+#: view:res.partner:l10n_it_account_partner_type.res_partner_hide_individual_form_view
+msgid "{'required': ['|', ('individual', '=', True), ('partner_type', '=', 'non-profit')]}"
+msgstr "{'required': ['|', ('individual', '=', True), ('partner_type', '=', 'non-profit')]}"
+
+#. module: l10n_it_account_partner_type
+#: view:res.partner:l10n_it_account_partner_type.l10n_it_account_partner_type_partner_vat_form_view
+msgid "{'required': [('is_company', '=', True), ('is_pa', '=', False), ('partner_type', '!=', 'non-profit')]}"
+msgstr "{'required': [('is_company', '=', True), ('is_pa', '=', False), ('partner_type', '!=', 'non-profit')]}"
 
 #. module: l10n_it_account_partner_type
 #: view:res.partner:l10n_it_account_partner_type.l10n_it_account_partner_type_fiscal_data_form_view
