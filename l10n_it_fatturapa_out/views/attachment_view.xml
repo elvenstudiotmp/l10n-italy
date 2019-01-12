@@ -7,7 +7,7 @@
             <field name="model">fatturapa.attachment.out</field>
             <field name="arch" type="xml">
                 <tree string="Export Electronic Invoice" create="false">
-                    <field name="name"/>
+                    <field name="communication_number"/>
                     <field name="invoice_partner_id"/>
                     <field name="out_invoice_ids"/>
                 </tree>
@@ -19,6 +19,7 @@
             <field name="model">fatturapa.attachment.out</field>
             <field name="arch" type="xml">
                 <search>
+                    <field name="communication_number"/>
                     <field name="name"/>
                     <field name="invoice_partner_id"/>
 
@@ -39,8 +40,8 @@
                     </header>
                     <sheet>
                         <h1>
-                            <label string="Communication" attrs="{'invisible': [('number', '=', False)]}"/>
-                            <field name="number" readonly="1" class="oe_inline" />
+                            <label string="Communication" attrs="{'invisible': [('communication_number', '=', False)]}"/>
+                            <field name="communication_number" readonly="1" class="oe_inline" />
                         </h1>
                         <group>
                             <group>

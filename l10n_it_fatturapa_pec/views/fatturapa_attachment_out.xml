@@ -8,6 +8,9 @@
             <field name="arch" type="xml">
                 <header position="inside">
                     <button name="send_via_pec" states="ready" string="Send Via PEC" type="object" class="oe_highlight"/>
+                    <button name="set_manually_delivered" states="recipient_error"
+                            string="Manually Delivered" type="object" class="oe_highlight"
+                            confirm="Are you sure? This operation cannot be undone." />
                     <button name="reset_to_ready" states="sender_error" string="Reset to ready" type="object" />
                     <field name="state" widget="statusbar" statusbar_visible="ready,sent,validated" />
                 </header>
@@ -45,6 +48,10 @@
             <field name="model">fatturapa.attachment.out</field>
             <field name="inherit_id" ref="l10n_it_fatturapa_out.view_fatturapa_out_attachment_tree"/>
             <field name="arch" type="xml">
+                <tree string="Export Electronic Invoice" position="attributes">
+                    <attribute name="colors">blue:state in ('ready');red:state in ('sender_error','recipient_error','rejected')</attribute>
+                </tree>
+
                 <field name="out_invoice_ids" position="after">
                     <field name="state"/>
                     <field name="sending_date"/>
@@ -65,7 +72,8 @@
                     <filter name="sender_error" string="Sender Error" domain="[('state','=','sender_error')]"/>
                     <filter name="recipient_error" string="Recipient Error" domain="[('state','=','recipient_error')]"/>
                     <filter name="rejected" string="Rejected" domain="[('state','=','rejected')]"/>
-                    <filter name="validated" string="Validated" domain="[('state','=','validated')]"/>
+                    <filter name="manually_delivered" string="Manually Delivered" domain="[('state','=','manually_delivered')]"/>
+                    <filter name="validated" string="Delivered" domain="[('state','=','validated')]"/>
                 </field>
 
                 <filter name="group_by_partner" position="after">

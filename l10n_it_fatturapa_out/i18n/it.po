@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-09 10:03+0000\n"
-"PO-Revision-Date: 2019-01-10 15:28+0000\n"
+"PO-Revision-Date: 2019-01-11 19:35+0000\n"
 "Last-Translator: Domenico Stragapede <d.stragapede@elvenstudio.it>\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -68,6 +68,11 @@ msgstr "Città non impostata per %s."
 #: view:fatturapa.attachment.out:l10n_it_fatturapa_out.view_fatturapa_out_attachment_form
 msgid "Communication"
 msgstr "Comunicazione"
+
+#. module: l10n_it_fatturapa_out
+#: field:fatturapa.attachment.out,communication_number:0
+msgid "Communication number"
+msgstr "Numero Comunicazione"
 
 #. module: l10n_it_fatturapa_out
 #: field:fatturapa.attachment.out,company_id:0
@@ -465,11 +470,6 @@ msgstr "Campo \"riferimento normativo\" non valorizzato per l'imposta %s"
 #, fuzzy, python-format
 msgid "No 'nature' field for tax %s"
 msgstr "Campo \"natura\" non valorizzato per l'imposta %s"
-
-#. module: l10n_it_fatturapa_out
-#: field:fatturapa.attachment.out,number:0
-msgid "Number"
-msgstr "Numero"
 
 #. module: l10n_it_fatturapa_out
 #: field:fatturapa.attachment.out,out_invoice_ids:0
