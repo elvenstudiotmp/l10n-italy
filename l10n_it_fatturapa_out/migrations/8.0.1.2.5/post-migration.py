@@ -24,6 +24,6 @@ def migrate(cr, version):
             # common name structure is IT01234567890_01234.xml
             start = e_trasmission.name.find('_') + 1
             end = e_trasmission.name.rfind('.')
-            e_trasmission.write({'number': e_trasmission.name[start:end]})
+            e_trasmission.write({'communication_number': e_trasmission.name[start:end]})
 
     _log.info("Upgrade completed")

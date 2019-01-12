@@ -90,7 +90,7 @@ class WizardExportFatturapa(models.TransientModel):
         vat = vat.replace(' ', '').replace('.', '').replace('-', '')
         attach_obj = self.env['fatturapa.attachment.out']
         attach_vals = {
-            'number': number,
+            'communication_number': number,
             'name': '%s_%s.xml' % (vat, str(number)),
             'datas_fname': '%s_%s.xml' % (vat, str(number)),
             'datas': base64.encodestring(fatturapa.toxml("UTF-8")),

@@ -15,7 +15,7 @@ class FatturaPAAttachment(models.Model):
     _inherit = ['mail.thread']
     _order = 'id desc'
 
-    number = fields.Char(
+    communication_number = fields.Char(
         required=True,
         readonly=True
     )
