@@ -16,7 +16,7 @@ def migrate(cr, version):
 
     with api.Environment.manage():
         env = api.Environment(cr, SUPERUSER_ID, {})
-        domain = [('number', '=', False), ('name', '!=', False)]
+        domain = [('communication_number', '=', False), ('name', '!=', False)]
         e_trasmissions = env['fatturapa.attachment.out'].search(domain)
         _log.info("Total invoices to update: %d", len(e_trasmissions))
         for e_trasmission in e_trasmissions:
