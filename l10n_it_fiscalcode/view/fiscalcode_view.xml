@@ -10,7 +10,7 @@
                 <xpath expr="//div[@name='vat_info']" position="after">
                     <label for="fiscalcode" />
                     <div name="fiscalcode_info">
-                        <field name="fiscalcode" class="oe_inline" />
+                        <field name="fiscalcode" class="oe_inline" attrs="{'required': [('individual', '=', True)]}" />
                         <span name="individual_field">
                             (<field name="individual" nolabel="1" /> <label for="individual" string="Is an individual person?"/>)
                         </span>

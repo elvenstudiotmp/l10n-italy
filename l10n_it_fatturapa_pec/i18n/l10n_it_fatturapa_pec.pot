@@ -26,6 +26,11 @@ msgid "Are you sure? This operation cannot be undone."
 msgstr ""
 
 #. module: l10n_it_fatturapa_pec
+#: selection:fatturapa.attachment.out,state:0
+msgid "Accepted"
+msgstr ""
+
+#. module: l10n_it_fatturapa_pec
 #: view:wizard.fatturapa.send.pec:l10n_it_fatturapa_pec.wizard_fatturapa_send_pec_view
 msgid "Cancel"
 msgstr ""
@@ -143,6 +148,17 @@ msgstr ""
 #. module: l10n_it_fatturapa_pec
 #: field:wizard.fatturapa.send.pec,write_date:0
 msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_it_fatturapa_pec
+#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:60
+#, python-format
+msgid "No incoming PEC server found. Please configure it."
+msgstr ""
+
+#. module: l10n_it_fatturapa_pec
+#: selection:fatturapa.attachment.out,state:0
+msgid "Not delivered"
 msgstr ""
 
 #. module: l10n_it_fatturapa_pec

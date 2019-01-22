@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-30 12:40+0000\n"
-"PO-Revision-Date: 2018-12-30 12:40+0000\n"
+"PO-Revision-Date: 2019-01-12 15:37+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: l10n_it_account_partner_type
-#: code:addons/l10n_it_account_partner_type/models/res_partner.py:38
+#: code:addons/l10n_it_account_partner_type/models/res_partner.py:39
 #, python-format
 msgid "Choose the partner type due to your needed, in order to fill the right fields.\n"
 " - Generic Contact: generic partner without any fiscal information.\n"
@@ -66,6 +66,17 @@ msgid "Individual Company"
 msgstr ""
 
 #. module: l10n_it_account_partner_type
+#: view:res.partner:l10n_it_account_partner_type.l10n_it_account_partner_type_res_partner_search_view
+msgid "Non Profit"
+msgstr ""
+
+#. module: l10n_it_account_partner_type
+#: code:addons/l10n_it_account_partner_type/models/res_partner.py:33
+#, python-format
+msgid "Non Profit Organization"
+msgstr ""
+
+#. module: l10n_it_account_partner_type
 #: model:ir.model,name:l10n_it_account_partner_type.model_res_partner
 msgid "Partner"
 msgstr ""
@@ -77,7 +88,7 @@ msgid "Partner Type"
 msgstr ""
 
 #. module: l10n_it_account_partner_type
-#: code:addons/l10n_it_account_partner_type/models/res_partner.py:34
+#: code:addons/l10n_it_account_partner_type/models/res_partner.py:35
 #: view:res.partner:l10n_it_account_partner_type.l10n_it_account_partner_type_res_partner_search_view
 #, python-format
 msgid "Person"
@@ -89,7 +100,7 @@ msgid "Public"
 msgstr ""
 
 #. module: l10n_it_account_partner_type
-#: code:addons/l10n_it_account_partner_type/models/res_partner.py:33
+#: code:addons/l10n_it_account_partner_type/models/res_partner.py:34
 #, python-format
 msgid "Public Administration"
 msgstr ""
@@ -97,6 +108,16 @@ msgstr ""
 #. module: l10n_it_account_partner_type
 #: view:res.partner:l10n_it_account_partner_type.l10n_it_account_partner_type_fiscal_data_form_view
 msgid "{'invisible': [('partner_type', '=', 'contact')]}"
+msgstr ""
+
+#. module: l10n_it_account_partner_type
+#: view:res.partner:l10n_it_account_partner_type.res_partner_hide_individual_form_view
+msgid "{'required': ['|', ('individual', '=', True), ('partner_type', '=', 'non-profit')]}"
+msgstr ""
+
+#. module: l10n_it_account_partner_type
+#: view:res.partner:l10n_it_account_partner_type.l10n_it_account_partner_type_partner_vat_form_view
+msgid "{'required': [('is_company', '=', True), ('is_pa', '=', False), ('partner_type', '!=', 'non-profit')]}"
 msgstr ""
 
 #. module: l10n_it_account_partner_type
