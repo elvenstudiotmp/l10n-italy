@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_invoice_form_fatturapa_pec_cron" model="ir.ui.view">
+            <field name="name">account.invoice.fatturapa.pec.cron</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="l10n_it_fatturapa_out.view_invoice_form_fatturapa"/>
+            <field name="arch" type="xml">
+                <button name="invoice_proforma2" position="before">
+                    <button name="action_fatturapa_out_error_resolved"
+                            string="Mark E-invoice errors as resolved"
+                            type="object"
+                            class="oe_highlight"
+                            attrs="{'invisible': [('fatturapa_out_error', '=', False)]}" />
+                </button>
+                <field name="fatturapa_attachment_out_id" position="after">
+                    <field name="fatturapa_out_error"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_account_invoice_fatturapa_out_pec_cron_filter" model="ir.ui.view">
+            <field name="name">view.account.invoice.fatturapa.out.pec.cron.filter</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="l10n_it_fatturapa_pec.view_account_invoice_fatturapa_out_pec_filter" />
+            <field name="arch" type="xml">
+                <filter name="fatturapa_ready_for_export" position="before">
+                    <filter name="fatturapa_error"
+                            string="With Issues"
+                            domain="[('fatturapa_out_error', '=', True), ('fatturapa_state','=', False)]"
+                            help="Show invoices with errors during automatic e-invoice export." />
+                </filter>
+            </field>
+        </record>
+    </data>
+</openerp>

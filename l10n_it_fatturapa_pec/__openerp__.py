@@ -23,7 +23,7 @@
         'views/account.xml',
         'views/fatturapa_attachment_out.xml',
         'wizard/send_pec_view.xml',
-        'data/cron.xml',
+
     ],
     'installable': True
 }
