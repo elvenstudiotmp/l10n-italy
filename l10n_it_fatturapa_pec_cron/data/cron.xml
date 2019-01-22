@@ -15,5 +15,7 @@
             <field name="args">(10,)</field>
         </record>
 
+        <!-- todo Cron that send email about invoices with issues -->
+
     </data>
 </openerp>
