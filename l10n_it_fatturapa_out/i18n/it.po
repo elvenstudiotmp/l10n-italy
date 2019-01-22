@@ -299,7 +299,7 @@ msgstr "Tipo di MIME"
 
 #. module: l10n_it_fatturapa_out
 #: code:addons/l10n_it_fatturapa_out/wizard/wizard_export_fatturapa.py:207
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Fiscal position for Electronic Invoice not set for company %s. (Go to "
 "Accounting --> Configuration --> Settings --> Electronic Invoice)"
@@ -471,8 +471,7 @@ msgstr "Campo \"riferimento normativo\" non valorizzato per l'imposta %s"
 #. module: l10n_it_fatturapa_out
 #: code:addons/l10n_it_fatturapa_out/wizard/wizard_export_fatturapa.py:624
 #: code:addons/l10n_it_fatturapa_out/wizard/wizard_export_fatturapa.py:662
-
-#, fuzzy, python-format
+#, python-format
 msgid "No 'nature' field for tax %s"
 msgstr "Campo \"natura\" non valorizzato per l'imposta %s"
 
@@ -532,6 +531,7 @@ msgstr ""
 
 #. module: l10n_it_fatturapa_out
 #: code:addons/l10n_it_fatturapa_out/wizard/wizard_export_fatturapa.py:691
+#, python-format
 msgid "Payment term %s does not have a linked e-invoice payment term"
 msgstr ""
 "Il termine di pagamento %s non ha un termine di pagamento di fatturaPA "
