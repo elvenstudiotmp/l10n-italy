@@ -28,12 +28,15 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.view_account_invoice_filter" />
             <field name="arch" type="xml">
-                <group name="fatturapa_filters" position="inside">
-                    <filter name="fatturapa_ready_for_export" string="Ready for export" domain="[('fatturapa_state','=', False)]"/>
-                    <filter name="fatturapa_ready_to_send" string="Ready to Send" domain="[('fatturapa_state','=','ready')]"/>
-                    <filter name="fatturapa_waiting_response" string="Waiting Response" domain="[('fatturapa_state','=','sent')]"/>
-                    <filter name="fatturapa_delivered" string="Delivered" domain="[('fatturapa_state','=','delivered')]"/>
-                    <filter name="fatturapa_failed" string="Failed" domain="[('fatturapa_state','=','error')]"/>
+                <group expand="0" string="Group By" position="before">
+                    <group name="fatturapa_filters" string="Electronic Invoice">
+                        <filter name="fatturapa_ready_for_export" string="Ready for export" domain="[('fatturapa_state','=', False)]"/>
+                        <filter name="fatturapa_ready_to_send" string="Ready to Send" domain="[('fatturapa_state','=','ready')]"/>
+                        <filter name="fatturapa_waiting_response" string="Waiting Response" domain="[('fatturapa_state','=','sent')]"/>
+                        <filter name="fatturapa_delivered" string="Delivered" domain="[('fatturapa_state','=','delivered')]"/>
+                        <filter name="fatturapa_failed" string="Failed" domain="[('fatturapa_state','=','error')]"/>
+
+                    </group>
                 </group>
 
                 <group string="Group By" position="inside">
