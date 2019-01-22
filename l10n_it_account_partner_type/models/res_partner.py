@@ -30,6 +30,7 @@ class ResPartner(models.Model):
             ('contact', _('Generic Contact')),
             ('company', _('Company')),
             ('individual', _('Individual Company')),
+            ('non-profit', _('Non Profit Organization')),
             ('public', _('Public Administration')),
             ('person', _('Person')),
         ],
@@ -71,6 +72,11 @@ class ResPartner(models.Model):
             self.is_pa = True
         elif self.partner_type == 'contact':
             self.is_company = False
+            self.vat_subjected = False
+            self.individual = False
+            self.is_pa = False
+        elif self.partner_type == 'non-profit':
+            self.is_company = True
             self.vat_subjected = False
             self.individual = False
             self.is_pa = False

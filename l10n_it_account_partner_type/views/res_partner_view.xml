@@ -26,12 +26,20 @@
             </field>
         </record>
 
-        <!-- Hide individual boolean field from l10n_it_fiscalcode -->
+        <!--
+            Extend l10n_it_fiscalcode:
+                - hide individual field (will be set with partner_type
+                - extend fiscalcode 'required' attribute to match non-profit
+                  fiscalcode requirements
+        -->
         <record id="res_partner_hide_individual_form_view" model="ir.ui.view">
             <field name="name">res.partner.hide.individual.form.view</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="l10n_it_fiscalcode.view_partner_form_fiscalcode_data"/>
             <field name="arch" type="xml">
+                <field name="fiscalcode" position="attributes">
+                    <attribute name="attrs">{'required': ['|', ('individual', '=', True), ('partner_type', '=', 'non-profit')]}</attribute>
+                </field>
                 <span name="individual_field" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </span>
@@ -62,6 +70,7 @@
                         <filter string="Contact"  domain="[('partner_type','=','contact')]"/>
                         <filter string="Company"  domain="[('partner_type','=','company')]"/>
                         <filter string="Individual"  domain="[('partner_type','=','individual')]"/>
+                        <filter string="Non Profit"  domain="[('partner_type','=','non-profit')]"/>
                         <filter string="Public"  domain="[('partner_type','=','public')]"/>
                         <filter string="Person"  domain="[('partner_type','=','person')]"/>
                         <separator/>
@@ -116,7 +125,25 @@
                 <field name="lastname" position="attributes">
                     <attribute name="attrs">{'required': [('partner_type', 'in', ['person', 'individual'])], 'invisible': [('partner_type', 'not in', ['contact', 'person', 'individual'])]}</attribute>
                 </field>
+            </field>
+        </record>
 
+        <!--
+            Change vat requirements because
+            for non-profit organization vat field is not required.
+            Extends l10n_it_ipa module form instead of base form to be the last
+            view that replaces 'required' attribute.
+        -->
+        <record id="l10n_it_account_partner_type_partner_vat_form_view" model="ir.ui.view">
+            <field name="name">l10n.it.account.partner.type.partner.vat.form.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="l10n_it_ipa.view_partner_ipa_vat_form"/>
+            <field name="arch" type="xml">
+                <field name="vat" position="attributes">
+                    <attribute name="attrs">
+                        {'required': [('is_company', '=', True), ('is_pa', '=', False), ('partner_type', '!=', 'non-profit')]}
+                    </attribute>
+                </field>
             </field>
         </record>
 
