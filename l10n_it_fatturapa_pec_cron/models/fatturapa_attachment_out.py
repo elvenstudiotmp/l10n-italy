@@ -84,6 +84,7 @@ class FatturaPAAttachmentOut(models.Model):
 
             # Send via PEC all e-invoices generated
             # (public administration excluded)
-            e_invoices_to_send.send_via_pec()
+            if e_invoices_to_send:
+                e_invoices_to_send.send_via_pec()
 
         return True
