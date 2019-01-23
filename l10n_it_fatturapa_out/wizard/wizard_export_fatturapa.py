@@ -678,31 +678,31 @@ class WizardExportFatturapa(models.TransientModel):
         return True
 
     def setDatiPagamento(self, invoice, body):
-        if invoice.payment_term:
-            DatiPagamento = DatiPagamentoType()
+        if invoice.payment_term and not invoice.payment_mode_id:
+            raise UserError(
+                _('Invoice %s does not have a payment method')
+                % invoice.number)
 
-            if not invoice.payment_term:
-                raise UserError(
-                    _('Invoice %s does not have a payment term')
-                    % invoice.payment_term.name)
+        if not invoice.payment_term and invoice.payment_mode_id:
+            raise UserError(
+                _('Invoice %s does not have a payment term')
+                % invoice.number)
 
+        if invoice.payment_term and invoice.payment_mode_id:
             if not invoice.payment_term.fatturapa_pt_id:
                 raise UserError(
-                    _('Payment term %s does not have a linked e-invoice '
-                      'payment term') % invoice.payment_term.name)
-
-            if not invoice.payment_mode_id:
-                raise UserError(
-                    _('Invoice %s does not have a payment mode')
-                    % invoice.payment_mode_id.name)
+                    _('Payment term %s does not have a fiscal payment '
+                      'term associated') % invoice.payment_term.name)
 
             if not invoice.payment_mode_id.fatturapa_pm_id:
                 raise UserError(
-                    _('Payment mode %s does not have a linked e-invoice '
-                      'payment method') % invoice.payment_mode_id.name)
+                    _('Payment method %s does not have a fiscal payment '
+                      'method associated') % invoice.payment_mode_id.name)
 
+            DatiPagamento = DatiPagamentoType()
             DatiPagamento.CondizioniPagamento = (
                 invoice.payment_term.fatturapa_pt_id.code)
+
             move_line_pool = self.env['account.move.line']
             payment_line_ids = invoice.move_line_id_payment_get()
             for move_line_id in payment_line_ids:
@@ -725,6 +725,7 @@ class WizardExportFatturapa(models.TransientModel):
                         DettaglioPagamento.BIC = (
                             invoice.partner_bank_id.bank_bic)
                 DatiPagamento.DettaglioPagamento.append(DettaglioPagamento)
+
             body.DatiPagamento.append(DatiPagamento)
         return True
 

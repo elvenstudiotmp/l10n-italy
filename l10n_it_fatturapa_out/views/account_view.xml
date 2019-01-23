@@ -20,6 +20,11 @@
                 <xpath expr="//form/sheet/notebook/page/field[@name='invoice_line']/tree/field[@name='account_id']" position="after">
                     <field name="admin_ref"/>
                 </xpath>
+
+                <field name="payment_term" position="attributes">
+                    <attribute name="attrs">{'required': [('payment_mode_id', '!=', False)]}</attribute>
+                </field>
+
                 <!--<field name="account_id" position="after">-->
                 <!--<field name="admin_ref"/>-->
                 <!--</field>-->
@@ -80,5 +85,17 @@
                 </xpath>
             </field>
         </record>
+
+        <record id="view_invoice_form_fatturapa_payment_mode" model="ir.ui.view">
+            <field name="name">account.invoice.fatturapa.payment.mode</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account_payment_partner.invoice_form" />
+            <field name="arch" type="xml">
+                <field name="payment_mode_id" position="attributes">
+                    <attribute name="attrs">{'required': [('payment_term', '!=', False)]}</attribute>
+                </field>
+            </field>
+        </record>
+
     </data>
 </openerp>
