@@ -51,7 +51,7 @@ msgstr "Allegati"
 #. module: l10n_it_fatturapa_out
 #: help:fatturapa.attachment.out,type:0
 msgid "Binary File or URL"
-msgstr "Binary File or URL"
+msgstr "File binario o URL"
 
 #. module: l10n_it_fatturapa_out
 #: view:wizard.export.fatturapa:l10n_it_fatturapa_out.wizard_export_fatturapa_form_view
@@ -151,14 +151,8 @@ msgid "Customer country not set."
 msgstr "Nazione del cliente non impostata."
 
 #. module: l10n_it_fatturapa_out
-#: code:addons/l10n_it_fatturapa_out/wizard/wizard_export_fatturapa.py:435
+#: code:addons/l10n_it_fatturapa_out/wizard/wizard_export_fatturapa.py:428
 #, python-format
-msgid "Customer province not set."
-msgstr "Provincia del cliente non impostata."
-
-#. module: l10n_it_fatturapa_out
-#: code:addons/l10n_it_fatturapa_out/wizard/wizard_export_fatturapa.py:426
-#, fuzzy, python-format
 msgid "Customer street not set."
 msgstr "Provincia del cliente non impostata."
 
@@ -431,7 +425,7 @@ msgstr "Fattura PDF stampata"
 #. module: l10n_it_fatturapa_out
 #: field:fatturapa.attachment.out,message_last_post:0
 msgid "Last Message Date"
-msgstr ""
+msgstr "Data ultimo messaggio"
 
 #. module: l10n_it_fatturapa_out
 #: field:fatturapa.attachment.out,__last_update:0
@@ -731,6 +725,9 @@ msgstr "{'required': [('payment_mode_id', '!=', False)]}"
 #: view:account.invoice:l10n_it_fatturapa_out.view_invoice_form_fatturapa_payment_mode
 msgid "{'required': [('payment_term', '!=', False)]}"
 msgstr "{'required': [('payment_term', '!=', False)]}"
+
+#~ msgid "Customer province not set."
+#~ msgstr "Provincia del cliente non impostata."
 
 #~ msgid "Attachment URL"
 #~ msgstr "URL allegato"

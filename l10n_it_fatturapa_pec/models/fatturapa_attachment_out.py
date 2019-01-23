@@ -23,35 +23,55 @@ RESPONSE_MAIL_REGEX = '[A-Z]{2}[a-zA-Z0-9]{11,16}_[a-zA-Z0-9]{,5}_[A-Z]{2}_' \
 class FatturaPAAttachmentOut(models.Model):
     _inherit = 'fatturapa.attachment.out'
 
-    state = fields.Selection([('ready', 'Ready to Send'),
-                              ('sent', 'Sent'),
-                              ('sender_error', 'Sender Error'),
-                              ('recipient_error', 'Recipient Error'),
-                              ('rejected', 'Rejected (PA)'),
-                              ('validated', 'Delivered'),
-                              ],
-                             string='State',
-                             default='ready',)
+    state = fields.Selection(
+        selection=[
+            ('ready', 'Ready to Send'),
+            ('sent', 'Sent'),
+            ('sender_error', 'Sender Error'),
+            ('recipient_error', 'Recipient Error'),
+            ('rejected', 'Rejected (PA)'),
+            ('validated', 'Delivered'),
+            ('accepted', 'Accepted'),
+            ('manually_delivered', 'Manually Delivered')
+        ],
+        string='State',
+        default='ready'
+    )
 
     last_sdi_response = fields.Text(
         string='Last Response from Exchange System', default='No response yet',
         readonly=True)
-    sending_date = fields.Datetime("Sent date", readonly=True)
-    delivered_date = fields.Datetime("Delivered date", readonly=True)
-    sending_user = fields.Many2one("res.users", "Sending user", readonly=True)
+    sending_date = fields.Datetime("Sent Date", readonly=True)
+    delivered_date = fields.Datetime("Delivered Date", readonly=True)
+    sending_user = fields.Many2one("res.users", "Sending User", readonly=True)
 
     @api.multi
     def reset_to_ready(self):
         for att in self:
             if att.state != 'sender_error':
-                raise UserError(_("Yo can only reset 'sender error' files"))
+                raise UserError(
+                    _("You can only reset files in 'Sender Error' state.")
+                )
             att.state = 'ready'
+
+    @api.model
+    def _check_fetchmail(self):
+        server = self.env['fetchmail.server'].search([
+            ('is_fatturapa_pec', '=', True),
+            ('state', '=', 'done')
+        ])
+        if not server:
+            raise UserError(_(
+                "No incoming PEC server found. Please configure it."))
 
     @api.multi
     def send_via_pec(self):
+        self._check_fetchmail()
         states = self.mapped('state')
         if set(states) != set(['ready']):
-            raise UserError(_("You can only send 'ready to send' files"))
+            raise UserError(
+                _("You can only send files in 'Ready to Send' state.")
+            )
         for att in self:
             mail_message = self.env['mail.message'].create({
                 'model': self._name,
@@ -65,6 +85,8 @@ class FatturaPAAttachmentOut(models.Model):
                 'attachment_ids': [(6, 0, att.ir_attachment_id.ids)],
                 'email_from': (
                     self.env.user.company_id.email_from_for_fatturaPA),
+                'reply_to': (
+                    self.env.user.company_id.email_from_for_fatturaPA),
                 'mail_server_id': self.env.user.company_id.sdi_channel_id.
                 pec_server_id.id,
             })
@@ -72,27 +94,13 @@ class FatturaPAAttachmentOut(models.Model):
                 'mail_message_id': mail_message.id,
                 'body_html': mail_message.body,
                 'email_to': self.env.user.company_id.email_exchange_system,
+                'headers': {
+                    'Return-Path':
+                    self.env.user.company_id.email_from_for_fatturaPA
+                }
             })
 
             if mail:
-                    config_parameter = self.env['ir.config_parameter'].sudo()
-                    bounce_alias = config_parameter.get_param(
-                        "mail.bounce.alias")
-                    catchall_domain = config_parameter.get_param(
-                        "mail.catchall.domain")
-                    catchall_alias = config_parameter.get_param(
-                        "mail.catchall.alias")
-                    # temporary disable email parameters incompatible with PEC
-                    if bounce_alias:
-                        config_parameter.set_param(
-                            'mail.bounce.alias', 'False')
-                    if catchall_domain:
-                        config_parameter.set_param(
-                            'mail.catchall.domain', 'False')
-                    if catchall_alias:
-                        config_parameter.set_param(
-                            'mail.catchall.alias', 'False')
-
                     try:
                         mail.send(raise_exception=True)
                         att.state = 'sent'
@@ -102,32 +110,20 @@ class FatturaPAAttachmentOut(models.Model):
                         att.state = 'sender_error'
                         mail.body = e[1]
 
-                    if bounce_alias:
-                        config_parameter.set_param(
-                            'mail.bounce.alias', bounce_alias)
-                    if catchall_domain:
-                        config_parameter.set_param(
-                            'mail.catchall.domain', catchall_domain)
-                    if catchall_alias:
-                        config_parameter.set_param(
-                            'mail.catchall.alias', catchall_alias)
-
     @api.multi
     def parse_pec_response(self, message_dict):
         message_dict['model'] = self._name
         message_dict['res_id'] = 0
 
         regex = re.compile(RESPONSE_MAIL_REGEX)
-        attachments = [x for x in message_dict['attachments']
-                       if regex.match(x.fname)]
-
-        for attachment in attachments:
-            response_name = attachment.fname
+        message_attachments = message_dict['attachments']
+        attachments = [x for x in message_attachments if regex.match(x[0])]
+        for response_name, content in attachments:
             message_type = response_name.split('_')[2]
-            if attachment.fname.lower().endswith('.zip'):
+            if response_name.lower().endswith('.zip'):
                 # not implemented, case of AT, todo
                 continue
-            root = etree.fromstring(attachment.content)
+            root = etree.fromstring(content)
             file_name = root.find('NomeFile')
             fatturapa_attachment_out = False
 
@@ -164,7 +160,7 @@ class FatturaPAAttachmentOut(models.Model):
                     error_list = root.find('ListaErrori')
                     error_str = ''
                     for error in error_list:
-                        error_str += "\n[%s] %s %s" % (
+                        error_str += u"\n[%s] %s %s" % (
                             error.find('Codice').text if error.find(
                                 'Codice') is not None else '',
                             error.find('Descrizione').text if error.find(
@@ -174,18 +170,18 @@ class FatturaPAAttachmentOut(models.Model):
                         )
                     fatturapa_attachment_out.write({
                         'state': 'sender_error',
-                        'last_sdi_response': 'SdI ID: {}; '
-                        'Message ID: {}; Receipt date: {}; '
-                        'Error: {}'.format(
+                        'last_sdi_response': u'SdI ID: {}; '
+                        u'Message ID: {}; Receipt date: {}; '
+                        u'Error: {}'.format(
                             id_sdi, message_id, receipt_dt, error_str)
                     })
                 elif message_type == 'MC':  # 3A. Mancata consegna
                     missed_delivery_note = root.find('Descrizione').text
                     fatturapa_attachment_out.write({
                         'state': 'recipient_error',
-                        'last_sdi_response': 'SdI ID: {}; '
-                        'Message ID: {}; Receipt date: {}; '
-                        'Missed delivery note: {}'.format(
+                        'last_sdi_response': u'SdI ID: {}; '
+                        u'Message ID: {}; Receipt date: {}; '
+                        u'Missed delivery note: {}'.format(
                             id_sdi, message_id, receipt_dt,
                             missed_delivery_note)
                     })
@@ -203,8 +199,7 @@ class FatturaPAAttachmentOut(models.Model):
                     esito_committente = root.find('EsitoCommittente')
                     if esito_committente is not None:
                         # more than one esito?
-                        esito = esito_committente.find(
-                            'Esito')
+                        esito = esito_committente.find('Esito')
                         if esito is not None:
                             if esito.text == 'EC01':
                                 state = 'validated'
@@ -212,8 +207,8 @@ class FatturaPAAttachmentOut(models.Model):
                                 state = 'rejected'
                             fatturapa_attachment_out.write({
                                 'state': state,
-                                'last_sdi_response': 'SdI ID: {}; '
-                                'Message ID: {}; Response: {}; '.format(
+                                'last_sdi_response': u'SdI ID: {}; '
+                                u'Message ID: {}; Response: {}; '.format(
                                     id_sdi, message_id, esito.text)
                             })
                 elif message_type == 'DT':  # 5. Decorrenza Termini per PA
@@ -221,9 +216,9 @@ class FatturaPAAttachmentOut(models.Model):
                     if description is not None:
                         fatturapa_attachment_out.write({
                             'state': 'validated',
-                            'last_sdi_response': 'SdI ID: {}; '
-                            'Message ID: {}; Receipt date: {}; '
-                            'Description: {}'.format(
+                            'last_sdi_response': u'SdI ID: {}; '
+                            u'Message ID: {}; Receipt date: {}; '
+                            u'Description: {}'.format(
                                 id_sdi, message_id, receipt_dt,
                                 description.text)
                         })
@@ -232,10 +227,11 @@ class FatturaPAAttachmentOut(models.Model):
                     description = root.find('Descrizione')
                     if description is not None:
                         fatturapa_attachment_out.write({
-                            'state': 'validated',
+                            'state': 'accepted',
                             'last_sdi_response': (
-                                'SdI ID: {}; Message ID: {}; Receipt date: {};'
-                                ' Description: {}'
+                                u'SdI ID: {}; Message ID: {}; '
+                                u'Receipt date: {};'
+                                u' Description: {}'
                             ).format(
                                 id_sdi, message_id, receipt_dt,
                                 description.text)
@@ -249,6 +245,19 @@ class FatturaPAAttachmentOut(models.Model):
         for att in self:
             if att.state != 'ready':
                 raise UserError(_(
-                    "You can only delete 'ready to send' files"
+                    "You can only delete files in 'Ready to Send' state."
                 ))
         return super(FatturaPAAttachmentOut, self).unlink()
+
+    @api.multi
+    def set_manually_delivered(self):
+        states = self.mapped('state')
+        if set(states) != set(['recipient_error']):
+            raise UserError(_("You can manually set to delivered only files "
+                              "in Recipient Error state"))
+        self.message_post(
+            subject=_("E-invoice manually delivered"),
+            body=_("User %s has manually sent e-invoice "
+                   "to the customer.") % self.env.user.login)
+
+        return self.write({'state': 'manually_delivered'})

@@ -29,7 +29,8 @@ class AccountInvoice(models.Model):
             'validated': 'delivered',
             'sender_error': 'error',
             'recipient_error': 'error',
-            'rejected': 'error'
+            'rejected': 'error',
+            'manually_delivered': 'delivered'
         }
         for record in self:
             record.fatturapa_state = \

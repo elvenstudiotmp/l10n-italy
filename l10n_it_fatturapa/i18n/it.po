@@ -4,11 +4,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-08 09:34+0000\n"
-"PO-Revision-Date: 2018-10-08 09:34+0000\n"
-"Last-Translator: <>\n"
+"PO-Revision-Date: 2019-01-08 12:46+0000\n"
+"Last-Translator: Domenico Stragapede <d.stragapede@elvenstudio.it>\n"
 "Language-Team: \n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -85,7 +85,8 @@ msgstr "Arrotondamento"
 
 #. module: l10n_it_fatturapa
 #: field:account.config.settings,fatturapa_art73:0
-#: field:account.invoice,art73:0 field:res.company,fatturapa_art73:0
+#: field:account.invoice,art73:0
+#: field:res.company,fatturapa_art73:0
 msgid "Art73"
 msgstr "Art73"
 
@@ -95,12 +96,13 @@ msgstr "Art73"
 msgid ""
 "As a Public Administration, partner %s IPA Code must be 6 characters long"
 msgstr ""
+"Come Pubblica amministrazione, il codice IPA per il partner %s deve essere di 6 caratteri"
 
 #. module: l10n_it_fatturapa
 #: code:addons/l10n_it_fatturapa/models/partner.py:69
 #, python-format
 msgid "As a natural person, partner %s must have Name and Surname"
-msgstr ""
+msgstr "As a natural person, partner %s must have Name and Surname"
 
 #. module: l10n_it_fatturapa
 #: field:fatturapa.attachments,ir_attachment_id:0
@@ -111,6 +113,11 @@ msgstr "Allegato"
 #: field:fatturapa.attachments,name:0
 msgid "Attachment Name"
 msgstr "Nome Allegato"
+
+#. module: l10n_it_fatturapa
+#: field:fatturapa.attachments,website_url:0
+msgid "Attachment URL"
+msgstr "URL Allegato"
 
 #. module: l10n_it_fatturapa
 #: field:fatturapa.payment.detail,payment_bank_bic:0
@@ -125,7 +132,7 @@ msgstr "Nome Banca"
 #. module: l10n_it_fatturapa
 #: help:fatturapa.attachments,type:0
 msgid "Binary File or URL"
-msgstr ""
+msgstr "File binario o URL"
 
 #. module: l10n_it_fatturapa
 #: help:account.config.settings,fatturapa_stabile_organizzazione:0
@@ -193,7 +200,8 @@ msgid "Civico Organizzazione"
 msgstr "Civico Organizzazione"
 
 #. module: l10n_it_fatturapa
-#: field:fatturapa.document_type,code:0 field:fatturapa.fiscal_position,code:0
+#: field:fatturapa.document_type,code:0
+#: field:fatturapa.fiscal_position,code:0
 #: field:fatturapa.format,code:0
 msgid "Code"
 msgstr "Codice"
@@ -299,30 +307,35 @@ msgstr "Creato il"
 #: code:addons/l10n_it_fatturapa/models/partner.py:88
 #, python-format
 msgid "Customer %s: ZIP is needed for XML generation."
-msgstr ""
+msgstr "Cliente %s: CAP obbligatorio per la generazione XML."
 
 #. module: l10n_it_fatturapa
 #: code:addons/l10n_it_fatturapa/models/partner.py:92
 #, python-format
 msgid "Customer %s: city is needed for XML generation."
-msgstr ""
+msgstr "Cliente %s: città obbligatoria per la generazione XML."
 
 #. module: l10n_it_fatturapa
 #: code:addons/l10n_it_fatturapa/models/partner.py:96
 #, python-format
 msgid "Customer %s: country is needed for XML generation."
-msgstr ""
+msgstr "Cliente %s: nazione obbligatoria per la generazione XML."
 
 #. module: l10n_it_fatturapa
 #: code:addons/l10n_it_fatturapa/models/partner.py:84
 #, python-format
 msgid "Customer %s: street is needed for XML generation."
-msgstr ""
+msgstr "Cliente %s: indirizzo obbligatorio per la generazione XML."
 
 #. module: l10n_it_fatturapa
 #: field:fatturapa.attachments,db_datas:0
 msgid "Database Data"
 msgstr "Dati Database"
+
+#. module: l10n_it_fatturapa
+#: field:fatturapa.attachments,datas_checksum:0
+msgid "Datas checksum"
+msgstr "Datas checksum"
 
 #. module: l10n_it_fatturapa
 #: field:fatturapa.related_ddt,date:0
@@ -358,7 +371,8 @@ msgstr "Data e ora di consegna"
 #. module: l10n_it_fatturapa
 #: field:account.invoice,description:0
 #: field:fatturapa.attachments,description:0
-#: field:fatturapa.document_type,name:0 field:fatturapa.fiscal_position,name:0
+#: field:fatturapa.document_type,name:0
+#: field:fatturapa.fiscal_position,name:0
 #: field:fatturapa.format,name:0
 msgid "Description"
 msgstr "Descrizione"
@@ -366,7 +380,7 @@ msgstr "Descrizione"
 #. module: l10n_it_fatturapa
 #: field:fatturapa.attachments,parent_id:0
 msgid "Directory"
-msgstr ""
+msgstr "Cartella"
 
 #. module: l10n_it_fatturapa
 #: selection:discount.rise.price,name:0
@@ -417,13 +431,16 @@ msgid "Effective date of Penality"
 msgstr "Data Decorrenza Penale"
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/account_tax.py:35
-#: code:addons/l10n_it_fatturapa/models/account_tax.py:39
-#: code:addons/l10n_it_fatturapa/models/account_tax.py:46
-#: code:addons/l10n_it_fatturapa/models/account_tax.py:50
+#: view:res.partner:l10n_it_fatturapa.fatturapa_res_partner_search
+msgid "Electronic Invoice"
+msgstr "Fattura Elettronica"
+
+#. module: l10n_it_fatturapa
+#: code:addons/l10n_it_fatturapa/models/account_tax.py:38
+#: code:addons/l10n_it_fatturapa/models/account_tax.py:41
 #, python-format
 msgid "Error"
-msgstr ""
+msgstr "Errore"
 
 #. module: l10n_it_fatturapa
 #: model:account.tax,name:l10n_it_fatturapa.tax_00_e15
@@ -573,6 +590,11 @@ msgstr "Formato"
 #: field:account.invoice,gross_weight:0
 msgid "Gross Weight"
 msgstr "Peso Lordo"
+
+#. module: l10n_it_fatturapa
+#: view:res.partner:l10n_it_fatturapa.fatturapa_res_partner_search
+msgid "Group By"
+msgstr "Raggruppa per"
 
 #. module: l10n_it_fatturapa
 #: field:fatturapa.payment.detail,payment_bank_iban:0
@@ -778,6 +800,11 @@ msgid "Member Type"
 msgstr "Tipo Socio"
 
 #. module: l10n_it_fatturapa
+#: field:fatturapa.attachments,mimetype:0
+msgid "Mime Type"
+msgstr "Mime Type"
+
+#. module: l10n_it_fatturapa
 #: selection:account.invoice,ftpa_withholding_type:0
 msgid "Natural Person"
 msgstr "Persona naturale"
@@ -793,8 +820,7 @@ msgid "Net Weight"
 msgstr "Peso Netto"
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/account_tax.py:35
-#: code:addons/l10n_it_fatturapa/models/account_tax.py:46
+#: code:addons/l10n_it_fatturapa/models/account_tax.py:38
 #, python-format
 msgid "No tax %s found"
 msgstr ""
@@ -888,7 +914,12 @@ msgstr ""
 #: code:addons/l10n_it_fatturapa/models/partner.py:80
 #, python-format
 msgid "Partner %s, must have VAT Number or Fiscal Code"
-msgstr ""
+msgstr "Partner %s, partita iva o codice fiscale obbligatorio"
+
+#. module: l10n_it_fatturapa
+#: view:res.partner:l10n_it_fatturapa.fatturapa_res_partner_search
+msgid "Partners without E-Invoice data"
+msgstr "Partner senza dati Fatt. Elettronica"
 
 #. module: l10n_it_fatturapa
 #: field:fatturapa.payment.detail,payment_amount:0
@@ -1097,6 +1128,11 @@ msgid "Related payments Data"
 msgstr "Dati pagamenti correlati"
 
 #. module: l10n_it_fatturapa
+#: field:fatturapa.attachments,datas_big:0
+msgid "Resized file content"
+msgstr ""
+
+#. module: l10n_it_fatturapa
 #: field:fatturapa.attachments,res_id:0
 msgid "Resource ID"
 msgstr "ID Risorsa"
@@ -1142,6 +1178,12 @@ msgstr "Sequenza"
 #, python-format
 msgid "Sequence %s already used by journal %s. Please select another one"
 msgstr ""
+
+#. module: l10n_it_fatturapa
+#: view:res.partner:l10n_it_fatturapa.fatturapa_res_partner_search
+msgid "Show partners which are missing one or more e-invoice data (eg. SDI code, PEC email or fiscal code for individual person."
+msgstr "Mostra i partner con dati di fatturazione elettronica mancanti (es. codice SDI, email PEC o codice fiscale per persone fisiche."
+
 
 #. module: l10n_it_fatturapa
 #: help:account.invoice,efatt_stabile_organizzazione_provincia:0
@@ -1201,7 +1243,7 @@ msgstr "Soggetto a fatturazione elettronica"
 #. module: l10n_it_fatturapa
 #: model:ir.model,name:l10n_it_fatturapa.model_account_tax
 msgid "Tax"
-msgstr ""
+msgstr "Imposta"
 
 #. module: l10n_it_fatturapa
 #: field:account.invoice,tax_representative_id:0
@@ -1247,8 +1289,7 @@ msgid "Titolo Quietanzante"
 msgstr "Titolo Quietanzante"
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/account_tax.py:39
-#: code:addons/l10n_it_fatturapa/models/account_tax.py:50
+#: code:addons/l10n_it_fatturapa/models/account_tax.py:41
 #, python-format
 msgid "Too many tax %s found"
 msgstr ""
@@ -1264,7 +1305,8 @@ msgid "Travel in hours or Km"
 msgstr "Viaggio in ore o km"
 
 #. module: l10n_it_fatturapa
-#: field:discount.rise.price,name:0 field:fatturapa.attachments,type:0
+#: field:discount.rise.price,name:0
+#: field:fatturapa.attachments,type:0
 msgid "Type"
 msgstr "Tipo"
 

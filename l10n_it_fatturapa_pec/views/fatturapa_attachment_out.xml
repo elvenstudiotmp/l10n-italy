@@ -6,32 +6,40 @@
             <field name="model">fatturapa.attachment.out</field>
             <field name="inherit_id" ref="l10n_it_fatturapa_out.view_fatturapa_out_attachment_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//div" position="before">
-                    <header>
-                        <button name="send_via_pec" states="ready" string="Send Via PEC" type="object" class="oe_highlight"/>
+                <header position="inside">
+                    <button name="send_via_pec" states="ready" string="Send Via PEC" type="object" class="oe_highlight"/>
+                    <button name="set_manually_delivered" states="recipient_error"
+                            string="Manually Delivered" type="object" class="oe_highlight"
+                            confirm="Are you sure? This operation cannot be undone." />
                     <button name="reset_to_ready" states="sender_error" string="Reset to ready" type="object" />
-                        <field name="state" widget="statusbar"/>
-                    </header>
-                </xpath>
-                <xpath expr="//div/group[last()]" position="after">
-                    <group name="last_sdi_response" string="Last Response from Exchange System" attrs="{'invisible':[('state', '=', 'ready')]}">
-                        <field name="last_sdi_response" nolabel="1"/>
+                    <field name="state" widget="statusbar" statusbar_visible="ready,sent,validated" />
+                </header>
+
+                <page name="history" position="inside">
+                    <group name="last_sdi_response" string="Last SDI response" attrs="{'invisible':[('state', '=', 'ready')]}">
+                        <field name="last_sdi_response" nolabel="1" />
                     </group>
+                </page>
+
+                <field name="datas" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', 'not in', ['ready', 'sender_error'])]}</attribute>
+                </field>
+
+                <div name="creation_div" position="after">
+                    <label for="sending_user" string="Sent by" attrs="{'invisible': [('sending_user' ,'=', False)]}"/>
+                    <div name="sending_user" attrs="{'invisible': [('sending_user' ,'=', False)]}">
+                        <field name="sending_user" readonly="1" class="oe_inline"/> <span class="oe_form_field oe_inline">on</span>
+                        <field name="sending_date" readonly="1" class="oe_inline"/>
+                    </div>
+                </div>
+
+                <xpath expr="//page[@name='history']/group/group[last()]" position="inside">
+                    <label for="delivered_date" string="Delivered" attrs="{'invisible': [('delivered_date' ,'=', False)]}"/>
+                    <div name="delivered_date" attrs="{'invisible': [('delivered_date' ,'=', False)]}">
+                        <field name="delivered_date" readonly="1" class="oe_inline"/>
+                    </div>
                 </xpath>
-            <field name="datas" position="attributes">
-                <attribute name="attrs">{'readonly': [('state', 'not in', ['ready', 'sender_error'])]}</attribute>
-            </field>
-            <div name="creation_div" position="after">
-                <label for="sending_user" string="Sent by" attrs="{'invisible': [('sending_user' ,'=', False)]}"/>
-                <div name="sending_user" attrs="{'invisible': [('sending_user' ,'=', False)]}">
-                    <field name="sending_user" readonly="1" class="oe_inline"/> on
-                    <field name="sending_date" readonly="1" class="oe_inline"/>
-                </div>
-                <label for="delivered_date" string="Delivered" attrs="{'invisible': [('delivered_date' ,'=', False)]}"/>
-                <div name="delivered_date" attrs="{'invisible': [('delivered_date' ,'=', False)]}">
-                    <field name="delivered_date" readonly="1" class="oe_inline"/>
-                </div>
-            </div>
+
             </field>
         </record>
 
@@ -40,28 +48,44 @@
             <field name="model">fatturapa.attachment.out</field>
             <field name="inherit_id" ref="l10n_it_fatturapa_out.view_fatturapa_out_attachment_tree"/>
             <field name="arch" type="xml">
+                <tree string="Export Electronic Invoice" position="attributes">
+                    <attribute name="colors">blue:state in ('ready');red:state in ('sender_error','recipient_error','rejected')</attribute>
+                </tree>
+
                 <field name="out_invoice_ids" position="after">
                     <field name="state"/>
-                <field name="sending_date"/>
-                <field name="delivered_date"/>
+                    <field name="sending_date"/>
+                    <field name="delivered_date"/>
                 </field>
             </field>
         </record>
-    <record model="ir.ui.view" id="view_fatturapa_out_attachment_search_state">
-        <field name="name">view_fatturapa_out_attachment_search_state</field>
-        <field name="model">fatturapa.attachment.out</field>
-        <field name="inherit_id" ref="l10n_it_fatturapa_out.view_fatturapa_out_attachment_search"/>
-        <field name="arch" type="xml">
-            <field name="name" position="after">
-                <field name="state"/>
-                <filter name="ready" string="Ready" domain="[('state','=','ready')]"/>
-            </field>
-        </field>
-    </record>
 
-    <record id="l10n_it_fatturapa_out.action_fatturapa_attachment" model="ir.actions.act_window">
-        <field name="context">{'search_default_ready': True}</field>
-    </record>
+        <record model="ir.ui.view" id="view_fatturapa_out_attachment_search_state">
+            <field name="name">view_fatturapa_out_attachment_search_state</field>
+            <field name="model">fatturapa.attachment.out</field>
+            <field name="inherit_id" ref="l10n_it_fatturapa_out.view_fatturapa_out_attachment_search"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="state"/>
+                    <filter name="ready" string="Ready" domain="[('state','=','ready')]"/>
+                    <filter name="sent" string="Sent" domain="[('state','=','sent')]"/>
+                    <filter name="sender_error" string="Sender Error" domain="[('state','=','sender_error')]"/>
+                    <filter name="recipient_error" string="Recipient Error" domain="[('state','=','recipient_error')]"/>
+                    <filter name="rejected" string="Rejected" domain="[('state','=','rejected')]"/>
+                    <filter name="manually_delivered" string="Manually Delivered" domain="[('state','=','manually_delivered')]"/>
+                    <filter name="validated" string="Delivered" domain="[('state','=','validated')]"/>
+                </field>
+
+                <filter name="group_by_partner" position="after">
+                    <filter name="group_by_state" string="State" domain="[]" context="{'group_by': 'state'}"/>
+                </filter>
+
+            </field>
+        </record>
+
+        <record id="l10n_it_fatturapa_out.action_fatturapa_attachment" model="ir.actions.act_window">
+            <field name="context">{'search_default_ready': True}</field>
+        </record>
 
     </data>
 </openerp>

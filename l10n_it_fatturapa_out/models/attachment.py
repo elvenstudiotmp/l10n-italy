@@ -15,6 +15,11 @@ class FatturaPAAttachment(models.Model):
     _inherit = ['mail.thread']
     _order = 'id desc'
 
+    communication_number = fields.Char(
+        required=True,
+        readonly=True
+    )
+
     ir_attachment_id = fields.Many2one(
         'ir.attachment', 'Attachment', required=True, ondelete="cascade")
     out_invoice_ids = fields.One2many(
@@ -78,6 +83,15 @@ class FatturaPAAttachment(models.Model):
                            ) % self.env.user.login
                 )
         return res
+
+    @api.multi
+    def action_show_preview(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_url',
+            'url': self.ftpa_preview_link,
+            'target': 'new',
+        }
 
 
 class FatturaAttachments(models.Model):

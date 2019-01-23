@@ -6,6 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-01-07 17:24+0000\n"
+"PO-Revision-Date: 2019-01-10 15:28+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -107,6 +109,11 @@ msgstr ""
 #. module: l10n_it_fatturapa
 #: field:fatturapa.attachments,name:0
 msgid "Attachment Name"
+msgstr ""
+
+#. module: l10n_it_fatturapa
+#: field:fatturapa.attachments,website_url:0
+msgid "Attachment URL"
 msgstr ""
 
 #. module: l10n_it_fatturapa
@@ -306,6 +313,11 @@ msgid "Database Data"
 msgstr ""
 
 #. module: l10n_it_fatturapa
+#: field:fatturapa.attachments,datas_checksum:0
+msgid "Datas checksum"
+msgstr ""
+
+#. module: l10n_it_fatturapa
 #: field:fatturapa.related_ddt,date:0
 #: field:fatturapa.related_document_type,date:0
 msgid "Date"
@@ -395,10 +407,13 @@ msgid "Effective date of Penality"
 msgstr ""
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/account_tax.py:35
-#: code:addons/l10n_it_fatturapa/models/account_tax.py:39
-#: code:addons/l10n_it_fatturapa/models/account_tax.py:46
-#: code:addons/l10n_it_fatturapa/models/account_tax.py:50
+#: view:res.partner:l10n_it_fatturapa.fatturapa_res_partner_search
+msgid "Electronic Invoice"
+msgstr ""
+
+#. module: l10n_it_fatturapa
+#: code:addons/l10n_it_fatturapa/models/account_tax.py:38
+#: code:addons/l10n_it_fatturapa/models/account_tax.py:41
 #, python-format
 msgid "Error"
 msgstr ""
@@ -543,6 +558,11 @@ msgstr ""
 #. module: l10n_it_fatturapa
 #: field:account.invoice,gross_weight:0
 msgid "Gross Weight"
+msgstr ""
+
+#. module: l10n_it_fatturapa
+#: view:res.partner:l10n_it_fatturapa.fatturapa_res_partner_search
+msgid "Group By"
 msgstr ""
 
 #. module: l10n_it_fatturapa
@@ -736,6 +756,11 @@ msgid "Member Type"
 msgstr ""
 
 #. module: l10n_it_fatturapa
+#: field:fatturapa.attachments,mimetype:0
+msgid "Mime Type"
+msgstr ""
+
+#. module: l10n_it_fatturapa
 #: selection:account.invoice,ftpa_withholding_type:0
 msgid "Natural Person"
 msgstr ""
@@ -751,8 +776,7 @@ msgid "Net Weight"
 msgstr ""
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/account_tax.py:35
-#: code:addons/l10n_it_fatturapa/models/account_tax.py:46
+#: code:addons/l10n_it_fatturapa/models/account_tax.py:38
 #, python-format
 msgid "No tax %s found"
 msgstr ""
@@ -840,6 +864,11 @@ msgstr ""
 #: code:addons/l10n_it_fatturapa/models/partner.py:80
 #, python-format
 msgid "Partner %s, must have VAT Number or Fiscal Code"
+msgstr ""
+
+#. module: l10n_it_fatturapa
+#: view:res.partner:l10n_it_fatturapa.fatturapa_res_partner_search
+msgid "Partners without E-Invoice data"
 msgstr ""
 
 #. module: l10n_it_fatturapa
@@ -1049,6 +1078,11 @@ msgid "Related payments Data"
 msgstr ""
 
 #. module: l10n_it_fatturapa
+#: field:fatturapa.attachments,datas_big:0
+msgid "Resized file content"
+msgstr ""
+
+#. module: l10n_it_fatturapa
 #: field:fatturapa.attachments,res_id:0
 msgid "Resource ID"
 msgstr ""
@@ -1093,6 +1127,11 @@ msgstr ""
 #: code:addons/l10n_it_fatturapa/models/company.py:65
 #, python-format
 msgid "Sequence %s already used by journal %s. Please select another one"
+msgstr ""
+
+#. module: l10n_it_fatturapa
+#: view:res.partner:l10n_it_fatturapa.fatturapa_res_partner_search
+msgid "Show partners which are missing one or more e-invoice data (eg. SDI code, PEC email or fiscal code for individual person."
 msgstr ""
 
 #. module: l10n_it_fatturapa
@@ -1187,8 +1226,7 @@ msgid "Titolo Quietanzante"
 msgstr ""
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/account_tax.py:39
-#: code:addons/l10n_it_fatturapa/models/account_tax.py:50
+#: code:addons/l10n_it_fatturapa/models/account_tax.py:41
 #, python-format
 msgid "Too many tax %s found"
 msgstr ""

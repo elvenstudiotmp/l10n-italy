@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <!-- Cron to automatically export and send invoices via PEC -->
+        <record id="cron_create_and_send_fatturapa_out" model="ir.cron" >
+            <field name='name'>FATTURAPA: Create and send via PEC</field>
+            <field name='active' eval="False" />
+            <field name="doall" eval="False" />
+            <field name='interval_number'>10</field>
+            <field name='interval_type'>minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="model">fatturapa.attachment.out</field>
+            <field name="function">cron_create_and_send_fatturapa_out</field>
+            <field name="args">(10,)</field>
+        </record>
+
+        <!-- todo Cron that send email about invoices with issues -->
+
+    </data>
+</openerp>
