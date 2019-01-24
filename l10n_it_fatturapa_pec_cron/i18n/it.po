@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-22 15:58+0000\n"
-"PO-Revision-Date: 2019-01-22 15:58+0000\n"
+"PO-Revision-Date: 2019-01-24 17:45+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -27,19 +27,26 @@ msgid "E-invoice errors marked as resolved"
 msgstr "Errori della fattura elettronica marcati come risolti"
 
 #. module: l10n_it_fatturapa_pec_cron
-#: code:addons/l10n_it_fatturapa_pec_cron/models/fatturapa_attachment_out.py:81
+#: code:addons/l10n_it_fatturapa_pec_cron/models/fatturapa_attachment_out.py:52
+#, python-format
+msgid "Electronic invoice data missing. Check partner Electronic Invoice tab."
+msgstr ""
+"Dati di fatturazione elettronica mancanti. "
+"Controlla la scheda fattura elettronica nel partner."
+
+#. module: l10n_it_fatturapa_pec_cron
+#: code:addons/l10n_it_fatturapa_pec_cron/models/fatturapa_attachment_out.py:96
 #, python-format
 msgid "Error during E-invoice export"
 msgstr "Errore durante l'esportazione della fattura elettronica"
 
 #. module: l10n_it_fatturapa_pec_cron
-#: help:account.invoice,fatturapa_out_error:0
 #: code:addons/l10n_it_fatturapa_pec_cron/models/account_invoice.py:18
 #, python-format
 msgid "If is set to true, then invoice had issues during last export via cron"
 msgstr ""
-"Se selezionato, la fattura ha restituito dei problemi durante "
-"l'ultima esportazione via cron"
+"Se selezionato, la fattura ha restituito dei problemi "
+"durante l'ultima esportazione via cron"
 
 #. module: l10n_it_fatturapa_pec_cron
 #: model:ir.model,name:l10n_it_fatturapa_pec_cron.model_account_invoice
@@ -48,8 +55,16 @@ msgstr "Fattura"
 
 #. module: l10n_it_fatturapa_pec_cron
 #: view:account.invoice:l10n_it_fatturapa_pec_cron.view_invoice_form_fatturapa_pec_cron
-msgid "Mark E-invoice error as resolved"
+msgid "Mark E-invoice errors as resolved"
 msgstr "Marca gli errori come risolti"
+
+#. module: l10n_it_fatturapa_pec_cron
+#: code:addons/l10n_it_fatturapa_pec_cron/models/fatturapa_attachment_out.py:58
+#, python-format
+msgid "Partner fiscal data missing. Check partner Accounting tab."
+msgstr ""
+"Dati fiscali del partner mancanti. "
+"Controlla la scheda contabilità nel partner."
 
 #. module: l10n_it_fatturapa_pec_cron
 #: view:account.invoice:l10n_it_fatturapa_pec_cron.view_account_invoice_fatturapa_out_pec_cron_filter
@@ -68,7 +83,6 @@ msgid "With Issues"
 msgstr "Con problemi"
 
 #. module: l10n_it_fatturapa_pec_cron
-#: field:account.invoice,fatturapa_out_error:0
 #: code:addons/l10n_it_fatturapa_pec_cron/models/account_invoice.py:17
 #, python-format
 msgid "With issues during last export"
