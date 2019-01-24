@@ -9,7 +9,7 @@
 
 # import logging
 from openerp import api, models, _
-from openerp.exceptions import except_orm
+from openerp.exceptions import except_orm, ValidationError
 
 # _logger = logging.getLogger(__name__)
 
@@ -44,6 +44,21 @@ class FatturaPAAttachmentOut(models.Model):
             e_invoices_to_send = self.env['fatturapa.attachment.out']
             for invoice in invoices:
                 try:
+                    partner = invoice.partner_id
+                    if partner.electronic_invoice_subjected:
+                        if partner.codice_destinatario == '0000000' and \
+                           not partner.pec_destinatario and \
+                           not partner.ipa_code:
+                            raise ValidationError(_(
+                                'Electronic invoice data missing. '
+                                'Check partner Electronic Invoice tab.'))
+
+                    else:
+                        if not partner.vat and not partner.fiscalcode:
+                            raise ValidationError(_(
+                                'Partner fiscal data missing. '
+                                'Check partner Accounting tab.'))
+
                     # simulate invoice print to gather default report data
                     report_data = invoice.invoice_print()
                     report_model = report_data['type']
