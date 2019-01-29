@@ -23,16 +23,23 @@
             <field name="name">view_sdi_channel_form</field>
             <field name="arch" type="xml">
                 <form string="SdI Channel">
-                    <group>
+                    <sheet>
+                        <h1>
+                            <label for="name" />
+                            <field name="name" class="oe_inline" />
+                        </h1>
                         <group>
-                            <field name="name"/>
-                            <field name="channel_type"/>
-                            <field name="company_id" groups="base.group_multi_company"/>
+                            <group>
+                                <field name="channel_type"/>
+                            </group>
+                            <group>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
                         </group>
-                        <newline/>
                         <group attrs="{'invisible': [('channel_type', '!=', 'pec')]}">
-                            <field name="pec_server_id" context="{'default_is_fatturapa_pec': True}"/>
-                            <field name="email_exchange_system"/>
+                            <field name="pec_fetchmail_server_id" context="{'default_is_fatturapa_pec': True}" attrs="{'required': [('channel_type', '=', 'pec')]}"/>
+                            <field name="pec_server_id" context="{'default_is_fatturapa_pec': True}" attrs="{'required': [('channel_type', '=', 'pec')]}"/>
+                            <field name="email_exchange_system" attrs="{'required': [('channel_type', '=', 'pec')]}"/>
                         </group>
                         <!--<group attrs="{'invisible': [('channel_type', '!=', 'web')]}">-->
                             <!--<field name="web_server_address"/>-->
@@ -40,7 +47,7 @@
                             <!--<field name="web_server_password"/>-->
                             <!--<field name="web_server_token"/>-->
                         <!--</group>-->
-                    </group>
+                    </sheet>
                 </form>
             </field>
         </record>
