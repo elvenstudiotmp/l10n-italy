@@ -16,10 +16,14 @@
     'license': 'LGPL-3',
 
     'depends': [
+        'email_template_qweb',
         'l10n_it_fatturapa_pec',
     ],
 
     'data': [
+        'data/invoices_with_errors_view_qweb.xml',
+        'data/invoices_with_errors_template.xml',
+
         'data/cron.xml',
         'views/account_invoice.xml',
     ],
