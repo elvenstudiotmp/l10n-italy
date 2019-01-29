@@ -215,7 +215,7 @@ msgstr "Fattura elettronica"
 #: model:ir.ui.menu,name:l10n_it_fatturapa_out.fatturapa_attachment_menu
 #, fuzzy
 msgid "Electronic Invoice Export Files"
-msgstr "File esportati fattura elettronica"
+msgstr "Comunicazioni Fatture elettroniche"
 
 #. module: l10n_it_fatturapa_out
 #: view:account.invoice:l10n_it_fatturapa_out.view_invoice_form_fatturapa
