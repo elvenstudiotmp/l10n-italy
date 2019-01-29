@@ -30,10 +30,10 @@ class StockMove(models.Model):
             move, partner, inv_type)
 
         if inv_type in ('out_refund', 'in_refund'):
+            # override account_id if a refund account is defined
             account_id = res.get('account_id', False)
             if account_id:
-                account_model = self.env['account.account']
-                account = account_model.browse(account_id)
+                account = self.env['account.account'].browse(account_id)
                 if account and account.refund_invoice_account_id:
                     res['account_id'] = account.refund_invoice_account_id.id
 
