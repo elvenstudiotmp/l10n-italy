@@ -3,7 +3,7 @@
 #
 #    Copyright (C) 2011-2013 Associazione OpenERP Italia
 #    (<http://www.openerp-italia.org>).
-#    Copyright (C) 2014 Agile Business Group sagl
+#    Copyright (C) 2014-2015 Agile Business Group
 #    (<http://www.agilebg.com>)
 #    Copyright (C) 2015 Link It Spa
 #    (<http://www.linkgroup.it/>)
@@ -12,4 +12,4 @@
 #
 #
 
-from . import print_central_journal
+from . import central_journal

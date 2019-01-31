@@ -6,6 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-17 18:11+0000\n"
+"PO-Revision-Date: 2018-05-17 18:11+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -14,28 +16,34 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: l10n_it_central_journal
+#: view:website:l10n_it_central_journal.report_account_central_journal_document
+msgid "&nbsp;"
+msgstr ""
+
+#. module: l10n_it_central_journal
+#: view:website:l10n_it_central_journal.report_account_central_journal_document
+msgid "Account"
+msgstr ""
+
+#. module: l10n_it_central_journal
+#: model:ir.actions.report.xml,name:l10n_it_central_journal.action_report_account_central_journal
+#: view:website:l10n_it_central_journal.report_account_central_journal_header
+msgid "Account Central Journal"
+msgstr ""
+
+#. module: l10n_it_central_journal
 #: model:ir.actions.report.xml,name:l10n_it_central_journal.action_report_giornale
 msgid "Account central journal"
 msgstr ""
 
 #. module: l10n_it_central_journal
-#: view:website:l10n_it_central_journal.report_giornale
-msgid "Account code"
-msgstr ""
-
-#. module: l10n_it_central_journal
-#: view:website:l10n_it_central_journal.report_giornale
-msgid "Account move"
-msgstr ""
-
-#. module: l10n_it_central_journal
-#: view:website:l10n_it_central_journal.report_giornale
-msgid "Account name"
-msgstr ""
-
-#. module: l10n_it_central_journal
 #: selection:wizard.giornale,target_move:0
 msgid "All"
+msgstr ""
+
+#. module: l10n_it_central_journal
+#: field:account.journal,anom_sale_receipts:0
+msgid "Anonimous sale receipts journal"
 msgstr ""
 
 #. module: l10n_it_central_journal
@@ -56,6 +64,21 @@ msgid "Central journal info"
 msgstr ""
 
 #. module: l10n_it_central_journal
+#: help:account.journal,proforma:0
+msgid "Check if this is a Proforma Journal"
+msgstr ""
+
+#. module: l10n_it_central_journal
+#: help:account.journal,anom_sale_receipts:0
+msgid "Check if this is the Anonimous Sale Receipts Journal"
+msgstr ""
+
+#. module: l10n_it_central_journal
+#: view:website:l10n_it_central_journal.report_account_central_journal_header
+msgid "Company:"
+msgstr ""
+
+#. module: l10n_it_central_journal
 #: field:wizard.giornale,create_uid:0
 msgid "Created by"
 msgstr ""
@@ -66,17 +89,17 @@ msgid "Created on"
 msgstr ""
 
 #. module: l10n_it_central_journal
-#: view:website:l10n_it_central_journal.report_giornale
+#: view:website:l10n_it_central_journal.report_account_central_journal_document
 msgid "Credit"
 msgstr ""
 
 #. module: l10n_it_central_journal
-#: view:website:l10n_it_central_journal.report_giornale
+#: view:website:l10n_it_central_journal.report_account_central_journal_document
 msgid "Date"
 msgstr ""
 
 #. module: l10n_it_central_journal
-#: code:addons/l10n_it_central_journal/wizard/print_giornale.py:142
+#: code:addons/l10n_it_central_journal/wizard/print_central_journal.py:141
 #, python-format
 msgid "Date already printed"
 msgstr ""
@@ -87,12 +110,12 @@ msgid "Dates movements"
 msgstr ""
 
 #. module: l10n_it_central_journal
-#: view:website:l10n_it_central_journal.report_giornale
+#: view:website:l10n_it_central_journal.report_account_central_journal_document
 msgid "Debit"
 msgstr ""
 
 #. module: l10n_it_central_journal
-#: field:report.l10n_it_central_journal.report_giornale,display_name:0
+#: field:report.l10n_it_central_journal.report_account_central_journal,display_name:0
 #: field:wizard.giornale,display_name:0
 msgid "Display Name"
 msgstr ""
@@ -104,12 +127,14 @@ msgstr ""
 
 #. module: l10n_it_central_journal
 #: field:account.journal,central_journal_exclude:0
-msgid "Exclude from Central             Journal"
+#: code:addons/l10n_it_central_journal/models/account_journal.py:20
+#, python-format
+msgid "Exclude from Central Journal"
 msgstr ""
 
 #. module: l10n_it_central_journal
-#: view:website:l10n_it_central_journal.report_giornale
-msgid "Final Balance"
+#: view:website:l10n_it_central_journal.report_account_central_journal_document
+msgid "Final Balance at"
 msgstr ""
 
 #. module: l10n_it_central_journal
@@ -124,20 +149,25 @@ msgid "Fiscal Year"
 msgstr ""
 
 #. module: l10n_it_central_journal
+#: view:website:l10n_it_central_journal.report_account_central_journal_header
+msgid "Fiscalcode:"
+msgstr ""
+
+#. module: l10n_it_central_journal
 #: field:wizard.giornale,date_move_line_from:0
 #: field:wizard.giornale,date_move_line_from_view:0
 msgid "From date"
 msgstr ""
 
 #. module: l10n_it_central_journal
-#: field:report.l10n_it_central_journal.report_giornale,id:0
+#: field:report.l10n_it_central_journal.report_account_central_journal,id:0
 #: field:wizard.giornale,id:0
 msgid "ID"
 msgstr ""
 
 #. module: l10n_it_central_journal
-#: view:website:l10n_it_central_journal.report_giornale
-msgid "Initial Balance"
+#: view:website:l10n_it_central_journal.report_account_central_journal_document
+msgid "Initial Balance at"
 msgstr ""
 
 #. module: l10n_it_central_journal
@@ -152,7 +182,7 @@ msgid "Journals"
 msgstr ""
 
 #. module: l10n_it_central_journal
-#: field:report.l10n_it_central_journal.report_giornale,__last_update:0
+#: field:report.l10n_it_central_journal.report_account_central_journal,__last_update:0
 #: field:wizard.giornale,__last_update:0
 msgid "Last Modified on"
 msgstr ""
@@ -174,6 +204,8 @@ msgstr ""
 
 #. module: l10n_it_central_journal
 #: field:account.fiscalyear,date_last_print:0
+#: code:addons/l10n_it_central_journal/models/account_fiscalyear.py:20
+#, python-format
 msgid "Last printed date"
 msgstr ""
 
@@ -188,15 +220,20 @@ msgid "Layout"
 msgstr ""
 
 #. module: l10n_it_central_journal
-#: view:website:l10n_it_central_journal.report_giornale
-msgid "Name"
+#: view:website:l10n_it_central_journal.report_account_central_journal_document
+msgid "Move nr."
 msgstr ""
 
 #. module: l10n_it_central_journal
-#: code:addons/l10n_it_central_journal/wizard/print_giornale.py:118
-#: code:addons/l10n_it_central_journal/wizard/print_giornale.py:157
+#: code:addons/l10n_it_central_journal/wizard/print_central_journal.py:118
+#: code:addons/l10n_it_central_journal/wizard/print_central_journal.py:155
 #, python-format
 msgid "No documents found in the current selection"
+msgstr ""
+
+#. module: l10n_it_central_journal
+#: view:website:l10n_it_central_journal.report_account_central_journal_header
+msgid "Pag:"
 msgstr ""
 
 #. module: l10n_it_central_journal
@@ -215,13 +252,22 @@ msgid "Printed"
 msgstr ""
 
 #. module: l10n_it_central_journal
+#: field:account.journal,proforma:0
+msgid "Proforma journal"
+msgstr ""
+
+#. module: l10n_it_central_journal
 #: field:account.fiscalyear,progressive_credit:0
+#: code:addons/l10n_it_central_journal/models/account_fiscalyear.py:34
 #: field:wizard.giornale,progressive_credit:0
+#, python-format
 msgid "Progressive Credit"
 msgstr ""
 
 #. module: l10n_it_central_journal
 #: field:account.fiscalyear,progressive_debit:0
+#: code:addons/l10n_it_central_journal/models/account_fiscalyear.py:40
+#, python-format
 msgid "Progressive Debit"
 msgstr ""
 
@@ -232,11 +278,15 @@ msgstr ""
 
 #. module: l10n_it_central_journal
 #: field:account.fiscalyear,progressive_line_number:0
+#: code:addons/l10n_it_central_journal/models/account_fiscalyear.py:29
+#, python-format
 msgid "Progressive line"
 msgstr ""
 
 #. module: l10n_it_central_journal
 #: field:account.fiscalyear,progressive_page_number:0
+#: code:addons/l10n_it_central_journal/models/account_fiscalyear.py:24
+#, python-format
 msgid "Progressive of the page"
 msgstr ""
 
@@ -246,12 +296,7 @@ msgid "Ready for printing"
 msgstr ""
 
 #. module: l10n_it_central_journal
-#: view:website:l10n_it_central_journal.report_giornale
-msgid "Ref"
-msgstr ""
-
-#. module: l10n_it_central_journal
-#: view:website:l10n_it_central_journal.report_giornale
+#: view:website:l10n_it_central_journal.report_account_central_journal_document
 msgid "Row"
 msgstr ""
 
@@ -273,6 +318,11 @@ msgstr ""
 #. module: l10n_it_central_journal
 #: field:wizard.giornale,date_move_line_to:0
 msgid "To date"
+msgstr ""
+
+#. module: l10n_it_central_journal
+#: view:website:l10n_it_central_journal.report_account_central_journal_header
+msgid "Vat:"
 msgstr ""
 
 #. module: l10n_it_central_journal
