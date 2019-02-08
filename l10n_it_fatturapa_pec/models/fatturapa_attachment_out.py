@@ -54,19 +54,8 @@ class FatturaPAAttachmentOut(models.Model):
                 )
             att.state = 'ready'
 
-    @api.model
-    def _check_fetchmail(self):
-        server = self.env['fetchmail.server'].search([
-            ('is_fatturapa_pec', '=', True),
-            ('state', '=', 'done')
-        ])
-        if not server:
-            raise UserError(_(
-                "No incoming PEC server found. Please configure it."))
-
     @api.multi
     def send_via_pec(self):
-        self._check_fetchmail()
         states = self.mapped('state')
         if set(states) != set(['ready']):
             raise UserError(
@@ -101,14 +90,14 @@ class FatturaPAAttachmentOut(models.Model):
             })
 
             if mail:
-                    try:
-                        mail.send(raise_exception=True)
-                        att.state = 'sent'
-                        att.sending_date = fields.Datetime.now()
-                        att.sending_user = self.env.user.id
-                    except MailDeliveryException as e:
-                        att.state = 'sender_error'
-                        mail.body = e[1]
+                try:
+                    mail.send(raise_exception=True)
+                    att.state = 'sent'
+                    att.sending_date = fields.Datetime.now()
+                    att.sending_user = self.env.user.id
+                except MailDeliveryException as e:
+                    att.state = 'sender_error'
+                    mail.body = e[1]
 
     @api.multi
     def parse_pec_response(self, message_dict):

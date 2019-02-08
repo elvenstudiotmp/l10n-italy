@@ -6,22 +6,23 @@
             <field name="model">wizard.export.fatturapa</field>
             <field name="arch" type="xml">
                 <form string="Export Electronic Invoice">
-                    <group col="2" height="500" width="600">
-                        <group>
-                            <separator colspan="2" string="If you want to add a PDF version of the invoice into the XML, select which one"/>
+                    <group>
+                        <group string="If you want to add a PDF version of the invoice into the XML, select which one">
                             <field name="report_print_menu"
                                    string="Attached report"
                                    widget="selection"/>
                         </group>
-                        <newline/>
-                        <group col="3">
-                            <button colspan="1" special="cancel" string="Cancel"/>
-                            <button colspan="1" name="exportFatturaPA" string="Export" type="object" class="oe_highlight"/>
-                        </group>
                     </group>
                     <footer>
-                        <div></div>
-                    </footer>
+						<button name="exportFatturaPA"
+                                string="Export"
+                                type="object"
+                                class="oe_highlight" />
+						or
+						<button string="Cancel"
+                                class="oe_link"
+                                special="cancel" />
+					</footer>
                 </form>
             </field>
         </record>

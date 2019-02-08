@@ -41,6 +41,13 @@ class SdiChannelPEC(models.Model):
              'channels (Web, Sftp) could be provided by external modules.'
     )
 
+    pec_fetchmail_server_id = fields.Many2one(
+        'fetchmail.server',
+        string='Pec fetchmail server',
+        required=False,
+        domain=[('is_fatturapa_pec', '=', True)]
+    )
+
     pec_server_id = fields.Many2one(
         'ir.mail_server',
         string='Pec mail server',
