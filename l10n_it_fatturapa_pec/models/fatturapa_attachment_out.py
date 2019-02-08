@@ -232,9 +232,10 @@ class FatturaPAAttachmentOut(models.Model):
     @api.multi
     def unlink(self):
         for att in self:
-            if att.state != 'ready':
+            if att.state not in ['ready', 'rejected']:
                 raise UserError(_(
-                    "You can only delete files in 'Ready to Send' state."
+                    "You can only delete files in "
+                    "'Ready to Send' or 'Rejected' state."
                 ))
         return super(FatturaPAAttachmentOut, self).unlink()
 

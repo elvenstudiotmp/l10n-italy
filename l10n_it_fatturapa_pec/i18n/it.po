@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-22 15:57+0000\n"
-"PO-Revision-Date: 2019-01-22 15:57+0000\n"
+"PO-Revision-Date: 2019-02-08 18:33+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -57,12 +57,12 @@ msgstr "Data consegna"
 #. module: l10n_it_fatturapa_pec
 #: field:wizard.fatturapa.send.pec,display_name:0
 msgid "Display Name"
-msgstr ""
+msgstr "Display Name"
 
 #. module: l10n_it_fatturapa_pec
 #: model:ir.model,name:l10n_it_fatturapa_pec.model_fatturapa_attachment_out
 msgid "E-invoice Export File"
-msgstr ""
+msgstr "E-invoice Export File"
 
 #. module: l10n_it_fatturapa_pec
 #: field:account.invoice,fatturapa_state:0
@@ -70,7 +70,7 @@ msgid "E-invoice State"
 msgstr "Stato Fattura Elettronica"
 
 #. module: l10n_it_fatturapa_pec
-#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:259
+#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:249
 #, python-format
 msgid "E-invoice manually delivered"
 msgstr "Fattura elettronica consegnata manualmente"
@@ -151,12 +151,6 @@ msgstr ""
 #: selection:fatturapa.attachment.out,state:0
 msgid "Manually Delivered"
 msgstr "Consegnata Manualmente"
-
-#. module: l10n_it_fatturapa_pec
-#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:64
-#, python-format
-msgid "No incoming PEC server found. Please configure it."
-msgstr "Nessun server PEC di ricezione trovato. Sei pregato di configurarlo."
 
 #. module: l10n_it_fatturapa_pec
 #: view:fatturapa.attachment.out:l10n_it_fatturapa_pec.view_fatturapa_out_attachment_search_state
@@ -252,7 +246,7 @@ msgid "State"
 msgstr "Stato"
 
 #. module: l10n_it_fatturapa_pec
-#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:260
+#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:250
 #, python-format
 msgid "User %s has manually sent e-invoice to the customer."
 msgstr "L'utente %s ha inviato manualmente la fattura elettronica al cliente."
@@ -268,16 +262,16 @@ msgid "Wizard to send multiple e-invoice PEC"
 msgstr "Wizard per inviare Fatture elettroniche multiple via PEC"
 
 #. module: l10n_it_fatturapa_pec
-#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:256
+#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:246
 #, python-format
 msgid "You can manually set to delivered only files in Recipient Error state"
 msgstr "Puoi impostare come consegnata manualmente solo comunicazioni con consegna fallita"
 
 #. module: l10n_it_fatturapa_pec
-#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:247
+#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:236
 #, python-format
-msgid "You can only delete files in 'Ready to Send' state."
-msgstr "Puoi eliminare solo le comunicazioni in stato di 'Pronta per l'invio'"
+msgid "You can only delete files in 'Ready to Send' or 'Rejected' state."
+msgstr "Puoi eliminare solo le comunicazioni in stato di 'Pronta per l'invio' o 'Rifiutata'"
 
 #. module: l10n_it_fatturapa_pec
 #: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:53
@@ -286,7 +280,7 @@ msgid "You can only reset files in 'Sender Error' state."
 msgstr "Puoi solo resettare comunicazioni in stato di 'Errore Mittente'."
 
 #. module: l10n_it_fatturapa_pec
-#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:73
+#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:62
 #, python-format
 msgid "You can only send files in 'Ready to Send' state."
 msgstr "Puoi solo inviare comunicazioni in stato di 'Pronta per l'invio'."
