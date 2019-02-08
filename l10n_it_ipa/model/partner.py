@@ -32,5 +32,8 @@ from openerp.tools.translate import _
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    ipa_code = fields.Char(string=_('IPA Code'))
+    ipa_code = fields.Char(
+        string=_('IPA Code'),
+        track_visibility='onchange'
+    )
     is_pa = fields.Boolean(string=_("Public administration"))
