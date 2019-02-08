@@ -75,7 +75,7 @@ msgid "E-invoice State"
 msgstr ""
 
 #. module: l10n_it_fatturapa_pec
-#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:259
+#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:249
 #, python-format
 msgid "E-invoice manually delivered"
 msgstr ""
@@ -151,27 +151,10 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: l10n_it_fatturapa_pec
-#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:60
-#, python-format
-msgid "No incoming PEC server found. Please configure it."
-msgstr ""
-
-#. module: l10n_it_fatturapa_pec
-#: selection:fatturapa.attachment.out,state:0
-msgid "Not delivered"
-msgstr ""
-
-#. module: l10n_it_fatturapa_pec
 #: view:fatturapa.attachment.out:l10n_it_fatturapa_pec.view_fatturapa_out_attachment_search_state
 #: view:fatturapa.attachment.out:l10n_it_fatturapa_pec.view_fatturapa_out_pec_attachment_form
 #: selection:fatturapa.attachment.out,state:0
 msgid "Manually Delivered"
-msgstr ""
-
-#. module: l10n_it_fatturapa_pec
-#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:64
-#, python-format
-msgid "No incoming PEC server found. Please configure it."
 msgstr ""
 
 #. module: l10n_it_fatturapa_pec
@@ -268,7 +251,7 @@ msgid "State"
 msgstr ""
 
 #. module: l10n_it_fatturapa_pec
-#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:260
+#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:250
 #, python-format
 msgid "User %s has manually sent e-invoice to the customer."
 msgstr ""
@@ -284,15 +267,15 @@ msgid "Wizard to send multiple e-invoice PEC"
 msgstr ""
 
 #. module: l10n_it_fatturapa_pec
-#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:256
+#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:246
 #, python-format
 msgid "You can manually set to delivered only files in Recipient Error state"
 msgstr ""
 
 #. module: l10n_it_fatturapa_pec
-#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:247
+#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:236
 #, python-format
-msgid "You can only delete files in 'Ready to Send' state."
+msgid "You can only delete files in 'Ready to Send' or 'Rejected' state."
 msgstr ""
 
 #. module: l10n_it_fatturapa_pec
@@ -302,7 +285,7 @@ msgid "You can only reset files in 'Sender Error' state."
 msgstr ""
 
 #. module: l10n_it_fatturapa_pec
-#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:73
+#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:62
 #, python-format
 msgid "You can only send files in 'Ready to Send' state."
 msgstr ""
