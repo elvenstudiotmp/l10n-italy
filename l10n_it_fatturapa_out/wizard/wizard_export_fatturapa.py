@@ -9,6 +9,7 @@ import base64
 import logging
 import os
 
+import openerp
 from openerp import fields, models, api, _
 from openerp.exceptions import Warning as UserError
 from openerp.tools.safe_eval import safe_eval
@@ -579,8 +580,8 @@ class WizardExportFatturapa(models.TransientModel):
         if price_precision < 2:
             # XML wants at least 2 decimals always
             price_precision = 2
-        uom_precision = self.env['decimal.precision'].precision_get(
-            'Product Unit of Measure')
+        uom_precision = max(self.env['decimal.precision'].precision_get(
+            'Product Unit of Measure'), 2)
         if uom_precision < 2:
             uom_precision = 2
         for line in invoice.invoice_line:
@@ -606,7 +607,7 @@ class WizardExportFatturapa(models.TransientModel):
                     price_precision
                 ) + 'f') % prezzo_unitario,
                 Quantita=('%.' + str(
-                    max(uom_precision, 2)
+                    uom_precision
                 ) + 'f') % line.quantity,
                 UnitaMisura=line.uos_id and (
                     unidecode(line.uos_id.name)) or None,
@@ -862,9 +863,11 @@ class WizardExportFatturapa(models.TransientModel):
         # Generate the PDF: if report_action.attachment is set
         # they will be automatically attached to the invoice,
         # otherwise use res to build a new attachment
-        res = report_model.get_pdf(
-            self._cr, self._uid, inv.ids,
-            action_report.report_name, data=None, context=self.env.context)
+
+        (res, report_format) = openerp.report.render_report(
+            self._cr, self._uid, [inv.id],
+            action_report.report_name, {'model': inv._name},
+            self._context)
 
         if action_report.attachment:
             # If the report is configured to be attached

@@ -2,7 +2,7 @@
 # Author(s): Andrea Colangelo (andreacolangelo@openforce.it)
 # Copyright 2018 Openforce Srls Unipersonale (www.openforce.it)
 # Copyright 2018 Sergio Corato (https://efatto.it)
-# Copyright 2018 Lorenzo Battistini <https://github.com/eLBati>
+# Copyright 2018-2019 Lorenzo Battistini <https://github.com/eLBati>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 import logging
@@ -23,20 +23,17 @@ RESPONSE_MAIL_REGEX = '[A-Z]{2}[a-zA-Z0-9]{11,16}_[a-zA-Z0-9]{,5}_[A-Z]{2}_' \
 class FatturaPAAttachmentOut(models.Model):
     _inherit = 'fatturapa.attachment.out'
 
-    state = fields.Selection(
-        selection=[
-            ('ready', 'Ready to Send'),
-            ('sent', 'Sent'),
-            ('sender_error', 'Sender Error'),
-            ('recipient_error', 'Recipient Error'),
-            ('rejected', 'Rejected (PA)'),
-            ('validated', 'Delivered'),
-            ('accepted', 'Accepted'),
-            ('manually_delivered', 'Manually Delivered')
-        ],
-        string='State',
-        default='ready'
-    )
+    state = fields.Selection([('ready', 'Ready to Send'),
+                              ('sent', 'Sent'),
+                              ('sender_error', 'Sender Error'),
+                              ('recipient_error', 'Not delivered'),
+                              ('rejected', 'Rejected (PA)'),
+                              ('validated', 'Delivered'),
+                              ('accepted', 'Accepted'),
+                              ('manually_delivered', 'Manually Delivered')
+                              ],
+                             string='State',
+                             default='ready',)
 
     last_sdi_response = fields.Text(
         string='Last Response from Exchange System', default='No response yet',
@@ -105,14 +102,16 @@ class FatturaPAAttachmentOut(models.Model):
         message_dict['res_id'] = 0
 
         regex = re.compile(RESPONSE_MAIL_REGEX)
-        message_attachments = message_dict['attachments']
-        attachments = [x for x in message_attachments if regex.match(x[0])]
-        for response_name, content in attachments:
+        attachments = [x for x in message_dict['attachments']
+                       if regex.match(x[0])]
+
+        for attachment in attachments:
+            response_name = attachment[0]
             message_type = response_name.split('_')[2]
-            if response_name.lower().endswith('.zip'):
+            if attachment[0].lower().endswith('.zip'):
                 # not implemented, case of AT, todo
                 continue
-            root = etree.fromstring(content)
+            root = etree.fromstring(attachment[1])
             file_name = root.find('NomeFile')
             fatturapa_attachment_out = False
 

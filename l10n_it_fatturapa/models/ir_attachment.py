@@ -5,6 +5,7 @@ import os
 import shlex
 import subprocess
 import logging
+import base64
 from io import BytesIO
 from openerp import models, api, fields
 from openerp.modules import get_module_resource
@@ -70,10 +71,26 @@ class Attachment(models.Model):
             )
         return tmp_der_file
 
+    # Due to a (likely) openssl bug (v.1.1.0x) we need to decrypt
+    # files without message signature verification (-nosigs option).
+    # Otherwise openssl gives an error like the following one on
+    # some files (decrypted anyway):
+    #
+    # Verification failure
+    # int_rsa_verify:bad signature
+    # PKCS7_signatureVerify:signature failure
+    # PKCS7_verify:signature failure
+    #
+    # Tested openssl versions:
+    # 1.0.1t-1+deb8u8    - Debian 8     - OK
+    # 1.0.2g-1ubuntu4.14 - Ubuntu 16.04 - OK
+    # 1.1.0f-3+deb9u2    - Debian 9     - affected
+    # 1.1.0g-2ubuntu4.3  - Ubuntu 18.04 - affected
+
     def decrypt_to_xml(self, signed_file, xml_file):
         strcmd = (
             'openssl smime -decrypt -verify -inform'
-            ' DER -in %s -noverify -out %s'
+            ' DER -in %s -noverify -nosigs -out %s'
         ) % (signed_file, xml_file)
         cmd = shlex.split(strcmd)
         try:
@@ -97,7 +114,14 @@ class Attachment(models.Model):
         return xml_file
 
     def remove_xades_sign(self, xml):
-        root = ET.XML(xml)
+        # Recovering parser is needed for files where strings like
+        # xmlns:ds="http://www.w3.org/2000/09/xmldsig#&quot;"
+        # are present: even if lxml raises
+        # {XMLSyntaxError}xmlns:ds:
+        # 'http://www.w3.org/2000/09/xmldsig#"' is not a valid URI
+        # such files are accepted by SDI
+        recovering_parser = ET.XMLParser(recover=True)
+        root = ET.XML(xml, parser=recovering_parser)
         for elem in root.iter('*'):
             if elem.tag.find('Signature') > -1:
                 elem.getparent().remove(elem)
@@ -105,11 +129,18 @@ class Attachment(models.Model):
         return ET.tostring(root)
 
     def strip_xml_content(self, xml):
-        root = ET.XML(xml)
+        recovering_parser = ET.XMLParser(recover=True)
+        root = ET.XML(xml, parser=recovering_parser)
         for elem in root.iter('*'):
             if elem.text is not None:
                 elem.text = elem.text.strip()
         return ET.tostring(root)
+
+    def isBase64(self, s):
+        try:
+            return base64.b64encode(base64.b64decode(s)) == s
+        except Exception:
+            return False
 
     def get_xml_string(self):
         fatturapa_attachment = self
@@ -120,7 +151,10 @@ class Attachment(models.Model):
             temp_der_file_name = (
                 '/tmp/%s_tmp' % fatturapa_attachment.datas_fname.lower())
             with open(temp_file_name, 'w') as p7m_file:
-                p7m_file.write(fatturapa_attachment.datas.decode('base64'))
+                txt = fatturapa_attachment.datas.decode('base64')
+                if self.isBase64(txt):
+                    txt = base64.b64decode(txt)
+                p7m_file.write(txt)
             xml_file_name = os.path.splitext(temp_file_name)[0]
 
             # check if temp_file_name is a PEM file
@@ -151,7 +185,8 @@ class Attachment(models.Model):
         xslt = ET.parse(xsl_path)
         xml_string = self.get_xml_string()
         xml_file = BytesIO(xml_string)
-        dom = ET.parse(xml_file)
+        recovering_parser = ET.XMLParser(recover=True)
+        dom = ET.parse(xml_file, parser=recovering_parser)
         transform = ET.XSLT(xslt)
         newdom = transform(dom)
         return ET.tostring(newdom, pretty_print=True)

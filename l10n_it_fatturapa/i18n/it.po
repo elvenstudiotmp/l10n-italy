@@ -32,7 +32,7 @@ msgid "ABI"
 msgstr "ABI"
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:67
+#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:68
 #, python-format
 msgid "ASN.1 structure is not parsable in DER"
 msgstr "ASN.1 structure is not parsable in DER"
@@ -73,7 +73,7 @@ msgid "Amount untaxed"
 msgstr "Importo imponibile"
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:42
+#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:43
 #, python-format
 msgid "An error with command \"openssl asn1parse\" occurred: %s"
 msgstr "An error with command \"openssl asn1parse\" occurred: %s"
@@ -893,7 +893,7 @@ msgid "PEC destinatario"
 msgstr "PEC destinatario"
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:61
+#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:62
 #, python-format
 msgid "Parsing PEM to DER  file %s"
 msgstr "Parsing PEM to DER  file %s"
@@ -1197,13 +1197,13 @@ msgstr ""
 "1.2.3.6 <Nazione> e' uguale a IT"
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:87
+#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:104
 #, python-format
 msgid "Signed Xml file %s"
 msgstr "Signed Xml file %s"
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:93
+#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:110
 #, python-format
 msgid "Signed Xml file not decryptable"
 msgstr "Signed Xml file not decryptable"
@@ -1218,11 +1218,6 @@ msgstr "Scissione pagamenti"
 #: field:res.company,fatturapa_stabile_organizzazione:0
 msgid "Stabile Organizzazione"
 msgstr "Stabile Organizzazione"
-
-#. module: l10n_it_fatturapa
-#: field:account.invoice,stamp_amount:0
-msgid "Stamp Amount"
-msgstr "Importo bollo"
 
 #. module: l10n_it_fatturapa
 #: field:fatturapa.attachments,store_fname:0
@@ -1329,11 +1324,6 @@ msgstr "Veicolo"
 #: field:account.invoice,vehicle_registration:0
 msgid "Vehicle Registration"
 msgstr "Immatricolazione"
-
-#. module: l10n_it_fatturapa
-#: field:account.invoice,virtual_stamp:0
-msgid "Virtual Stamp"
-msgstr "Bollo virtuale"
 
 #. module: l10n_it_fatturapa
 #: field:account.invoice,unit_weight:0
@@ -1447,6 +1437,12 @@ msgstr "Terzo"
 #: model:ir.model,name:l10n_it_fatturapa.model_welfare_fund_type
 msgid "welfare fund type"
 msgstr "Tipo cassa previdenziale"
+
+#~ msgid "Stamp Amount"
+#~ msgstr "Importo bollo"
+
+#~ msgid "Virtual Stamp"
+#~ msgstr "Bollo virtuale"
 
 #, fuzzy
 #~ msgid "22 Split Payment"

@@ -35,7 +35,7 @@ msgid "ABI"
 msgstr "ABI"
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:67
+#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:68
 #, python-format
 msgid "ASN.1 structure is not parsable in DER"
 msgstr ""
@@ -76,7 +76,7 @@ msgid "Amount untaxed"
 msgstr ""
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:42
+#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:43
 #, python-format
 msgid "An error with command \"openssl asn1parse\" occurred: %s"
 msgstr ""
@@ -837,7 +837,7 @@ msgid "PEC destinatario"
 msgstr ""
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:61
+#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:62
 #, python-format
 msgid "Parsing PEM to DER  file %s"
 msgstr ""
@@ -1122,13 +1122,13 @@ msgid ""
 msgstr ""
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:87
+#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:104
 #, python-format
 msgid "Signed Xml file %s"
 msgstr ""
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:93
+#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:110
 #, python-format
 msgid "Signed Xml file not decryptable"
 msgstr ""
@@ -1142,11 +1142,6 @@ msgstr ""
 #: field:account.config.settings,fatturapa_stabile_organizzazione:0
 #: field:res.company,fatturapa_stabile_organizzazione:0
 msgid "Stabile Organizzazione"
-msgstr ""
-
-#. module: l10n_it_fatturapa
-#: field:account.invoice,stamp_amount:0
-msgid "Stamp Amount"
 msgstr ""
 
 #. module: l10n_it_fatturapa
@@ -1248,11 +1243,6 @@ msgstr ""
 #. module: l10n_it_fatturapa
 #: field:account.invoice,vehicle_registration:0
 msgid "Vehicle Registration"
-msgstr ""
-
-#. module: l10n_it_fatturapa
-#: field:account.invoice,virtual_stamp:0
-msgid "Virtual Stamp"
 msgstr ""
 
 #. module: l10n_it_fatturapa
