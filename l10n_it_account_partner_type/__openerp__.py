@@ -33,6 +33,7 @@
 
     "data": [
         'views/res_partner_view.xml',
+        'views/account_invoice_view.xml',
     ],
 
     'installable': True,

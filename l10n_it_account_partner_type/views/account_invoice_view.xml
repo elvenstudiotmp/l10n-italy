@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="l10n_it_account_partner_type_account_invoice_search_view" model="ir.ui.view">
+            <field name="name">l10n.it.account.partner.type.account.invoice.search.view</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+
+                <field name="partner_id" position="after">
+                     <field name="name"
+                            string="Partner type"
+                            filter_domain="[('partner_id.partner_type','ilike',self)]"/>
+                </field>
+                
+            </field>
+        </record>
+
+    </data>
+</openerp>
