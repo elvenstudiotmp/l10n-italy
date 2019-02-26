@@ -19,9 +19,12 @@ class FatturaPAAttachmentOut(models.Model):
 
     @api.model
     def cron_create_and_send_fatturapa_out(self, limit=10):
+        rc_journals = self.env['account.rc.type'].search([]).mapped('journal_id')
+
         invoice_model = self.env['account.invoice']
         invoices = invoice_model.search(
             [
+                ('id', 'not in', rc_journals.ids),
                 ('type', 'in', ['out_invoice', 'out_refund']),
                 ('fatturapa_attachment_out_id', '=', False),
                 ('date_invoice', '>=', '2019-01-01'),
