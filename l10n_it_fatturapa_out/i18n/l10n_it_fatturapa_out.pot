@@ -6,8 +6,6 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-07 17:24+0000\n"
-"PO-Revision-Date: 2019-01-22 15:57+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -78,7 +76,7 @@ msgid "Company"
 msgstr ""
 
 #. module: l10n_it_fatturapa_out
-#: code:addons/l10n_it_fatturapa_out/wizard/wizard_export_fatturapa.py:81
+#: code:addons/l10n_it_fatturapa_out/wizard/wizard_export_fatturapa.py:82
 #, python-format
 msgid "Company %s TIN not set."
 msgstr ""
@@ -191,7 +189,7 @@ msgid "E-invoice Export File"
 msgstr ""
 
 #. module: l10n_it_fatturapa_out
-#: code:addons/l10n_it_fatturapa_out/models/attachment.py:81
+#: code:addons/l10n_it_fatturapa_out/models/attachment.py:76
 #, python-format
 msgid "E-invoice attachment changed"
 msgstr ""
@@ -261,7 +259,7 @@ msgid "FatturaPA attachments"
 msgstr ""
 
 #. module: l10n_it_fatturapa_out
-#: code:addons/l10n_it_fatturapa_out/models/attachment.py:51
+#: code:addons/l10n_it_fatturapa_out/models/attachment.py:46
 #, python-format
 msgid "File %s already present"
 msgstr ""
@@ -386,7 +384,7 @@ msgid "Invoices"
 msgstr ""
 
 #. module: l10n_it_fatturapa_out
-#: code:addons/l10n_it_fatturapa_out/wizard/wizard_export_fatturapa.py:778
+#: code:addons/l10n_it_fatturapa_out/wizard/wizard_export_fatturapa.py:765
 #, python-format
 msgid "Invoices must belong to the same partner"
 msgstr ""
@@ -440,14 +438,14 @@ msgid "Mime Type"
 msgstr ""
 
 #. module: l10n_it_fatturapa_out
-#: code:addons/l10n_it_fatturapa_out/wizard/wizard_export_fatturapa.py:666
+#: code:addons/l10n_it_fatturapa_out/wizard/wizard_export_fatturapa.py:667
 #, python-format
 msgid "No 'law reference' field for tax %s"
 msgstr ""
 
 #. module: l10n_it_fatturapa_out
-#: code:addons/l10n_it_fatturapa_out/wizard/wizard_export_fatturapa.py:624
-#: code:addons/l10n_it_fatturapa_out/wizard/wizard_export_fatturapa.py:662
+#: code:addons/l10n_it_fatturapa_out/wizard/wizard_export_fatturapa.py:625
+#: code:addons/l10n_it_fatturapa_out/wizard/wizard_export_fatturapa.py:663
 #, python-format
 msgid "No 'nature' field for tax %s"
 msgstr ""
@@ -469,7 +467,7 @@ msgid "Partner"
 msgstr ""
 
 #. module: l10n_it_fatturapa_out
-#: code:addons/l10n_it_fatturapa_out/wizard/wizard_export_fatturapa.py:85
+#: code:addons/l10n_it_fatturapa_out/wizard/wizard_export_fatturapa.py:86
 #, python-format
 msgid "Partner %s TIN not set."
 msgstr ""
@@ -630,7 +628,7 @@ msgid "Url"
 msgstr ""
 
 #. module: l10n_it_fatturapa_out
-#: code:addons/l10n_it_fatturapa_out/models/attachment.py:82
+#: code:addons/l10n_it_fatturapa_out/models/attachment.py:77
 #, python-format
 msgid "User %s uploaded a new e-invoice file"
 msgstr ""
