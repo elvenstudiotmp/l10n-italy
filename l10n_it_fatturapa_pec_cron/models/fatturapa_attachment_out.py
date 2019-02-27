@@ -24,7 +24,7 @@ class FatturaPAAttachmentOut(models.Model):
         invoice_model = self.env['account.invoice']
         invoices = invoice_model.search(
             [
-                ('id', 'not in', rc_journals.ids),
+                ('journal_id', 'not in', rc_journals.ids),
                 ('type', 'in', ['out_invoice', 'out_refund']),
                 ('fatturapa_attachment_out_id', '=', False),
                 ('date_invoice', '>=', '2019-01-01'),
