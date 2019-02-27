@@ -496,7 +496,8 @@ class WizardExportFatturapa(models.TransientModel):
 
         if invoice.comment:
             # max length of Causale is 200
-            caus_list = invoice.comment.split('\n')
+            caus_list = invoice.comment\
+                .replace('\t', '    ').replace('\r', '\n').split('\n')
             for causale in caus_list:
                 if not causale:
                     continue
