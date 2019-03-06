@@ -17,6 +17,7 @@
 
     'depends': [
         'email_template_qweb',
+        'l10n_it_reverse_charge',
         'l10n_it_fatturapa_pec',
     ],
 
