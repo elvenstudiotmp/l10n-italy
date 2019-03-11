@@ -8,12 +8,16 @@
             <field name="arch" type="xml">
                 <form string="Import Fattura Elettronica" >
                     <group>
-                        <field name="e_invoice_detail_level"/>
-                        <footer>
-                            <button special="cancel" string="Cancel"/>
-                            <button name="importFatturaPA" string="Import" type="object"/>
-                        </footer>
+                        <group>
+                            <field name="e_invoice_detail_level"/>
+                        </group>
+                        <group></group>
                     </group>
+                    <footer>
+                        <button name="importFatturaPA" string="Import" type="object" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="Cancel" class="oe_link" />
+                    </footer>
                 </form>
             </field>
         </record>

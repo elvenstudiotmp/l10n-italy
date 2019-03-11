@@ -123,3 +123,12 @@ class Attachment(models.Model):
         transform = ET.XSLT(xslt)
         newdom = transform(dom)
         return ET.tostring(newdom, pretty_print=True)
+
+    @api.multi
+    def action_show_preview(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_url',
+            'url': self.ftpa_preview_link,
+            'target': 'new',
+        }

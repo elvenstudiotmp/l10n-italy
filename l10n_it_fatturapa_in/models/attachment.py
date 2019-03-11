@@ -2,6 +2,7 @@
 
 import base64
 from openerp import fields, models, api, _
+from openerp.exceptions import ValidationError
 
 
 class FatturaPAAttachmentIn(models.Model):
@@ -84,3 +85,25 @@ class FatturaPAAttachmentIn(models.Model):
                 'invoice_id': invoice_id,
             }
             AttachModel.create(_attach_dict)
+
+    @api.multi
+    def action_show_preview(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_url',
+            'url': self.ftpa_preview_link,
+            'target': 'new',
+        }
+
+    @api.multi
+    def action_show_invoices(self):
+        self.ensure_one()
+        if not self.in_invoice_ids:
+            raise ValidationError(_('No invoices to show!'))
+
+        action = self.env['ir.model.data']\
+            .get_object_reference('account', 'action_invoice_tree2')
+        action_id = action and action[1] or False
+        result = self.env['ir.actions.act_window'].browse(action_id).read()[0]
+        result['domain'] = "[('id','in'," + str(self.in_invoice_ids.ids) + ")]"
+        return result
