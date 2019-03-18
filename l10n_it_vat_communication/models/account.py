@@ -769,7 +769,8 @@ class commitment_line(orm.AbstractModel):
                     _('Partner %s without Fiscalcode') % (partner.name))
         else:
             res['xml_Denominazione'] = partner.name
-            if not partner.vat:
+            # avoid check for non-profit organizations
+            if not partner.vat and not partner.fiscalcode:
                 raise orm.except_orm(
                     _('Error!'),
                     _('Partner %s without VAT number') % (partner.name))
