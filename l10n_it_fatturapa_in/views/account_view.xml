@@ -159,11 +159,11 @@
                                 <tree string="Dettaglio Linee">
                                     <field name="line_number"/>
                                     <field name="name"/>
-                                    <field name="qty"/>
+                                    <field name="qty" sum="total_qty"/>
                                     <field name="uom"/>
                                     <field name="unit_price"/>
                                     <field name="tax_amount"/>
-                                    <field name="total_price"/>
+                                    <field name="total_price" sum="grand_total_price"/>
                                 </tree>
                                 <form string="Dettaglio Linea">
                                     <group>
@@ -242,6 +242,23 @@
                                     </field>
                                 </group>
                             </page>
+                            <page string="Related Documents">
+                                <group>
+                                    <field name="related_documents" nolabel="1" readonly="1">
+                                        <tree editable="bottom" string="Related Documents">
+                                            <field name="type"/>
+                                            <field name="name"/>
+                                            <field name="lineRef" readonly="1"/>
+                                            <field name="date"/>
+                                            <field name="numitem"/>
+                                            <field name="code"/>
+                                            <field name="cig"/>
+                                            <field name="cup"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+
                             <page string="Delivery">
                                 <group>
                                     <group>
@@ -263,22 +280,6 @@
                                 </group>
                             </page>
 
-                            <page string="Related Documents">
-                                <group>
-                                    <field name="related_documents" nolabel="1" readonly="1">
-                                        <tree editable="bottom" string="Related Documents">
-                                            <field name="type"/>
-                                            <field name="name"/>
-                                            <field name="lineRef" readonly="1"/>
-                                            <field name="date"/>
-                                            <field name="numitem"/>
-                                            <field name="code"/>
-                                            <field name="cig"/>
-                                            <field name="cup"/>
-                                        </tree>
-                                    </field>
-                                </group>
-                            </page>
                             <page string="Welfare Fund">
                                 <group>
                                     <field name="welfare_fund_ids" nolabel="1" readonly="1">
@@ -295,6 +296,7 @@
                                     </field>
                                 </group>
                             </page>
+
                             <page string="SAL data">
                                 <group>
                                     <field name="activity_progress_ids" nolabel="1" readonly="1" colspan="2">
@@ -304,6 +306,7 @@
                                     </field>
                                 </group>
                             </page>
+
                             <page string="Attachments">
                                 <group>
                                     <field name="fatturapa_doc_attachments" nolabel="1" readonly="1">
