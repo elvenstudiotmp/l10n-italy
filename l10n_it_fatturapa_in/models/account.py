@@ -72,6 +72,8 @@ class EInvoiceLine(models.Model):
     _name = 'einvoice.line'
     invoice_id = fields.Many2one(
         "account.invoice", "Invoice", readonly=True)
+    invoice_line_id = fields.Many2one(
+        "account.invoice.line", "Invoice line", readonly=True, index=True)
     line_number = fields.Integer('Numero Linea', readonly=True)
     service_type = fields.Char('Tipo Cessione Prestazione', readonly=True)
     cod_article_ids = fields.One2many(

@@ -714,7 +714,7 @@ class WizardImportFatturapa(models.TransientModel):
             )
         return journals[0]
 
-    def create_e_invoice_line(self, line):
+    def create_e_invoice_line(self, line, invoice_line_id=None):
         vals = {
             'line_number': int(line.NumeroLinea or 0),
             'service_type': line.TipoCessionePrestazione,
@@ -729,6 +729,7 @@ class WizardImportFatturapa(models.TransientModel):
             'wt_amount': line.Ritenuta,
             'tax_kind': line.Natura,
             'admin_ref': line.RiferimentoAmministrazione,
+            'invoice_line_id': invoice_line_id
         }
         einvoiceline = self.env['einvoice.line'].create(vals)
         if line.CodiceArticolo:
@@ -883,6 +884,7 @@ class WizardImportFatturapa(models.TransientModel):
         # 2.2.1
         e_invoice_line_ids = []
         for line in FatturaBody.DatiBeniServizi.DettaglioLinee:
+            invoice_line_id = None
             if self.e_invoice_detail_level == '2':
                 invoice_line_data = self._prepareInvoiceLine(
                     credit_account_id, line)
@@ -893,7 +895,7 @@ class WizardImportFatturapa(models.TransientModel):
                 invoice_line_id = invoice_line_model.create(
                     invoice_line_data).id
                 invoice_lines.append(invoice_line_id)
-            einvoiceline = self.create_e_invoice_line(line)
+            einvoiceline = self.create_e_invoice_line(line, invoice_line_id=invoice_line_id)
             e_invoice_line_ids.append(einvoiceline.id)
         invoice_data['invoice_line'] = [(6, 0, invoice_lines)]
         invoice_data['e_invoice_line_ids'] = [(6, 0, e_invoice_line_ids)]
