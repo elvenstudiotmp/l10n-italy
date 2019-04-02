@@ -3,7 +3,8 @@
 # Copyright 2018 Gianmarco Conte, Marco Calcagni - Dinamiche Aziendali srl
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-from openerp import fields, models, api
+from openerp import fields, models, api, _
+from openerp.exceptions import ValidationError
 import openerp.addons.decimal_precision as dp
 
 RELATED_DOCUMENT_TYPES = {
@@ -205,6 +206,22 @@ class FatturaAttachments(models.Model):
     invoice_id = fields.Many2one(
         'account.invoice', 'Related Invoice',
         ondelete='cascade', index=True)
+
+    @api.multi
+    def action_download_attachment(self):
+        self.ensure_one()
+        if not self.ir_attachment_id:
+            raise ValidationError(_('No attachment found!'))
+
+        return {
+            'type': 'ir.actions.act_url',
+            'url': '/web/binary/saveas?'
+                   'model=ir.attachment&'
+                   'field=datas&'
+                   'filename_field=name&'
+                   'id=%s' % self.ir_attachment_id.id,
+            'target': 'self',
+        }
 
 
 class FatturapaRelatedDdt(models.Model):

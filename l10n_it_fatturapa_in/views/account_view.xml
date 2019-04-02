@@ -310,6 +310,9 @@
                                             <field name="ir_attachment_id"/>
                                             <field name="name"/>
                                             <field name="description"/>
+                                            <button name="action_download_attachment"
+                                                    type="object"
+                                                    icon="gtk-save" />
                                         </tree>
                                         <form string="Attachments">
                                             <group>
