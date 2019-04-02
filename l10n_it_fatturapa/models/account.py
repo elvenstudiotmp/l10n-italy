@@ -3,7 +3,8 @@
 # Copyright 2018 Gianmarco Conte, Marco Calcagni - Dinamiche Aziendali srl
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-from openerp import fields, models, api
+from openerp import fields, models, api, _
+from openerp.exceptions import ValidationError
 import openerp.addons.decimal_precision as dp
 
 RELATED_DOCUMENT_TYPES = {
@@ -99,9 +100,18 @@ class WelfareFundType(models.Model):
     # _position = ['2.1.1.7.1']
     _name = "welfare.fund.type"
     _description = 'welfare fund type'
+    _rec_name = 'display_name'
 
     name = fields.Char('name')
     description = fields.Char('description')
+    display_name = fields.Char(string='Name', compute='_compute_display_name')
+
+    @api.depends('description', 'name')
+    @api.multi
+    def _compute_display_name(self):
+        for record in self:
+            record.display_name = u'[%s] %s' % (
+                record.name, record.description)
 
 
 class WelfareFundDataLine(models.Model):
@@ -206,6 +216,22 @@ class FatturaAttachments(models.Model):
         'account.invoice', 'Related Invoice',
         ondelete='cascade', index=True)
 
+    @api.multi
+    def action_download_attachment(self):
+        self.ensure_one()
+        if not self.ir_attachment_id:
+            raise ValidationError(_('No attachment found!'))
+
+        return {
+            'type': 'ir.actions.act_url',
+            'url': '/web/binary/saveas?'
+                   'model=ir.attachment&'
+                   'field=datas&'
+                   'filename_field=name&'
+                   'id=%s' % self.ir_attachment_id.id,
+            'target': 'self',
+        }
+
 
 class FatturapaRelatedDdt(models.Model):
     # _position = ['2.1.2', '2.2.3', '2.1.4', '2.1.5', '2.1.6']
@@ -303,9 +329,6 @@ class AccountInvoice(models.Model):
     )
     #  2.1.1.5.2 2.1.1.5.3 2.1.1.5.4 mapped to l10n_it_withholding_tax fields
 
-    #  2.1.1.6
-    virtual_stamp = fields.Boolean('Virtual Stamp', default=False, copy=False)
-    stamp_amount = fields.Float('Stamp Amount', copy=False)
     #  2.1.1.7
     welfare_fund_ids = fields.One2many(
         'welfare.fund.data.line', 'invoice_id',

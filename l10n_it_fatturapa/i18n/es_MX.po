@@ -35,12 +35,6 @@ msgid "ABI"
 msgstr ""
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:67
-#, python-format
-msgid "ASN.1 structure is not parsable in DER"
-msgstr ""
-
-#. module: l10n_it_fatturapa
 #: field:faturapa.activity.progress,fatturapa_activity_progress:0
 msgid "Activity Progress"
 msgstr ""
@@ -73,12 +67,6 @@ msgstr ""
 #. module: l10n_it_fatturapa
 #: field:faturapa.summary.data,amount_untaxed:0
 msgid "Amount untaxed"
-msgstr ""
-
-#. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:42
-#, python-format
-msgid "An error with command \"openssl asn1parse\" occurred: %s"
 msgstr ""
 
 #. module: l10n_it_fatturapa
@@ -123,6 +111,12 @@ msgstr ""
 #. module: l10n_it_fatturapa
 #: field:fatturapa.payment.detail,payment_bank_name:0
 msgid "Bank name"
+msgstr ""
+
+#. module: l10n_it_fatturapa
+#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:86
+#, python-format
+msgid "Base64 encoded file %s."
 msgstr ""
 
 #. module: l10n_it_fatturapa
@@ -256,6 +250,12 @@ msgid "Contract"
 msgstr ""
 
 #. module: l10n_it_fatturapa
+#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:76
+#, python-format
+msgid "Corrupted attachment %s."
+msgstr ""
+
+#. module: l10n_it_fatturapa
 #: field:discount.rise.price,create_uid:0
 #: field:fatturapa.attachments,create_uid:0
 #: field:fatturapa.document_type,create_uid:0
@@ -290,25 +290,19 @@ msgid "Created on"
 msgstr "Creado en"
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:88
-#, python-format
-msgid "Customer %s: ZIP is needed for XML generation."
-msgstr ""
-
-#. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:92
+#: code:addons/l10n_it_fatturapa/models/partner.py:104
 #, python-format
 msgid "Customer %s: city is needed for XML generation."
 msgstr ""
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:96
+#: code:addons/l10n_it_fatturapa/models/partner.py:74
 #, python-format
 msgid "Customer %s: country is needed for XML generation."
 msgstr ""
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:84
+#: code:addons/l10n_it_fatturapa/models/partner.py:96
 #, python-format
 msgid "Customer %s: street is needed for XML generation."
 msgstr ""
@@ -383,7 +377,6 @@ msgstr ""
 #: field:faturapa.activity.progress,display_name:0
 #: field:faturapa.summary.data,display_name:0
 #: field:welfare.fund.data.line,display_name:0
-#: field:welfare.fund.type,display_name:0
 msgid "Display Name"
 msgstr "Nombre desplegado"
 
@@ -641,6 +634,12 @@ msgid "Intermediary"
 msgstr ""
 
 #. module: l10n_it_fatturapa
+#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:110
+#, python-format
+msgid "Invalid xml %s."
+msgstr ""
+
+#. module: l10n_it_fatturapa
 #: model:account.tax,name:l10n_it_fatturapa.tax_00_rc
 msgid "Inversione Contabile"
 msgstr ""
@@ -653,6 +652,18 @@ msgstr "Factura"
 #. module: l10n_it_fatturapa
 #: model:ir.model,name:l10n_it_fatturapa.model_account_invoice_line
 msgid "Invoice Line"
+msgstr ""
+
+#. module: l10n_it_fatturapa
+#: code:addons/l10n_it_fatturapa/models/partner.py:91
+#, python-format
+msgid "Italian Partner %s, must have VAT Number or Fiscal Code"
+msgstr ""
+
+#. module: l10n_it_fatturapa
+#: code:addons/l10n_it_fatturapa/models/partner.py:100
+#, python-format
+msgid "Italian Partner %s: ZIP is needed for XML generation."
 msgstr ""
 
 #. module: l10n_it_fatturapa
@@ -752,6 +763,11 @@ msgid "Member Type"
 msgstr ""
 
 #. module: l10n_it_fatturapa
+#: field:welfare.fund.type,display_name:0
+msgid "Name"
+msgstr ""
+
+#. module: l10n_it_fatturapa
 #: selection:account.invoice,ftpa_withholding_type:0
 msgid "Natural Person"
 msgstr ""
@@ -836,27 +852,15 @@ msgid "PEC destinatario"
 msgstr ""
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:61
-#, python-format
-msgid "Parsing PEM to DER  file %s"
-msgstr ""
-
-#. module: l10n_it_fatturapa
 #: field:fatturapa.attachments,partner_id:0
 #: model:ir.model,name:l10n_it_fatturapa.model_res_partner
 msgid "Partner"
 msgstr "Empresa"
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:76
+#: code:addons/l10n_it_fatturapa/models/partner.py:83
 #, python-format
-msgid "Partner %s Addressee Code must be 7 characters long"
-msgstr ""
-
-#. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:80
-#, python-format
-msgid "Partner %s, must have VAT Number or Fiscal Code"
+msgid "Partner %s Addressee Code must be 7 characters long."
 msgstr ""
 
 #. module: l10n_it_fatturapa
@@ -1121,18 +1125,6 @@ msgid ""
 msgstr ""
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:87
-#, python-format
-msgid "Signed Xml file %s"
-msgstr ""
-
-#. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:93
-#, python-format
-msgid "Signed Xml file not decryptable"
-msgstr ""
-
-#. module: l10n_it_fatturapa
 #: selection:faturapa.summary.data,payability:0
 msgid "Split payment"
 msgstr ""
@@ -1141,11 +1133,6 @@ msgstr ""
 #: field:account.config.settings,fatturapa_stabile_organizzazione:0
 #: field:res.company,fatturapa_stabile_organizzazione:0
 msgid "Stabile Organizzazione"
-msgstr ""
-
-#. module: l10n_it_fatturapa
-#: field:account.invoice,stamp_amount:0
-msgid "Stamp Amount"
 msgstr ""
 
 #. module: l10n_it_fatturapa
@@ -1247,11 +1234,6 @@ msgstr ""
 #. module: l10n_it_fatturapa
 #: field:account.invoice,vehicle_registration:0
 msgid "Vehicle Registration"
-msgstr ""
-
-#. module: l10n_it_fatturapa
-#: field:account.invoice,virtual_stamp:0
-msgid "Virtual Stamp"
 msgstr ""
 
 #. module: l10n_it_fatturapa

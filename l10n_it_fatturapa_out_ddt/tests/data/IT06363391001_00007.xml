@@ -46,7 +46,7 @@
             </IdFiscaleIVA>
             <CodiceFiscale>07973780013</CodiceFiscale>
             <Anagrafica>
-               <Denominazione>B2B Customer</Denominazione>
+               <Denominazione>Cliente B2B</Denominazione>
             </Anagrafica>
          </DatiAnagrafici>
          <Sede>
@@ -62,7 +62,7 @@
       <DatiGenerali>
          <DatiGeneraliDocumento>
             <TipoDocumento>TD01</TipoDocumento>
-            <Divisa>USD</Divisa>
+            <Divisa>EUR</Divisa>
             <Data>2018-01-07</Data>
             <Numero>INV/2018/0014</Numero>
             <ImportoTotaleDocumento>24.40</ImportoTotaleDocumento>
@@ -76,12 +76,12 @@
                </IdFiscaleIVA>
                <CodiceFiscale>03297040366</CodiceFiscale>
                <Anagrafica>
-                  <Denominazione>Intermediary</Denominazione>
+                  <Denominazione>Intermediario</Denominazione>
                </Anagrafica>
             </DatiAnagraficiVettore>
-            <MezzoTrasporto>DESTINATARIO</MezzoTrasporto>
-            <CausaleTrasporto>VENDITA</CausaleTrasporto>
-            <Descrizione>CARTONE</Descrizione>
+            <MezzoTrasporto>Recipient</MezzoTrasporto>
+            <CausaleTrasporto>Sale</CausaleTrasporto>
+            <Descrizione>Box</Descrizione>
             <PesoLordo>0.0</PesoLordo>
             <PesoNetto>0.0</PesoNetto>
          </DatiTrasporto>

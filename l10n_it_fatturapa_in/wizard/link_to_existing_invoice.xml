@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="wizard_link_supplier_invoice" model="ir.ui.view">
+            <field name="name">wizard_link_supplier_invoice</field>
+            <field name="model">wizard.link.to.invoice</field>
+            <field name="arch" type="xml">
+                <form string="Link to existing supplier invoice">
+                    <group>
+                        <group>
+                            <field name="invoice_id"
+                                   domain="[('type', 'in', ('in_invoice', 'in_refund')), ('state', '!=', 'cancel'), ('fatturapa_attachment_in_id', '=', False)]"
+                                   context="{'form_view_ref': 'account.invoice_supplier_form', 'tree_view_ref': 'account.invoice_supplier_tree'}"
+                                   options="{'no_create': True}"
+                            />
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="link" string="Link" type="object" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="Cancel" class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_wizard_link_supplier_invoice" model="ir.actions.act_window">
+            <field name="name">Link to existing supplier invoice</field>
+            <field name="res_model">wizard.link.to.invoice</field>
+            <field name="src_model">fatturapa.attachment.in</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="wizard_link_supplier_invoice"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

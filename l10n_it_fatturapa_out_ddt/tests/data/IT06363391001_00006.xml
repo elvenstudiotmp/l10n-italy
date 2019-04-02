@@ -46,7 +46,7 @@
             </IdFiscaleIVA>
             <CodiceFiscale>07973780013</CodiceFiscale>
             <Anagrafica>
-               <Denominazione>B2B Customer</Denominazione>
+               <Denominazione>Cliente B2B</Denominazione>
             </Anagrafica>
          </DatiAnagrafici>
          <Sede>
@@ -62,7 +62,7 @@
       <DatiGenerali>
          <DatiGeneraliDocumento>
             <TipoDocumento>TD01</TipoDocumento>
-            <Divisa>USD</Divisa>
+            <Divisa>EUR</Divisa>
             <Data>2018-01-07</Data>
             <Numero>INV/2018/0013</Numero>
             <ImportoTotaleDocumento>61.00</ImportoTotaleDocumento>

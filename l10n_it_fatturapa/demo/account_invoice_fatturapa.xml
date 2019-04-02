@@ -5,21 +5,21 @@
         <record id="tax_22" model="account.tax">
             <field name="name">22% ftPA</field>
             <field name="description">22</field>
-            <field name="amount">22</field>
+            <field name="amount">0.22</field>
             <field name="type_tax_use">sale</field>
         </record>
 
         <record id="tax_22_acq" model="account.tax">
             <field name="name">22% ftPA acq</field>
             <field name="description">22 acq</field>
-            <field name="amount">22</field>
+            <field name="amount">0.22</field>
             <field name="type_tax_use">purchase</field>
         </record>
 
         <record id="tax_22_SP" model="account.tax">
             <field name="name">SP22%</field>
             <field name="description">22 Split Payment</field>
-            <field name="amount">22</field>
+            <field name="amount">0.22</field>
             <field name="payability">S</field>
             <field name="type_tax_use">sale</field>
         </record>
@@ -138,7 +138,6 @@
             <field name="customer">1</field>
             <field name="supplier">0</field>
             <field name="is_company">1</field>
-            <field name="is_pa">0</field>
             <field name="city">Genova</field>
             <field name="zip">16100</field>
             <field name="country_id" ref="base.it"/>
@@ -166,9 +165,8 @@
             <field name="supplier">0</field>
             <field name="is_company">1</field>
             <field name="street">29-17 Al Thanya St</field>
-            <field name="is_pa">0</field>
             <field name="city">Dubai</field>
-            <field name="zip">123234</field>
+            <field name="zip">23100</field>
             <field name="country_id" ref="base.ae"/>
             <field name="email">info@mycompany.it</field>
         </record>
