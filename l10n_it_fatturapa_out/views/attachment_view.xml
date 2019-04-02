@@ -84,7 +84,7 @@
         </record>
 
         <record id="action_fatturapa_attachment" model="ir.actions.act_window">
-            <field name="name">Electronic Invoice Export Files</field>
+            <field name="name">Electronic Invoices</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">fatturapa.attachment.out</field>
             <field name="view_type">form</field>
@@ -92,10 +92,10 @@
             <field name="view_id" ref="view_fatturapa_out_attachment_tree"/>
         </record>
 
-        <menuitem action="action_fatturapa_attachment"
-                  parent="l10n_it_fatturapa.menu_fattura_pa_receivables"
-                  name="Electronic Invoice Export Files"
-                  id="fatturapa_attachment_menu"/>
+        <menuitem action="action_fatturapa_attachment" id="fatturapa_attachment_menu"
+                  parent="account.menu_finance_receivables" sequence="0"/>
+<!--                  name="Electronic Invoice Export Files"-->
+<!--                  parent="l10n_it_fatturapa.menu_fattura_pa_receivables"-->
 
     </data>
 </openerp>
