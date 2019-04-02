@@ -33,7 +33,7 @@ class FatturaPAAttachmentOut(models.Model):
                               ('manually_delivered', 'Manually Delivered')
                               ],
                              string='State',
-                             default='ready',)
+                             default='ready', track_visibility='onchange')
 
     last_sdi_response = fields.Text(
         string='Last Response from Exchange System', default='No response yet',
@@ -76,6 +76,7 @@ class FatturaPAAttachmentOut(models.Model):
                 'mail_server_id': self.env.user.company_id.sdi_channel_id.
                 pec_server_id.id,
             })
+
             mail = self.env['mail.mail'].create({
                 'mail_message_id': mail_message.id,
                 'body_html': mail_message.body,

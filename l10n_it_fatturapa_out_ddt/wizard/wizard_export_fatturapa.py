@@ -40,10 +40,9 @@ class WizardExportFatturapa(models.TransientModel):
                 CausaleTrasporto=invoice.transportation_reason_id.name or None,
                 NumeroColli=invoice.parcels or None,
                 Descrizione=invoice.goods_description_id.name or None,
-                # TODO Collegate ai campi ma non gestite in fatturapa
-                # PesoLordo='%.2f' % invoice.gross_weight,
-                # PesoNetto='%.2f' % invoice.net_weight,
-                # TipoResa=invoice.ftpa_incoterms or None
+                PesoLordo='%.2f' % invoice.gross_weight,
+                PesoNetto='%.2f' % invoice.net_weight,
+                TipoResa=None  # invoice.incoterms_id.code or None
             )
             if invoice.carrier_id:
                 if not invoice.carrier_id.vat:

@@ -6,24 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-07 17:24+0000\n"
-"PO-Revision-Date: 2019-01-10 15:28+0000\n"
+"POT-Creation-Date: 2019-04-02 14:37+0000\n"
+"PO-Revision-Date: 2019-04-02 14:37+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: l10n_it_fatturapa
-#: model:account.tax,name:l10n_it_fatturapa.tax_22
-msgid "22% ftPA"
-msgstr ""
-
-#. module: l10n_it_fatturapa
-#: model:account.tax,name:l10n_it_fatturapa.tax_22_acq
-msgid "22% ftPA acq"
-msgstr ""
 
 #. module: l10n_it_fatturapa
 #: field:fatturapa.payment.detail,payment_bank_abi:0
@@ -78,13 +68,13 @@ msgid "Art73"
 msgstr ""
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:63
+#: code:addons/l10n_it_fatturapa/models/partner.py:66
 #, python-format
 msgid "As a Public Administration, partner %s IPA Code must be 6 characters long"
 msgstr ""
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:69
+#: code:addons/l10n_it_fatturapa/models/partner.py:72
 #, python-format
 msgid "As a natural person, partner %s must have Name and Surname"
 msgstr ""
@@ -164,11 +154,6 @@ msgstr ""
 #. module: l10n_it_fatturapa
 #: field:fatturapa.related_document_type,cup:0
 msgid "CUP Code"
-msgstr ""
-
-#. module: l10n_it_fatturapa
-#: field:account.invoice,carrier_id:0
-msgid "Carrier"
 msgstr ""
 
 #. module: l10n_it_fatturapa
@@ -284,25 +269,19 @@ msgid "Created on"
 msgstr ""
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:88
-#, python-format
-msgid "Customer %s: ZIP is needed for XML generation."
-msgstr ""
-
-#. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:92
+#: code:addons/l10n_it_fatturapa/models/partner.py:107
 #, python-format
 msgid "Customer %s: city is needed for XML generation."
 msgstr ""
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:96
+#: code:addons/l10n_it_fatturapa/models/partner.py:77
 #, python-format
 msgid "Customer %s: country is needed for XML generation."
 msgstr ""
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:84
+#: code:addons/l10n_it_fatturapa/models/partner.py:99
 #, python-format
 msgid "Customer %s: street is needed for XML generation."
 msgstr ""
@@ -330,6 +309,7 @@ msgid "Dati relativi al soggetto terzo che emette fattura per conto del cedente 
 msgstr ""
 
 #. module: l10n_it_fatturapa
+#: selection:account.tax,payability:0
 #: selection:faturapa.summary.data,payability:0
 msgid "Deferred payability"
 msgstr ""
@@ -381,7 +361,6 @@ msgstr ""
 #: field:faturapa.activity.progress,display_name:0
 #: field:faturapa.summary.data,display_name:0
 #: field:welfare.fund.data.line,display_name:0
-#: field:welfare.fund.type,display_name:0
 msgid "Display Name"
 msgstr ""
 
@@ -419,23 +398,13 @@ msgid "Error"
 msgstr ""
 
 #. module: l10n_it_fatturapa
-#: model:account.tax,name:l10n_it_fatturapa.tax_00_e15
-msgid "Esculso Art. 15"
-msgstr ""
-
-#. module: l10n_it_fatturapa
-#: model:account.tax,name:l10n_it_fatturapa.tax_00_minimi
-msgid "Esente"
-msgstr ""
-
-#. module: l10n_it_fatturapa
-#: model:account.tax,name:l10n_it_fatturapa.tax_00_minimi_acq
-msgid "Esente Acq"
-msgstr ""
-
-#. module: l10n_it_fatturapa
 #: help:account.invoice,efatt_rounding:0
 msgid "Eventuale arrotondamento sul totale documento (ammette anche il segno negativo)"
+msgstr ""
+
+#. module: l10n_it_fatturapa
+#: selection:account.tax,non_taxable_nature:0
+msgid "FC applicazione IVA"
 msgstr ""
 
 #. module: l10n_it_fatturapa
@@ -446,8 +415,6 @@ msgstr ""
 #. module: l10n_it_fatturapa
 #: view:account.config.settings:l10n_it_fatturapa.view_account_config_settings
 #: view:account.invoice.line:l10n_it_fatturapa.view_invoice_line_form_fatturapa
-#: model:ir.ui.menu,name:l10n_it_fatturapa.menu_fattura_pa_payables
-#: model:ir.ui.menu,name:l10n_it_fatturapa.menu_fattura_pa_receivables
 #: view:res.partner:l10n_it_fatturapa.view_partner_form_fatturapa
 msgid "Fattura Elettronica"
 msgstr ""
@@ -593,6 +560,7 @@ msgid "IPA123"
 msgstr ""
 
 #. module: l10n_it_fatturapa
+#: selection:account.tax,non_taxable_nature:0
 #: selection:faturapa.summary.data,non_taxable_nature:0
 msgid "IVA assolta in altro stato UE"
 msgstr ""
@@ -603,6 +571,7 @@ msgid "Il codice, di 7 caratteri, assegnato dal Sdi ai soggetti che hanno accred
 msgstr ""
 
 #. module: l10n_it_fatturapa
+#: selection:account.tax,payability:0
 #: selection:faturapa.summary.data,payability:0
 msgid "Immediate payability"
 msgstr ""
@@ -649,11 +618,6 @@ msgid "Invalid xml %s."
 msgstr ""
 
 #. module: l10n_it_fatturapa
-#: model:account.tax,name:l10n_it_fatturapa.tax_00_rc
-msgid "Inversione Contabile"
-msgstr ""
-
-#. module: l10n_it_fatturapa
 #: model:ir.model,name:l10n_it_fatturapa.model_account_invoice
 msgid "Invoice"
 msgstr ""
@@ -661,6 +625,18 @@ msgstr ""
 #. module: l10n_it_fatturapa
 #: model:ir.model,name:l10n_it_fatturapa.model_account_invoice_line
 msgid "Invoice Line"
+msgstr ""
+
+#. module: l10n_it_fatturapa
+#: code:addons/l10n_it_fatturapa/models/partner.py:94
+#, python-format
+msgid "Italian Partner %s, must have VAT Number or Fiscal Code"
+msgstr ""
+
+#. module: l10n_it_fatturapa
+#: code:addons/l10n_it_fatturapa/models/partner.py:103
+#, python-format
+msgid "Italian Partner %s: ZIP is needed for XML generation."
 msgstr ""
 
 #. module: l10n_it_fatturapa
@@ -715,6 +691,7 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: l10n_it_fatturapa
+#: field:account.tax,law_reference:0
 #: field:faturapa.summary.data,law_reference:0
 msgid "Law reference"
 msgstr ""
@@ -767,6 +744,11 @@ msgid "Mime Type"
 msgstr ""
 
 #. module: l10n_it_fatturapa
+#: field:welfare.fund.type,display_name:0
+msgid "Name"
+msgstr ""
+
+#. module: l10n_it_fatturapa
 #: selection:account.invoice,ftpa_withholding_type:0
 msgid "Natural Person"
 msgstr ""
@@ -782,6 +764,12 @@ msgid "Net Weight"
 msgstr ""
 
 #. module: l10n_it_fatturapa
+#: code:addons/l10n_it_fatturapa/models/account.py:223
+#, python-format
+msgid "No attachment found!"
+msgstr ""
+
+#. module: l10n_it_fatturapa
 #: code:addons/l10n_it_fatturapa/models/account_tax.py:38
 #, python-format
 msgid "No tax %s found"
@@ -793,16 +781,7 @@ msgid "Nome Quietanzante"
 msgstr ""
 
 #. module: l10n_it_fatturapa
-#: model:account.tax,name:l10n_it_fatturapa.tax_00_ni
-msgid "Non Imponibile"
-msgstr ""
-
-#. module: l10n_it_fatturapa
-#: model:account.tax,name:l10n_it_fatturapa.tax_00_ns
-msgid "Non soggetto Iva"
-msgstr ""
-
-#. module: l10n_it_fatturapa
+#: field:account.tax,non_taxable_nature:0
 #: field:faturapa.summary.data,non_taxable_nature:0
 #: field:welfare.fund.data.line,kind_id:0
 msgid "Non taxable nature"
@@ -855,15 +834,9 @@ msgid "Partner"
 msgstr ""
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:76
+#: code:addons/l10n_it_fatturapa/models/partner.py:86
 #, python-format
-msgid "Partner %s Addressee Code must be 7 characters long"
-msgstr ""
-
-#. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:80
-#, python-format
-msgid "Partner %s, must have VAT Number or Fiscal Code"
+msgid "Partner %s Addressee Code must be 7 characters long."
 msgstr ""
 
 #. module: l10n_it_fatturapa
@@ -1108,11 +1081,6 @@ msgid "Rounding"
 msgstr ""
 
 #. module: l10n_it_fatturapa
-#: model:account.tax,name:l10n_it_fatturapa.tax_22_SP
-msgid "SP22%"
-msgstr ""
-
-#. module: l10n_it_fatturapa
 #: field:account.invoice,sender:0
 msgid "Sender"
 msgstr ""
@@ -1140,6 +1108,7 @@ msgid "Sigla della provincia di appartenenza del comune indicato nell'elemento i
 msgstr ""
 
 #. module: l10n_it_fatturapa
+#: selection:account.tax,payability:0
 #: selection:faturapa.summary.data,payability:0
 msgid "Split payment"
 msgstr ""
@@ -1236,6 +1205,7 @@ msgid "Url"
 msgstr ""
 
 #. module: l10n_it_fatturapa
+#: field:account.tax,payability:0
 #: field:faturapa.summary.data,payability:0
 msgid "VAT payability"
 msgstr ""
@@ -1301,11 +1271,13 @@ msgid "description"
 msgstr ""
 
 #. module: l10n_it_fatturapa
+#: selection:account.tax,non_taxable_nature:0
 #: selection:faturapa.summary.data,non_taxable_nature:0
 msgid "escluse ex art. 15"
 msgstr ""
 
 #. module: l10n_it_fatturapa
+#: selection:account.tax,non_taxable_nature:0
 #: selection:faturapa.summary.data,non_taxable_nature:0
 msgid "esenti"
 msgstr ""
@@ -1313,6 +1285,11 @@ msgstr ""
 #. module: l10n_it_fatturapa
 #: help:account.config.settings,fatturapa_art73:0
 msgid "indicates whether the document has been issued in accordance with the terms and conditions established by ministerial decree in accordance with Article 73 of Presidential Decree633/72 (this allows the company to issue the same year more documents with the same number)"
+msgstr ""
+
+#. module: l10n_it_fatturapa
+#: selection:account.tax,non_taxable_nature:0
+msgid "inversione contabile (acq. in reverse charge)"
 msgstr ""
 
 #. module: l10n_it_fatturapa
@@ -1326,11 +1303,13 @@ msgid "name"
 msgstr ""
 
 #. module: l10n_it_fatturapa
+#: selection:account.tax,non_taxable_nature:0
 #: selection:faturapa.summary.data,non_taxable_nature:0
 msgid "non imponibili"
 msgstr ""
 
 #. module: l10n_it_fatturapa
+#: selection:account.tax,non_taxable_nature:0
 #: selection:faturapa.summary.data,non_taxable_nature:0
 msgid "non soggette"
 msgstr ""
@@ -1343,6 +1322,11 @@ msgstr ""
 #. module: l10n_it_fatturapa
 #: selection:faturapa.summary.data,non_taxable_nature:0
 msgid "regime del margine"
+msgstr ""
+
+#. module: l10n_it_fatturapa
+#: selection:account.tax,non_taxable_nature:0
+msgid "regime del margine/IVA non esposta"
 msgstr ""
 
 #. module: l10n_it_fatturapa

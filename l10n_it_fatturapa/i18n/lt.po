@@ -290,25 +290,19 @@ msgid "Created on"
 msgstr "Sukurta"
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:88
-#, python-format
-msgid "Customer %s: ZIP is needed for XML generation."
-msgstr ""
-
-#. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:92
+#: code:addons/l10n_it_fatturapa/models/partner.py:104
 #, python-format
 msgid "Customer %s: city is needed for XML generation."
 msgstr ""
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:96
+#: code:addons/l10n_it_fatturapa/models/partner.py:74
 #, python-format
 msgid "Customer %s: country is needed for XML generation."
 msgstr ""
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:84
+#: code:addons/l10n_it_fatturapa/models/partner.py:96
 #, python-format
 msgid "Customer %s: street is needed for XML generation."
 msgstr ""
@@ -383,7 +377,6 @@ msgstr ""
 #: field:faturapa.activity.progress,display_name:0
 #: field:faturapa.summary.data,display_name:0
 #: field:welfare.fund.data.line,display_name:0
-#: field:welfare.fund.type,display_name:0
 msgid "Display Name"
 msgstr "Vaizduojamas pavadinimas"
 
@@ -662,6 +655,18 @@ msgid "Invoice Line"
 msgstr ""
 
 #. module: l10n_it_fatturapa
+#: code:addons/l10n_it_fatturapa/models/partner.py:91
+#, python-format
+msgid "Italian Partner %s, must have VAT Number or Fiscal Code"
+msgstr ""
+
+#. module: l10n_it_fatturapa
+#: code:addons/l10n_it_fatturapa/models/partner.py:100
+#, python-format
+msgid "Italian Partner %s: ZIP is needed for XML generation."
+msgstr ""
+
+#. module: l10n_it_fatturapa
 #: field:discount.rise.price,__last_update:0
 #: field:fatturapa.attachments,__last_update:0
 #: field:fatturapa.document_type,__last_update:0
@@ -758,6 +763,11 @@ msgid "Member Type"
 msgstr ""
 
 #. module: l10n_it_fatturapa
+#: field:welfare.fund.type,display_name:0
+msgid "Name"
+msgstr ""
+
+#. module: l10n_it_fatturapa
 #: selection:account.invoice,ftpa_withholding_type:0
 msgid "Natural Person"
 msgstr ""
@@ -848,15 +858,9 @@ msgid "Partner"
 msgstr "Partneris"
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:76
+#: code:addons/l10n_it_fatturapa/models/partner.py:83
 #, python-format
-msgid "Partner %s Addressee Code must be 7 characters long"
-msgstr ""
-
-#. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:80
-#, python-format
-msgid "Partner %s, must have VAT Number or Fiscal Code"
+msgid "Partner %s Addressee Code must be 7 characters long."
 msgstr ""
 
 #. module: l10n_it_fatturapa

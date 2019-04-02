@@ -19,8 +19,8 @@
             </field>
         </record>
 
-        <record id="l10n_it_fiscalcode_res_partner_search_view" model="ir.ui.view">
-            <field name="name">l10n.it.fiscalcode.res.partner.search.view</field>
+        <record id="view_res_partner_filter_fiscalcode_data" model="ir.ui.view">
+            <field name="name">res.partner.fiscalcode.filter</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_res_partner_filter"/>
             <field name="arch" type="xml">
@@ -29,6 +29,5 @@
                 </field>
             </field>
         </record>
-
 	</data>
 </openerp>

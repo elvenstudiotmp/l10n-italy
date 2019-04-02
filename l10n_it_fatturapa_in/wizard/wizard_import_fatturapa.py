@@ -110,29 +110,43 @@ class WizardImportFatturapa(models.TransientModel):
         cf = DatiAnagrafici.CodiceFiscale or False
         vat = False
         if DatiAnagrafici.IdFiscaleIVA:
-            vat = "%s%s" % (
-                DatiAnagrafici.IdFiscaleIVA.IdPaese,
-                DatiAnagrafici.IdFiscaleIVA.IdCodice
-            )
-        partners = partner_model.search([
-            '|',
-            ('vat', '=', vat or 0),
-            ('fiscalcode', '=', cf or 0),
-        ])
-        commercial_partner = False
+            # Format Italian VAT ID to always have 11 char
+            # to avoid validation error when creating the given partner
+            if DatiAnagrafici.IdFiscaleIVA.IdPaese.upper() == 'IT':
+                vat = "%s%s" % (
+                    DatiAnagrafici.IdFiscaleIVA.IdPaese,
+                    DatiAnagrafici.IdFiscaleIVA.IdCodice.rjust(11, '0')
+                )
+            else:
+                vat = "%s%s" % (
+                    DatiAnagrafici.IdFiscaleIVA.IdPaese,
+                    DatiAnagrafici.IdFiscaleIVA.IdCodice
+                )
+        partners = partner_model
+        if vat:
+            partners = partner_model.search([
+                ('vat', '=', vat),
+            ])
+        if not partners and cf:
+            partners = partner_model.search([
+                ('fiscalcode', '=', cf),
+            ])
+        commercial_partner_id = False
         if len(partners) > 1:
             for partner in partners:
                 if (
-                    commercial_partner and
-                    partner.commercial_partner_id.id != commercial_partner
+                    commercial_partner_id and
+                    partner.commercial_partner_id.id != commercial_partner_id
                 ):
                     raise UserError(
                         _("Two distinct partners with "
                           "Vat %s and Fiscalcode %s already present in db" %
                           (vat, cf))
                         )
+                commercial_partner_id = partner.commercial_partner_id.id
         if partners:
-            commercial_partner_id = partners[0].id
+            if not commercial_partner_id:
+                commercial_partner_id = partners[0].commercial_partner_id.id
             self.check_partner_base_data(commercial_partner_id, DatiAnagrafici)
             return commercial_partner_id
         else:
@@ -383,7 +397,8 @@ class WizardImportFatturapa(models.TransientModel):
         if line.Quantita:
             retLine['quantity'] = float(line.Quantita)
         if (
-            line.PrezzoTotale and line.PrezzoUnitario and line.Quantita and
+            float(line.PrezzoTotale) and float(line.PrezzoUnitario) and
+            line.Quantita and float(line.Quantita) and  # Quantita not required
             line.ScontoMaggiorazione
         ):
             retLine['discount'] = self._computeDiscount(line)
@@ -714,6 +729,23 @@ class WizardImportFatturapa(models.TransientModel):
             )
         return journals[0]
 
+    def get_purchase_refund_journal(self, company):
+        journal_model = self.env['account.journal']
+        journals = journal_model.search(
+            [
+                ('type', '=', 'purchase_refund'),
+                ('company_id', '=', company.id)
+            ],
+            limit=1)
+        if not journals:
+            raise UserError(
+                _(
+                    'Define a purchase refund journal '
+                    'for this company: "%s" (id:%d).'
+                ) % (company.name, company.id)
+            )
+        return journals[0]
+
     def create_e_invoice_line(self, line, invoice_line_id=None):
         vals = {
             'line_number': int(line.NumeroLinea or 0),
@@ -797,6 +829,7 @@ class WizardImportFatturapa(models.TransientModel):
                 )
             )
         purchase_journal = self.get_purchase_journal(company)
+        journal_id = purchase_journal.id
         credit_account_id = purchase_journal.default_credit_account_id.id
         invoice_lines = []
         comment = ''
@@ -818,6 +851,10 @@ class WizardImportFatturapa(models.TransientModel):
                     % docType)
             if docType == 'TD04':
                 invtype = 'in_refund'
+                purchase_refund_journal = self.get_purchase_refund_journal(company)
+                credit_account_id = purchase_refund_journal.default_credit_account_id.id
+                journal_id = purchase_refund_journal.id
+
         # 2.1.1.11
         causLst = FatturaBody.DatiGenerali.DatiGeneraliDocumento.Causale
         if causLst:
@@ -835,7 +872,7 @@ class WizardImportFatturapa(models.TransientModel):
             'type': invtype,
             'partner_id': partner_id,
             'currency_id': currency[0].id,
-            'journal_id': purchase_journal.id,
+            'journal_id': journal_id,
             # 'origin': xmlData.datiOrdineAcquisto,
             'fiscal_position': False,
             'payment_term': False,
@@ -953,9 +990,9 @@ class WizardImportFatturapa(models.TransientModel):
         # 2.1.6
         RelInvoices = FatturaBody.DatiGenerali.DatiFattureCollegate
         if RelInvoices:
-            for invoice in RelInvoices:
+            for rel_invoice in RelInvoices:
                 doc_datas = self._prepareRelDocsLine(
-                    invoice_id, invoice, 'invoice')
+                    invoice_id, rel_invoice, 'invoice')
                 if doc_datas:
                     for doc_data in doc_datas:
                         rel_docs_model.create(doc_data)

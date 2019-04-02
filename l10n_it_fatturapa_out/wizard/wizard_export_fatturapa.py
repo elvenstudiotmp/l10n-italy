@@ -3,7 +3,7 @@
 # Copyright 2015-2016 Lorenzo Battistini - Agile Business Group
 # Copyright 2018 Gianmarco Conte, Marco Calcagni - Dinamiche Aziendali srl
 # Copyright 2018 Sergio Corato
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+# Copyright 2019 Alex Comba - Agile Business Group
 
 import base64
 import logging
@@ -336,7 +336,7 @@ class WizardExportFatturapa(models.TransientModel):
             company)
 
     def _setDatiAnagraficiCessionario(self, partner, fatturapa):
-        fatturapa.FatturaElettronicaHeader.CessionarioCommittente. \
+        fatturapa.FatturaElettronicaHeader.CessionarioCommittente.\
             DatiAnagrafici = DatiAnagraficiCessionarioType()
         if not partner.vat and not partner.fiscalcode:
             if (
@@ -344,13 +344,13 @@ class WizardExportFatturapa(models.TransientModel):
                     and partner.country_id.code
                     and partner.country_id.code != 'IT'
             ):
-                # SDI accepts missing VAT# for foreign customers by setting a
+                # SDI accepts missing VAT for foreign customers by setting a
                 # fake IdCodice and a valid IdPaese
                 # Otherwise raise error if we have no VAT# and no Fiscal code
-                fatturapa.FatturaElettronicaHeader.CessionarioCommittente. \
+                fatturapa.FatturaElettronicaHeader.CessionarioCommittente.\
                     DatiAnagrafici.IdFiscaleIVA = IdFiscaleType(
-                    IdPaese=partner.country_id.code,
-                    IdCodice='99999999999')
+                        IdPaese=partner.country_id.code,
+                        IdCodice='99999999999')
             else:
                 raise UserError(
                     _('VAT number and fiscal code are not set for %s.') %
@@ -468,8 +468,9 @@ class WizardExportFatturapa(models.TransientModel):
                     Comune=partner.city,
                     Nazione=partner.country_id.code))
             if partner.state_id:
-                fatturapa.FatturaElettronicaHeader.CessionarioCommittente. \
+                fatturapa.FatturaElettronicaHeader.CessionarioCommittente.\
                     Sede.Provincia = partner.state_id.code
+
         return True
 
     def setRappresentanteFiscale(self, company, fatturapa):
@@ -657,8 +658,10 @@ class WizardExportFatturapa(models.TransientModel):
             if line.product_id:
                 if line.product_id.default_code:
                     CodiceArticolo = CodiceArticoloType(
-                        CodiceTipo='ODOO',
-                        CodiceValore=line.product_id.default_code
+                        CodiceTipo=self.env['ir.config_parameter'].sudo(
+                            ).get_param('fatturapa.codicetipo.odoo', 'ODOO'),
+                        CodiceValore=line.product_id.default_code.encode(
+                            'latin', 'ignore').decode('latin')
                     )
                     DettaglioLinea.CodiceArticolo.append(CodiceArticolo)
                 if line.product_id.ean13:
@@ -889,7 +892,6 @@ class WizardExportFatturapa(models.TransientModel):
         # Generate the PDF: if report_action.attachment is set
         # they will be automatically attached to the invoice,
         # otherwise use res to build a new attachment
-
         (res, report_format) = openerp.report.render_report(
             self._cr, self._uid, [inv.id],
             action_report.report_name, {'model': inv._name},
