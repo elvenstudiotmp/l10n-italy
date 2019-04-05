@@ -209,7 +209,7 @@ msgstr "Consegnata Manualmente"
 #. module: l10n_it_fatturapa_pec
 #: selection:fatturapa.attachment.out,state:0
 msgid "Not delivered"
-msgstr "Non  cibsegbata"
+msgstr "Non  consegnata"
 
 #. module: l10n_it_fatturapa_pec
 #: field:fetchmail.server,pec_error_count:0

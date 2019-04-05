@@ -12,6 +12,7 @@
                         <button name="%(action_wizard_import_fatturapa)d" type="action" string="Import Invoice" class="oe_highlight" attrs="{'invisible':[('registered', '=', True)]}" />
                         <button name="%(action_wizard_link_supplier_invoice)d" type="action" string="Link to invoice" attrs="{'invisible':[('registered', '=', True)]}" />
                         <button name="action_show_invoices" type="object" string="Show Invoices" attrs="{'invisible':[('registered', '=', False)]}" />
+                        <button name="action_recompute_fatturapa_data" type="object" string="Reload data from xml invoice" />
                     </header>
                     <sheet>
                         <h1>
