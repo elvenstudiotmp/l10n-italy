@@ -107,3 +107,9 @@ class FatturaPAAttachmentIn(models.Model):
         result = self.env['ir.actions.act_window'].browse(action_id).read()[0]
         result['domain'] = "[('id','in'," + str(self.in_invoice_ids.ids) + ")]"
         return result
+
+    @api.multi
+    def action_recompute_fatturapa_data(self):
+        self.ensure_one()
+        self._compute_xml_data()
+        return True
