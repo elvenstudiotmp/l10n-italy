@@ -737,7 +737,7 @@ class WizardExportFatturapa(models.TransientModel):
             for move_line_id in payment_line_ids:
                 move_line = move_line_pool.browse(move_line_id)
                 ImportoPagamento = '%.2f' % (
-                    move_line.amount_currency or move_line.debit)
+                    move_line.amount_currency or move_line.debit or move_line.credit)
                 DettaglioPagamento = DettaglioPagamentoType(
                     ModalitaPagamento=(
                         invoice.payment_mode_id.fatturapa_pm_id.code),
