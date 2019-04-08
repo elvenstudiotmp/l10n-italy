@@ -168,6 +168,7 @@ class WizardImportFatturapa(models.TransientModel):
                 'supplier': True,
                 'is_company': (
                     DatiAnagrafici.Anagrafica.Denominazione and True or False),
+                'individual': (DatiAnagrafici.Anagrafica.Cognome and len(cf) == 16 and True or False),
                 'eori_code': DatiAnagrafici.Anagrafica.CodEORI or '',
                 'country_id': country_id,
             }
