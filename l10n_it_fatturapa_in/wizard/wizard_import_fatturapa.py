@@ -151,12 +151,12 @@ class WizardImportFatturapa(models.TransientModel):
             return commercial_partner_id
         else:
             # partner to be created
-            country_id = False
+            country = False
             if DatiAnagrafici.IdFiscaleIVA:
                 CountryCode = DatiAnagrafici.IdFiscaleIVA.IdPaese
                 countries = self.CountryByCode(CountryCode)
                 if countries:
-                    country_id = countries[0].id
+                    country = countries[0]
                 else:
                     raise UserError(
                         _("Country Code %s not found in system") % CountryCode
@@ -168,9 +168,9 @@ class WizardImportFatturapa(models.TransientModel):
                 'supplier': True,
                 'is_company': (
                     DatiAnagrafici.Anagrafica.Denominazione and True or False),
-                'individual': (DatiAnagrafici.Anagrafica.Cognome and len(cf) == 16 and True or False),
+                'individual': country.code == 'IT' and len(cf) == 16,
                 'eori_code': DatiAnagrafici.Anagrafica.CodEORI or '',
-                'country_id': country_id,
+                'country_id': country.id,
             }
             if DatiAnagrafici.Anagrafica.Nome:
                 vals['firstname'] = DatiAnagrafici.Anagrafica.Nome
