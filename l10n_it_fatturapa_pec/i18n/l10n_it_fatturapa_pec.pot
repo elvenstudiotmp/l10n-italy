@@ -106,19 +106,9 @@ msgid "E-invoice State"
 msgstr ""
 
 #. module: l10n_it_fatturapa_pec
-#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:249
+#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:251
 #, python-format
 msgid "E-invoice manually delivered"
-msgstr ""
-
-#. module: l10n_it_fatturapa_pec
-#: view:account.invoice:l10n_it_fatturapa_pec.view_account_invoice_fatturapa_out_pec_filter
-msgid "Electronic Invoice Error"
-msgstr ""
-
-#. module: l10n_it_fatturapa_pec
-#: view:account.invoice:l10n_it_fatturapa_pec.view_account_invoice_fatturapa_out_pec_filter
-msgid "Electronic Invoice Ready to Send"
 msgstr ""
 
 #. module: l10n_it_fatturapa_pec
@@ -158,14 +148,14 @@ msgid "Fetchmail PEC server [%s] reset"
 msgstr ""
 
 #. module: l10n_it_fatturapa_pec
-#: view:account.invoice:l10n_it_fatturapa_pec.view_account_invoice_fatturapa_out_pec_filter
-msgid "Group By"
+#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:63
+#, python-format
+msgid "File content and file name are mandatory"
 msgstr ""
 
 #. module: l10n_it_fatturapa_pec
-#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:73
-#, python-format
-msgid "File content and file name are mandatory"
+#: view:account.invoice:l10n_it_fatturapa_pec.view_account_invoice_fatturapa_out_pec_filter
+msgid "Group By"
 msgstr ""
 
 #. module: l10n_it_fatturapa_pec
@@ -218,12 +208,6 @@ msgstr ""
 #: view:fatturapa.attachment.out:l10n_it_fatturapa_pec.view_fatturapa_out_pec_attachment_form
 #: selection:fatturapa.attachment.out,state:0
 msgid "Manually Delivered"
-msgstr ""
-
-#. module: l10n_it_fatturapa_pec
-#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:60
-#, python-format
-msgid "No incoming PEC server found. Please configure it."
 msgstr ""
 
 #. module: l10n_it_fatturapa_pec
@@ -355,7 +339,7 @@ msgid "This user will be used at supplier e-bill creation. This setting is relev
 msgstr ""
 
 #. module: l10n_it_fatturapa_pec
-#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:250
+#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:252
 #, python-format
 msgid "User %s has manually sent e-invoice to the customer."
 msgstr ""
@@ -371,13 +355,13 @@ msgid "Wizard to send multiple e-invoice PEC"
 msgstr ""
 
 #. module: l10n_it_fatturapa_pec
-#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:246
+#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:248
 #, python-format
 msgid "You can manually set to delivered only files in Recipient Error state"
 msgstr ""
 
 #. module: l10n_it_fatturapa_pec
-#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:248
+#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:238
 #, python-format
 msgid "You can only delete files in 'Ready to Send' or 'Rejected' state."
 msgstr ""

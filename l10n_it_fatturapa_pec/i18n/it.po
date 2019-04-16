@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-02 17:43+0000\n"
-"PO-Revision-Date: 2019-04-02 17:43+0000\n"
+"POT-Creation-Date: 2019-04-16 09:04+0000\n"
+"PO-Revision-Date: 2019-04-16 09:04+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: l10n_it_fatturapa_pec
-#: code:addons/l10n_it_fatturapa_pec/models/mail_thread.py:143
+#: code:addons/l10n_it_fatturapa_pec/models/mail_thread.py:148
 #, python-format
 msgid "<p>PEC message with Message-Id %s has been read but not processed, as not related to an e-invoice.</p><p>Please check PEC mailbox %s, at server %s, with user %s</p>"
 msgstr "<p>PEC message with Message-Id %s has been read but not processed, as not related to an e-invoice.</p><p>Please check PEC mailbox %s, at server %s, with user %s</p>"
@@ -108,7 +108,7 @@ msgid "E-invoice State"
 msgstr "Stato Fattura Elettronica"
 
 #. module: l10n_it_fatturapa_pec
-#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:249
+#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:251
 #, python-format
 msgid "E-invoice manually delivered"
 msgstr "Fattura elettronica consegnata manualmente"
@@ -148,6 +148,12 @@ msgstr "Stato Fattura Elettronica"
 #, python-format
 msgid "Fetchmail PEC server [%s] reset"
 msgstr "Fetchmail PEC server [%s] reimpostato"
+
+#. module: l10n_it_fatturapa_pec
+#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:63
+#, python-format
+msgid "File content and file name are mandatory"
+msgstr "Il file è obbligatorio"
 
 #. module: l10n_it_fatturapa_pec
 #: view:account.invoice:l10n_it_fatturapa_pec.view_account_invoice_fatturapa_out_pec_filter
@@ -217,7 +223,7 @@ msgid "PEC error count"
 msgstr "Conteggio errori PEC"
 
 #. module: l10n_it_fatturapa_pec
-#: code:addons/l10n_it_fatturapa_pec/models/mail_thread.py:140
+#: code:addons/l10n_it_fatturapa_pec/models/mail_thread.py:145
 #, python-format
 msgid "PEC message [%s] not processed"
 msgstr "Messaggio PEC [%s] non elaborato"
@@ -335,7 +341,7 @@ msgid "This user will be used at supplier e-bill creation. This setting is relev
 msgstr "Questo utente viene utilizzato durante la creazione di fatture fornitori. Questa impostazione è rilevante in installazioni multi-azienda"
 
 #. module: l10n_it_fatturapa_pec
-#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:250
+#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:252
 #, python-format
 msgid "User %s has manually sent e-invoice to the customer."
 msgstr "L'utente %s ha inviato manualmente la fattura elettronica al cliente."
@@ -351,13 +357,13 @@ msgid "Wizard to send multiple e-invoice PEC"
 msgstr "Wizard per inviare Fatture elettroniche multiple via PEC"
 
 #. module: l10n_it_fatturapa_pec
-#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:246
+#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:248
 #, python-format
 msgid "You can manually set to delivered only files in Recipient Error state"
 msgstr "Puoi impostare come consegnata manualmente solo comunicazioni con consegna fallita"
 
 #. module: l10n_it_fatturapa_pec
-#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:236
+#: code:addons/l10n_it_fatturapa_pec/models/fatturapa_attachment_out.py:238
 #, python-format
 msgid "You can only delete files in 'Ready to Send' or 'Rejected' state."
 msgstr "Puoi eliminare solo le comunicazioni in stato di 'Pronta per l'invio' o 'Rifiutata'"
