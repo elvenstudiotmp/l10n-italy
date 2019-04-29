@@ -375,16 +375,10 @@ class WizardImportFatturapa(models.TransientModel):
             )
             line_tax = self.env['account.tax'].browse(line_tax_id)
             if new_tax.id != line_tax_id:
-                if new_tax._get_tax_amount() != line_tax._get_tax_amount():
-                    self.log_inconsistency(_(
-                        "XML contains tax %s. Product %s has tax %s. Using "
-                        "the XML one"
-                    ) % (line_tax.name, product.name, new_tax.name))
-                else:
-                    # If product has the same amount of the one in XML,
-                    # I use it. Typical case: 22% det 50%
-                    line_vals['invoice_line_tax_id'] = [
-                        (6, 0, [new_tax.id])]
+                self.log_inconsistency(_(
+                    "XML contains tax %s. Product %s has tax %s. Using "
+                    "the XML one"
+                ) % (line_tax.name, product.name, new_tax.name))
 
     def _prepareInvoiceLine(self, credit_account_id, line):
         retLine = self._prepare_generic_line_data(line)
