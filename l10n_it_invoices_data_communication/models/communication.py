@@ -2086,7 +2086,7 @@ class ComunicazioneDatiIva(models.Model):
         clear_xml(x_0_dati_fattura)
         # ----- Create XML
         xml_string = etree.tostring(
-            x_0_dati_fattura, encoding='utf8', method='xml', pretty_print=True)
+            x_0_dati_fattura, encoding='utf8', xml_declaration=True, method='xml', pretty_print=True)
         return xml_string
 
 
