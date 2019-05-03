@@ -62,12 +62,10 @@
             <field name="model">account.invoice.line</field>
             <field name="inherit_id" ref="account.view_invoice_line_form"/>
             <field name="arch" type="xml">
-                <field name="name" position="after">
-                    <group>
-                        <field name="advance_customs_vat" invisible="1"/>
-                        <field name="forwarded_supplier_invoice_ids"
-                               widget="many2many_tags"/>
-                    </group>
+                <field name="invoice_line_tax_id" position="after">
+                    <field name="advance_customs_vat" invisible="1"/>
+                    <field name="forwarded_supplier_invoice_ids"
+                           widget="many2many_tags"/>
                 </field>
             </field>
         </record>
