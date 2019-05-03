@@ -29,17 +29,12 @@
         <record id="view_invoice_line_form_fatturapa" model="ir.ui.view">
             <field name="name">account.invoice.line.fatturapa</field>
             <field name="model">account.invoice.line</field>
-            <field name="inherit_id" ref="account.view_invoice_line_form"></field>
+            <field name="inherit_id" ref="account.view_invoice_line_form" />
             <field name="arch" type="xml">
                 <field name="name" position="after">
-                    <separator string="Fattura Elettronica"></separator>
-                    <div id="admin_ref">
-                        <group>
-                            <field name="admin_ref"/>
-                        </group>
-                   </div>
-                    <group string="Related Documents">
-                        <field name="related_documents" nolabel="1">
+                    <group string="Fattura Elettronica">
+                        <field name="admin_ref"/>
+                        <field name="related_documents">
                             <tree editable="bottom" string="Related Documents">
                                 <field name="type"></field>
                                 <field name="name"></field>

@@ -144,10 +144,6 @@
                 <field name="price_unit" position="before">
                     <field name="fatturapa_attachment_in_id" invisible="1"/>
                 </field>
-                <xpath expr="//form/sheet/notebook/page[@string='Invoice']/field[@name='invoice_line']/tree/field[@name='quantity']"
-                       position="before">
-                    <field name="admin_ref"/>
-                </xpath>
                 <xpath expr="//notebook" position="inside">
                     <page string="E-invoice Inconsistencies" attrs="{'invisible': [('fatturapa_attachment_in_id', '=', False)]}">
                         <field name="inconsistencies" nolabel="1" colspan="4" readonly="1"/>
