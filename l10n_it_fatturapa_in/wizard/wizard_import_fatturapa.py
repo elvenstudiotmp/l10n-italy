@@ -936,7 +936,7 @@ class WizardImportFatturapa(models.TransientModel):
                 ) % Withholding.CausalePagamento)
             wt_found = False
             for wt in wts:
-                if wt.tax == float(Withholding.AliquotaRitenuta):
+                if wt.causale_pagamento_id.code == Withholding.CausalePagamento:
                     wt_found = wt
                     break
             if not wt_found:
@@ -1192,10 +1192,11 @@ class WizardImportFatturapa(models.TransientModel):
             invoice.with_context(lang=invoice.partner_id.lang))
         invoice.check_tax_lines(compute_taxes)
         if wt_found:
-            wh_line_id = self.env['account.invoice.withholding.tax'].create({
-                'base': float(Withholding.ImportoRitenuta) / float(
-                    Withholding.AliquotaRitenuta) * 100.0,
-                'tax': float(Withholding.ImportoRitenuta),
+            base = float(Withholding.ImportoRitenuta) / float(Withholding.AliquotaRitenuta) * 100.0
+            wh_line_id = self.env['account.invoice.withholding.tax.line'].create({
+                'invoice_id': invoice.id,
+                'amount_base': base,
+                'amount_tax': float(Withholding.ImportoRitenuta),
                 'withholding_tax_id': wt_found[0].id,
             })
             invoice.write({'withholding_tax_line': [(6, 0, [wh_line_id.id])],
