@@ -512,7 +512,7 @@ class AccountVatPeriodEndStatement(orm.Model):
             context = {}
         context['period_id'] = period_id
         return self.pool.get('account.tax.code').browse(
-            cr, uid, tax_code_id, context)._sum_period(
+            cr, uid, tax_code_id, context)._sum_vat_period(
             None, None, context)[tax_code_id]
 
     def unlink(self, cr, uid, ids, context=None):
@@ -828,7 +828,7 @@ class AccountVatPeriodEndStatement(orm.Model):
             for period_id in period_ids_to_evaluate:
                 ctx = context.copy()
                 ctx['period_id'] = period_id
-                total += tax_code_pool.browse(cr, uid, dbt_crd_tax_code_id, ctx).sum_period
+                total += tax_code_pool.browse(cr, uid, dbt_crd_tax_code_id, ctx).sum_vat_period
 
             if not statement.show_zero and total == 0.0:
                 continue
@@ -1186,6 +1186,32 @@ class StatementDebitAccountLine(models.Model):
         help=_('The non deductible tax amount, used in the tax authority end vat statement.')
     )
 
+    @api.multi
+    def show_vat_statement_account_move_lines(self):
+        self.ensure_one()
+        ir_model_data = self.env['ir.model.data']
+        act_window = self.env['ir.actions.act_window']
+        module_name = 'account'
+        action_name = 'action_tax_code_line_open'
+
+        tree_view_name = 'account_vat_period_end_statement_account_move_line_tree_view'
+        tree_view = ir_model_data.get_object_reference('account_vat_period_end_statement', tree_view_name)
+
+        action_data = ir_model_data.get_object_reference(module_name, action_name)
+        action_id = action_data and action_data[1] or False
+        result = act_window.browse(action_id).read()[0]
+
+        result['views'] = [(tree_view and tree_view[1] or False, 'tree')]
+
+        result['domain'] = [
+            ('tax_code_id', 'child_of', [self.tax_code_id.id, self.base_code_id.id]),
+            ('move_id.state', '!=', 'draft'),
+            ('vat_period_id', 'in', self.statement_id.period_ids.ids)
+        ]
+
+        result['context'] = {'search_default_group_by_tax_code_id': 1}
+        return result
+
 
 class StatementCreditAccountLine(models.Model):
     _name = 'statement.credit.account.line'
@@ -1245,6 +1271,32 @@ class StatementCreditAccountLine(models.Model):
         digits_compute=dp.get_precision('Account'),
         help=_('The non deductible tax amount, used in the tax authority end vat statement.')
     )
+
+    @api.multi
+    def show_vat_statement_account_move_lines(self):
+        self.ensure_one()
+        ir_model_data = self.env['ir.model.data']
+        act_window = self.env['ir.actions.act_window']
+        module_name = 'account'
+        action_name = 'action_tax_code_line_open'
+
+        tree_view_name = 'account_vat_period_end_statement_account_move_line_tree_view'
+        tree_view = ir_model_data.get_object_reference('account_vat_period_end_statement', tree_view_name)
+
+        action_data = ir_model_data.get_object_reference(module_name, action_name)
+        action_id = action_data and action_data[1] or False
+        result = act_window.browse(action_id).read()[0]
+
+        result['views'] = [(tree_view and tree_view[1] or False, 'tree')]
+
+        result['domain'] = [
+            ('tax_code_id', 'child_of', [self.tax_code_id.id, self.base_code_id.id]),
+            ('move_id.state', '!=', 'draft'),
+            ('vat_period_id', 'in', self.statement_id.period_ids.ids)
+        ]
+
+        result['context'] = {'search_default_group_by_tax_code_id': 1}
+        return result
 
 
 class StatementGenericAccountLine(models.Model):

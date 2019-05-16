@@ -23,4 +23,5 @@
 #
 from . import add_period
 from . import remove_period
+from . import wizard_change_vat_period
 # from . import vat_settlement

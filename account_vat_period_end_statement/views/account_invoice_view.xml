@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="account_vat_period_end_statement_account_invoice_form_view" model="ir.ui.view">
+            <field name="name">account.vat.period.end.statement.account.invoice.form.view</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account_invoice_entry_date.invoice_supplier_form_reg_date"/>
+            <field name="arch" type="xml">
+                <field name="state" position="before">
+                    <button name="%(action_change_vat_period)d"
+                            string="Change vat period"
+                            type="action"
+                            attrs="{'invisible': [('state', 'not in', ['open', 'paid'])]}"
+                            groups="account.group_account_manager" />
+                </field>
+                <field name="period_id" position="after">
+                    <field name="vat_period_id" required="1" options="{'no_create': True}" />
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

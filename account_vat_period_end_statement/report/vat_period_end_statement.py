@@ -106,14 +106,14 @@ class VatPeriodEndStatementReport(report_sxw.rml_parse):
                     child.tax_code_id.vat_statement_account_id and
                     not child.nondeductible
                 ):
-                    vat_deductible = child.tax_code_id.sum_period
+                    vat_deductible = child.tax_code_id.sum_vat_period
                 # undeductibile
                 else:
-                    vat_undeductible = child.tax_code_id.sum_period
+                    vat_undeductible = child.tax_code_id.sum_vat_period
         else:
             vat_code = tax_code.code
             vat_name = tax_code.name
-            vat_deductible = tax_code.sum_period
+            vat_deductible = tax_code.sum_vat_period
 
         res[vat_name] = {
             'code': vat_code,
@@ -121,7 +121,7 @@ class VatPeriodEndStatementReport(report_sxw.rml_parse):
             'vat': vat_deductible + vat_undeductible,
             'vat_deductible': vat_deductible,
             'vat_undeductible': vat_undeductible,
-            'base': base_code.sum_period
+            'base': base_code.sum_vat_period
         }
 
         return res
@@ -163,7 +163,7 @@ class VatPeriodEndStatementReport(report_sxw.rml_parse):
                         _('Not every tax linked to tax code %s is linked to '
                           'the same base code')
                         % tax_code.name)
-            if tax_code.sum_period or base_code.sum_period:
+            if tax_code.sum_vat_period or base_code.sum_vat_period:
                 tax_vals = self._compute_tax_amount(tax, tax_code, base_code, context)
 
                 for tax_key in tax_vals:

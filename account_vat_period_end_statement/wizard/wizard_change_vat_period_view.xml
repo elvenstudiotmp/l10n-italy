@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="account_invoice_wizard_change_vat_period_form_view" model="ir.ui.view">
+            <field name="name">account.invoice.wizard.change.vat.period.form.view</field>
+            <field name="model">account.invoice.wizard.change_vat_period</field>
+            <field name="arch" type="xml">
+                <form string="Change vat period">
+                    <field name="invoice_id" invisible="1" />
+                    <group string="Choose the new vat period">
+                        <field name="vat_period_id" options="{'no_create': True}" style="width:170px;" />
+                    </group>
+                    <footer>
+                        <button name="action_confirm" string="Confirm" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_change_vat_period" model="ir.actions.act_window">
+            <field name="name">Change vat period</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.invoice.wizard.change_vat_period</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_invoice_wizard_change_vat_period_form_view"/>
+            <field name="groups_id" eval="[(6, 0, [ref('account.group_account_manager')])]"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>
