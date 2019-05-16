@@ -351,17 +351,26 @@ class WizardImportFatturapa(models.TransientModel):
             product = partner.e_invoice_default_product_id
         return product
 
-    def adjust_accounting_data(self, product, line_vals):
+    def adjust_accounting_data(self, product, line_vals, inv_type='in_invoice'):
         if product.product_tmpl_id.property_account_expense:
-            line_vals['account_id'] = (
-                product.product_tmpl_id.property_account_expense.id)
-        elif (
-            product.product_tmpl_id.categ_id.property_account_expense_categ
-        ):
-            line_vals['account_id'] = (
-                product.product_tmpl_id.categ_id.
-                property_account_expense_categ.id
-            )
+            if inv_type == 'in_invoice':
+                line_vals['account_id'] = \
+                    product.product_tmpl_id.property_account_expense.id
+            elif inv_type == 'in_refund' and \
+                    product.product_tmpl_id.property_account_expense.refund_invoice_account_id:
+                line_vals['account_id'] = \
+                    product.product_tmpl_id.property_account_expense.refund_invoice_account_id.id
+
+        elif product.product_tmpl_id.categ_id.property_account_expense_categ:
+            if inv_type == 'in_invoice':
+                line_vals['account_id'] = \
+                    product.product_tmpl_id.categ_id.property_account_expense_categ.id
+
+            elif inv_type == 'in_refund' and \
+                    product.product_tmpl_id.categ_id.property_account_expense_categ.refund_invoice_account_id:
+                line_vals['account_id'] = \
+                    product.product_tmpl_id.categ_id.property_account_expense_categ.refund_invoice_account_id.id
+
         account = self.env['account.account'].browse(line_vals['account_id'])
         new_tax = None
         if len(product.product_tmpl_id.supplier_taxes_id) == 1:
@@ -923,7 +932,7 @@ class WizardImportFatturapa(models.TransientModel):
                 product = self.get_line_product(line, partner)
                 if product:
                     invoice_line_data['product_id'] = product.id
-                    self.adjust_accounting_data(product, invoice_line_data)
+                    self.adjust_accounting_data(product, invoice_line_data, invtype)
                 invoice_line_id = invoice_line_model.create(
                     invoice_line_data).id
                 invoice_lines.append(invoice_line_id)

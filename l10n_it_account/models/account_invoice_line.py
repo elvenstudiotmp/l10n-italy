@@ -38,8 +38,8 @@ class AccountInvoiceLine(models.Model):
         )
 
         account_cls = self.env['account.account']
-        # override account_id if refund invoice
-        if type in ('out_refund', 'in_refund'):
+        # override account_id if refund invoice or is a refund line in invoice
+        if type in ('out_refund', 'in_refund') or price_unit < 0:
             value = res.get('value', False)
             if value and isinstance(value, dict):
                 account_id = value.get('account_id', False)
@@ -49,4 +49,11 @@ class AccountInvoiceLine(models.Model):
                         res['value']['account_id'] = account.refund_invoice_account_id.id
 
         return res
+
+    @api.one
+    @api.onchange('price_unit')
+    def onchange_price_unit(self):
+        if self.invoice_id.type in ('out_invoice', 'in_invoice') and self.price_unit < 0:
+            if self.account_id and self.account_id.refund_invoice_account_id:
+                self.account_id = self.account_id.refund_invoice_account_id
 
