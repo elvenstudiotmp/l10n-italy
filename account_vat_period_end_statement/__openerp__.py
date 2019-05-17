@@ -35,7 +35,8 @@
         "l10n_it_account",
         "l10n_it_vat_registries",
         "l10n_it_fiscalcode",
-        "account_invoice_entry_date"
+        "account_invoice_entry_date",
+        "l10n_it_fatturapa"
         ],
     "author": "Agile Business Group, Odoo Community Association (OCA)"
               ", LinkIt Spa",
@@ -44,7 +45,7 @@
         'wizard/add_period.xml',
         'wizard/remove_period.xml',
         'wizard/wizard_change_vat_period_view.xml',
-        # 'wizard/vat_settlement.xml',
+        'wizard/vat_settlement.xml',
         'statement_workflow.xml',
         'security/ir.model.access.csv',
         'security/security.xml',
