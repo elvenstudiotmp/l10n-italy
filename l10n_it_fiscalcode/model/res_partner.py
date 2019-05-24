@@ -54,7 +54,7 @@ class ResPartner(models.Model):
     @api.one
     @api.constrains('fiscalcode', 'individual')
     def check_fiscalcode(self):
-        if len(self.fiscalcode) == 16:
+        if self.fiscalcode and len(self.fiscalcode) == 16:
             control_value = codicefiscale.control_code(self.fiscalcode[0:15])
             if self.fiscalcode[15:16] != control_value:
                 value = self.fiscalcode[0:15] + control_value
