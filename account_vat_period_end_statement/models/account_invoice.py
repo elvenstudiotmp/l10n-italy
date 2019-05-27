@@ -97,15 +97,13 @@ class AccountInvoice(models.Model):
         res = super(AccountInvoice, self).action_move_create()
 
         for invoice in self:
-            if invoice.vat_period_id:
-                # if vat_period is already set (and checked by constraint),
-                # just store it in invoice related move and move lines.
-                invoice.move_id.write({'vat_period_id': invoice.vat_period_id.id})
-                invoice.move_id.line_id.write({'vat_period_id': invoice.vat_period_id.id})
-
-            else:
-                # no vat_period defined, we must set it
-                if invoice.type in ('in_invoice', 'in_refund'):
+            if invoice.type in ('in_invoice', 'in_refund'):
+                if invoice.vat_period_id:
+                    # if vat_period is already set (and checked by constraint),
+                    # just store it in invoice related move and move lines.
+                    invoice.move_id.write({'vat_period_id': invoice.vat_period_id.id})
+                    invoice.move_id.line_id.write({'vat_period_id': invoice.vat_period_id.id})
+                else:
                     # For incoming invoice, use the suggested period.
                     vat_period = self._get_vat_period_id(invoice.date_invoice, invoice.registration_date)
                     # Set it into invoice, move and move lines.
@@ -113,10 +111,12 @@ class AccountInvoice(models.Model):
                     invoice.write({'vat_period_id': vat_period.id})
                     invoice.move_id.write({'vat_period_id': vat_period.id})
                     invoice.move_id.line_id.write({'vat_period_id': vat_period.id})
-                else:
-                    # For outgoing invoice, we will use the standard period.
-                    # In move and move lines is already set as period_id.
-                    invoice.write({'vat_period_id': invoice.period_id.id})
+            else:
+                # For outgoing invoice, we will use the standard period.
+                vat_period_id = invoice.period_id.id
+                invoice.write({'vat_period_id': vat_period_id})
+                invoice.move_id.write({'vat_period_id': vat_period_id})
+                invoice.move_id.line_id.write({'vat_period_id': vat_period_id})
 
         return res
 
