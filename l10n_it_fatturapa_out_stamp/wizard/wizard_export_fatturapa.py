@@ -15,14 +15,28 @@ class WizardExportFatturapa(models.TransientModel):
     def setDatiGeneraliDocumento(self, invoice, body):
         res = super(WizardExportFatturapa, self).setDatiGeneraliDocumento(
             invoice, body)
-        if invoice.tax_stamp:
-            if not invoice.company_id.tax_stamp_product_id:
-                raise UserError(_(
-                    "Tax Stamp Product not set for company %s"
-                ) % invoice.company_id.name)
+
+        # get first stamp invoice line (should be only one)
+        tax_stamp_line_id = False
+        for line in invoice.invoice_line:
+            if line.product_id and line.product_id.is_stamp:
+                tax_stamp_line_id = line
+
+        # if invoice.tax_stamp:
+        #     if not invoice.company_id.tax_stamp_product_id:
+        #         raise UserError(_(
+        #             "Tax Stamp Product not set for company %s"
+        #         ) % invoice.company_id.name)
+        #     body.DatiGenerali.DatiGeneraliDocumento.DatiBollo = DatiBolloType(
+        #         BolloVirtuale="SI",
+        #         ImportoBollo='%.2f' % invoice.company_id.tax_stamp_product_id.
+        #         list_price,
+        #     )
+
+        if tax_stamp_line_id:
             body.DatiGenerali.DatiGeneraliDocumento.DatiBollo = DatiBolloType(
                 BolloVirtuale="SI",
-                ImportoBollo='%.2f' % invoice.company_id.tax_stamp_product_id.
-                list_price,
+                ImportoBollo='%.2f' % tax_stamp_line_id.price_subtotal,
             )
+
         return res
