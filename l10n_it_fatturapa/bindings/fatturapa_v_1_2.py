@@ -1533,7 +1533,7 @@ class NumeroCivicoType (pyxb.binding.datatypes.normalizedString):
         2)
     _Documentation = None
 NumeroCivicoType._CF_pattern = pyxb.binding.facets.CF_pattern()
-NumeroCivicoType._CF_pattern.addPattern(pattern='(\\p{IsBasicLatin}{1,8})')
+NumeroCivicoType._CF_pattern.addPattern(pattern='(\\p{IsBasicLatin}{0,8})')
 NumeroCivicoType._InitializeFacetMap(NumeroCivicoType._CF_pattern)
 Namespace.addCategoryObject(
     'typeBinding',
