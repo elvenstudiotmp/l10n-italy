@@ -186,6 +186,7 @@ class WizardImportFatturapa(models.TransientModel):
         partner_id = self.getPartnerBase(cedPrest.DatiAnagrafici)
         fiscalPosModel = self.env['fatturapa.fiscal_position']
         if partner_id:
+            partner_company_id = partner_model.browse(partner_id).company_id.id
             vals = {
                 'street': cedPrest.Sede.Indirizzo,
                 'zip': cedPrest.Sede.CAP,
@@ -233,7 +234,24 @@ class WizardImportFatturapa(models.TransientModel):
 
             if cedPrest.IscrizioneREA:
                 REA = cedPrest.IscrizioneREA
-                vals['rea_code'] = REA.NumeroREA
+                rea_partners = partner_model.search([
+                    ('rea_code', '=', REA.NumeroREA),
+                    ('company_id', '=', partner_company_id),
+                    ('id', '!=', partner_id)
+                ])
+                if rea_partners:
+                    rea_nr = REA.NumeroREA
+                    rea_names = ", ".join(rea_partners.mapped('name'))
+                    p_name = partner_model.browse(partner_id).name
+                    self.log_inconsistency(
+                        _("Current invoice is from {} with REA Code"
+                          " {}. Yet it seems that partners {} have the same"
+                          " REA Code. This code should be unique; please fix"
+                          " it."
+                          .format(p_name, rea_nr, rea_names))
+                    )
+                else:
+                    vals['rea_code'] = REA.NumeroREA
                 offices = self.ProvinceByCode(REA.Ufficio)
                 if not offices:
                     self.log_inconsistency(
@@ -384,10 +402,16 @@ class WizardImportFatturapa(models.TransientModel):
             )
             line_tax = self.env['account.tax'].browse(line_tax_id)
             if new_tax.id != line_tax_id:
-                self.log_inconsistency(_(
-                    "XML contains tax %s. Product %s has tax %s. Using "
-                    "the XML one"
-                ) % (line_tax.name, product.name, new_tax.name))
+                if new_tax.amount != line_tax.amount:
+                    self.log_inconsistency(_(
+                        "XML contains tax %s. Product %s has tax %s. Using "
+                        "the XML one"
+                    ) % (line_tax.name, product.name, new_tax.name))
+                else:
+                    # If product has the same amount of the one in XML,
+                    # I use it. Typical case: 22% det 50%
+                    line_vals['invoice_line_tax_id'] = [
+                        (6, 0, [new_tax.id])]
 
     def _prepareInvoiceLine(self, credit_account_id, line):
         retLine = self._prepare_generic_line_data(line)
@@ -912,7 +936,7 @@ class WizardImportFatturapa(models.TransientModel):
                 ) % Withholding.CausalePagamento)
             wt_found = False
             for wt in wts:
-                if wt.causale_pagamento_id.code == Withholding.CausalePagamento:
+                if wt.tax == float(Withholding.AliquotaRitenuta):
                     wt_found = wt
                     break
             if not wt_found:
@@ -1144,11 +1168,10 @@ class WizardImportFatturapa(models.TransientModel):
             invoice.with_context(lang=invoice.partner_id.lang))
         invoice.check_tax_lines(compute_taxes)
         if wt_found:
-            base = float(Withholding.ImportoRitenuta) / float(Withholding.AliquotaRitenuta) * 100.0
-            wh_line_id = self.env['account.invoice.withholding.tax.line'].create({
-                'invoice_id': invoice.id,
-                'amount_base': base,
-                'amount_tax': float(Withholding.ImportoRitenuta),
+            wh_line_id = self.env['account.invoice.withholding.tax'].create({
+                'base': float(Withholding.ImportoRitenuta) / float(
+                    Withholding.AliquotaRitenuta) * 100.0,
+                'tax': float(Withholding.ImportoRitenuta),
                 'withholding_tax_id': wt_found[0].id,
             })
             invoice.write({'withholding_tax_line': [(6, 0, [wh_line_id.id])]})

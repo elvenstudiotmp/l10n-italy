@@ -83,6 +83,11 @@ msgid "As a natural person, partner %s must have Name and Surname"
 msgstr "As a natural person, partner %s must have Name and Surname"
 
 #. module: l10n_it_fatturapa
+#: selection:res.company,fatturapa_preview_style:0
+msgid "AssoSoftware v1.1"
+msgstr ""
+
+#. module: l10n_it_fatturapa
 #: field:fatturapa.attachments,ir_attachment_id:0
 msgid "Attachment"
 msgstr "Allegato"
@@ -108,7 +113,7 @@ msgid "Bank name"
 msgstr "Nome Banca"
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:86
+#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:92
 #, python-format
 msgid "Base64 encoded file %s."
 msgstr ""
@@ -249,7 +254,7 @@ msgid "Contract"
 msgstr "Contratto"
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:76
+#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:82
 #, python-format
 msgid "Corrupted attachment %s."
 msgstr ""
@@ -474,6 +479,11 @@ msgid "Fattura Elettronica attachments"
 msgstr "Allegati fattura elettronica"
 
 #. module: l10n_it_fatturapa
+#: selection:res.company,fatturapa_preview_style:0
+msgid "FatturaOrdinaria v1.2.1"
+msgstr ""
+
+#. module: l10n_it_fatturapa
 #: model:ir.model,name:l10n_it_fatturapa.model_discount_rise_price
 msgid "FatturaPA Discount Rise Price Data"
 msgstr "Dati sconto maggiorazione"
@@ -661,7 +671,7 @@ msgid "Intermediary"
 msgstr "Intermediario"
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:110
+#: code:addons/l10n_it_fatturapa/models/ir_attachment.py:116
 #, python-format
 msgid "Invalid xml %s."
 msgstr ""
@@ -958,6 +968,12 @@ msgid "Prepayment Discount"
 msgstr "Sconto Pagamento Anticipato"
 
 #. module: l10n_it_fatturapa
+#: field:account.config.settings,fatturapa_preview_style:0
+#: field:res.company,fatturapa_preview_style:0
+msgid "Preview Format Style"
+msgstr ""
+
+#. module: l10n_it_fatturapa
 #: field:fatturapa.attachments,ftpa_preview_link:0
 #: field:ir.attachment,ftpa_preview_link:0
 msgid "Preview link"
@@ -1145,7 +1161,7 @@ msgid "Sequence"
 msgstr "Sequenza"
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/company.py:65
+#: code:addons/l10n_it_fatturapa/models/company.py:70
 #, python-format
 msgid "Sequence %s already used by journal %s. Please select another one"
 msgstr ""

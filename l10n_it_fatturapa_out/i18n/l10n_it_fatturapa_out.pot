@@ -296,11 +296,6 @@ msgid "Followers"
 msgstr ""
 
 #. module: l10n_it_fatturapa_out
-#: view:fatturapa.attachment.out:l10n_it_fatturapa_out.view_fatturapa_out_attachment_search
-msgid "Group By"
-msgstr ""
-
-#. module: l10n_it_fatturapa_out
 #: field:account.invoice,has_pdf_invoice_print:0
 #: field:fatturapa.attachment.out,has_pdf_invoice_print:0
 msgid "Has pdf invoice print"
@@ -376,6 +371,12 @@ msgstr ""
 #: code:addons/l10n_it_fatturapa_out/wizard/wizard_export_fatturapa.py:615
 #, python-format
 msgid "Invoice line %s does not have tax"
+msgstr ""
+
+#. module: l10n_it_fatturapa_out
+#: code:addons/l10n_it_fatturapa_out/wizard/wizard_export_fatturapa.py:686
+#, python-format
+msgid "Invoice {invoice} has no tax lines"
 msgstr ""
 
 #. module: l10n_it_fatturapa_out
@@ -646,17 +647,7 @@ msgid "VAT number and fiscal code are not set for %s."
 msgstr ""
 
 #. module: l10n_it_fatturapa_out
-#: field:fatturapa.attachment.out,website_message_ids:0
-msgid "Website Messages"
-msgstr ""
-
-#. module: l10n_it_fatturapa_out
-#: help:fatturapa.attachment.out,website_message_ids:0
-msgid "Website communication history"
-msgstr ""
-
-#. module: l10n_it_fatturapa_out
-#: code:addons/l10n_it_fatturapa_out/wizard/wizard_export_fatturapa.py:244
+#: code:addons/l10n_it_fatturapa_out/wizard/wizard_export_fatturapa.py:243
 #, python-format
 msgid "Your company City not set."
 msgstr ""

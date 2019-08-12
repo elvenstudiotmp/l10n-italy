@@ -23,6 +23,12 @@ re_base64 = re.compile(
     br'^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$')
 
 
+def is_base64(s):
+    s = s or ""
+    s = s.replace("\r", "").replace("\n", "")
+    return re_base64.match(s)
+
+
 class Attachment(models.Model):
     _inherit = 'ir.attachment'
 
@@ -78,7 +84,7 @@ class Attachment(models.Model):
                 ) % e.args
             )
 
-        if re_base64.match(data) is not None:
+        if is_base64(data):
             try:
                 data = base64.b64decode(data)
             except binascii.Error as e:
@@ -114,7 +120,8 @@ class Attachment(models.Model):
 
     def get_fattura_elettronica_preview(self):
         xsl_path = get_module_resource(
-            'l10n_it_fatturapa', 'data', 'fatturaordinaria_v1.2.1.xsl')
+            'l10n_it_fatturapa', 'data',
+            self.env.user.company_id.fatturapa_preview_style)
         xslt = ET.parse(xsl_path)
         xml_string = self.get_xml_string()
         xml_file = BytesIO(xml_string)
