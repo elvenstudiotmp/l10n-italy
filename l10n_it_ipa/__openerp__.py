@@ -31,7 +31,9 @@
     "author": "KTec S.r.l, Odoo Community Association (OCA)",
     "website": "http://www.ktec.it",
     "license": "AGPL-3",
-    "depends": ['base'],
+    "depends": [
+        'base_vat',
+    ],
     "data": [
         'view/partner_view.xml',
     ],
