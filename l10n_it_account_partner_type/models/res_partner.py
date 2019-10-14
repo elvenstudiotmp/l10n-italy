@@ -35,7 +35,7 @@ class ResPartner(models.Model):
             ('person', _('Person')),
         ],
         default='contact',
-        required=True,
+        required=False,
         help=_(
             'Choose the partner type due to your needed, '
             'in order to fill the right fields.\n'
