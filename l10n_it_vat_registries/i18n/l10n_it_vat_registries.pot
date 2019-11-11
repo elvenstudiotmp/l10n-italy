@@ -6,19 +6,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-24 15:27+0000\n"
-"PO-Revision-Date: 2018-12-24 15:27+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_pages
-msgid "&nbsp;"
-msgstr ""
 
 #. module: l10n_it_vat_registries
 #: model:ir.actions.act_window,help:l10n_it_vat_registries.action_account_tax_registry_form
@@ -31,22 +24,12 @@ msgid "<p class=\"oe_view_nocontent_create\">\n"
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_page_total
-msgid "CODICE"
+#: view:website:l10n_it_vat_registries.report_registro_iva
+msgid "CAUS."
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_page_header
-msgid "CODICE IVA"
-msgstr ""
-
-#. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_page_header
-msgid "CREDIT NOTE"
-msgstr ""
-
-#. module: l10n_it_vat_registries
-#: code:addons/l10n_it_vat_registries/vat_registry.py:206
+#: code:addons/l10n_it_vat_registries/vat_registry.py:185
 #, python-format
 msgid "Can't compute base amount for tax %s"
 msgstr ""
@@ -59,11 +42,6 @@ msgstr ""
 #. module: l10n_it_vat_registries
 #: field:account.tax.registry,company_id:0
 msgid "Company"
-msgstr ""
-
-#. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_header
-msgid "Company:"
 msgstr ""
 
 #. module: l10n_it_vat_registries
@@ -91,23 +69,28 @@ msgid "Customer Invoices"
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_page_header
-msgid "DATA FAT."
-msgstr ""
-
-#. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_page_header
+#: view:website:l10n_it_vat_registries.report_registro_iva
 msgid "DATA REG."
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_page_total
-msgid "DESCRIZIONE"
+#: view:website:l10n_it_vat_registries.report_registro_iva
+msgid "DT FATT."
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_page_header
-msgid "DOCUMENT TYPE:"
+#: view:website:l10n_it_vat_registries.report_registro_iva
+msgid "Descrizione"
+msgstr ""
+
+#. module: l10n_it_vat_registries
+#: view:website:l10n_it_vat_registries.report_registro_iva
+msgid "Descrizione Imposta"
+msgstr ""
+
+#. module: l10n_it_vat_registries
+#: view:website:l10n_it_vat_registries.report_registro_iva
+msgid "Detraibile"
 msgstr ""
 
 #. module: l10n_it_vat_registries
@@ -123,11 +106,6 @@ msgid "Exclude from VAT registries"
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_header
-msgid "Fiscalcode:"
-msgstr ""
-
-#. module: l10n_it_vat_registries
 #: field:account.tax.registry,id:0
 #: field:report.l10n_it_vat_registries.report_registro_iva,id:0
 #: field:wizard.registro.iva,id:0
@@ -135,48 +113,23 @@ msgid "ID"
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_page_header
-msgid "IMPONIBILE"
+#: view:website:l10n_it_vat_registries.report_registro_iva
+msgid "Imponibile"
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_page_total
-msgid "IMPONIBILE MESE"
+#: view:website:l10n_it_vat_registries.report_registro_iva
+msgid "Imposta"
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_page_header
-msgid "INVOICE"
-msgstr ""
-
-#. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_page_header
-msgid "IVA"
-msgstr ""
-
-#. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_page_total
-msgid "IVA DET."
-msgstr ""
-
-#. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_page_total
-msgid "IVA MESE"
-msgstr ""
-
-#. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_page_total
-msgid "IVA NON DET."
+#: view:website:l10n_it_vat_registries.report_registro_iva
+msgid "Indetraibile"
 msgstr ""
 
 #. module: l10n_it_vat_registries
 #: model:ir.actions.report.xml,name:l10n_it_vat_registries.action_report_registro_iva
 msgid "Invoices VAT Registry"
-msgstr ""
-
-#. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_page_header
-msgid "JOURNAL:"
 msgstr ""
 
 #. module: l10n_it_vat_registries
@@ -187,10 +140,8 @@ msgstr ""
 #. module: l10n_it_vat_registries
 #: view:account.tax.registry:l10n_it_vat_registries.view_account_tax_registry_form
 #: field:account.tax.registry,journal_ids:0
-#: code:addons/l10n_it_vat_registries/wizard/print_registro_iva.py:55
 #: view:wizard.registro.iva:l10n_it_vat_registries.wizard_registro_iva
 #: field:wizard.registro.iva,journal_ids:0
-#, python-format
 msgid "Journals"
 msgstr ""
 
@@ -214,38 +165,35 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: code:addons/l10n_it_vat_registries/wizard/print_registro_iva.py:71
 #: field:wizard.registro.iva,fiscal_page_base:0
-#, python-format
 msgid "Last printed page"
 msgstr ""
 
 #. module: l10n_it_vat_registries
 #: field:account.tax.registry,type:0
+#: view:wizard.registro.iva:l10n_it_vat_registries.wizard_registro_iva
 #: field:wizard.registro.iva,type:0
 msgid "Layout"
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: code:addons/l10n_it_vat_registries/wizard/print_registro_iva.py:66
 #: field:wizard.registro.iva,message:0
-#, python-format
 msgid "Message"
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: code:addons/l10n_it_vat_registries/vat_registry.py:108
+#: code:addons/l10n_it_vat_registries/vat_registry.py:95
 #, python-format
 msgid "Move %s contains different invoices"
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_page_header
-msgid "NUM FAT."
+#: view:website:l10n_it_vat_registries.report_registro_iva
+msgid "NUM FATT."
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_page_header
+#: view:website:l10n_it_vat_registries.report_registro_iva
 msgid "NUM. REG."
 msgstr ""
 
@@ -255,26 +203,20 @@ msgid "Name"
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: code:addons/l10n_it_vat_registries/wizard/print_registro_iva.py:114
+#: code:addons/l10n_it_vat_registries/wizard/print_registro_iva.py:93
 #, python-format
 msgid "No documents found in the current selection"
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_page_header
-msgid "PERIOD:"
+#: view:website:l10n_it_vat_registries.report_registro_iva
+msgid "P.IVA"
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_header
-msgid "Pag:"
-msgstr ""
-
-#. module: l10n_it_vat_registries
-#: code:addons/l10n_it_vat_registries/wizard/print_registro_iva.py:33
-#: field:wizard.registro.iva,period_id:0
-#, python-format
-msgid "Period"
+#: view:wizard.registro.iva:l10n_it_vat_registries.wizard_registro_iva
+#: field:wizard.registro.iva,period_ids:0
+msgid "Periods"
 msgstr ""
 
 #. module: l10n_it_vat_registries
@@ -283,39 +225,23 @@ msgid "Print"
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: model:ir.actions.act_window,name:l10n_it_vat_registries.action_registro_iva
-msgid "Print VAT Registry"
-msgstr ""
-
-#. module: l10n_it_vat_registries
-#: code:addons/l10n_it_vat_registries/wizard/print_registro_iva.py:68
 #: field:wizard.registro.iva,only_totals:0
-#, python-format
 msgid "Prints only totals"
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_page_header
+#: view:website:l10n_it_vat_registries.report_registro_iva
 msgid "RAGIONE SOCIALE"
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_page_header
-msgid "SUMMARY"
-msgstr ""
-
-#. module: l10n_it_vat_registries
-#: code:addons/l10n_it_vat_registries/wizard/print_registro_iva.py:56
 #: help:wizard.registro.iva,journal_ids:0
-#, python-format
 msgid "Select journals you want retrieve documents from"
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: code:addons/l10n_it_vat_registries/wizard/print_registro_iva.py:36
-#: help:wizard.registro.iva,period_id:0
-#, python-format
-msgid "Select period you want retrieve documents from"
+#: help:wizard.registro.iva,period_ids:0
+msgid "Select periods you want retrieve documents from"
 msgstr ""
 
 #. module: l10n_it_vat_registries
@@ -325,13 +251,8 @@ msgid "Supplier Invoices"
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_page_header
+#: view:website:l10n_it_vat_registries.report_registro_iva
 msgid "TOTALE"
-msgstr ""
-
-#. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_page_footer
-msgid "TOTALI PROGRESSIVI"
 msgstr ""
 
 #. module: l10n_it_vat_registries
@@ -345,33 +266,38 @@ msgid "Tax Journal"
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: code:addons/l10n_it_vat_registries/wizard/print_registro_iva.py:61
 #: field:wizard.registro.iva,tax_sign:0
-#, python-format
 msgid "Tax amount sign"
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: code:addons/l10n_it_vat_registries/vat_registry.py:260
-#, python-format
-msgid "Tax code %s is not linked to 1 and only 1 tax"
+#: model:ir.ui.menu,name:l10n_it_vat_registries.menu_finance_legal_statement_taxes
+msgid "Taxes"
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_page_total
-msgid "Totale generale"
+#: view:website:l10n_it_vat_registries.report_registro_iva
+msgid "Totale generale euro"
 msgstr ""
 
 #. module: l10n_it_vat_registries
-#: code:addons/l10n_it_vat_registries/wizard/print_registro_iva.py:63
+#: view:website:l10n_it_vat_registries.report_registro_iva
+msgid "Totali"
+msgstr ""
+
+#. module: l10n_it_vat_registries
 #: help:wizard.registro.iva,tax_sign:0
-#, python-format
-msgid "Use -1 you have negative tax amounts and you want to print them prositive"
+msgid "Use -1 you have negative tax         amounts and you want to print them prositive"
 msgstr ""
 
 #. module: l10n_it_vat_registries
 #: model:ir.ui.menu,name:l10n_it_vat_registries.menu_registro_iva
 msgid "VAT Registries"
+msgstr ""
+
+#. module: l10n_it_vat_registries
+#: model:ir.actions.act_window,name:l10n_it_vat_registries.action_registro_iva
+msgid "VAT Registry"
 msgstr ""
 
 #. module: l10n_it_vat_registries
@@ -384,11 +310,6 @@ msgstr ""
 #: field:account.journal,tax_registry_id:0
 #: field:wizard.registro.iva,tax_registry_id:0
 msgid "VAT registry"
-msgstr ""
-
-#. module: l10n_it_vat_registries
-#: view:website:l10n_it_vat_registries.vat_registry_header
-msgid "Vat:"
 msgstr ""
 
 #. module: l10n_it_vat_registries

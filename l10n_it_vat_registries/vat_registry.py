@@ -55,8 +55,8 @@ class Parser(report_sxw.rml_parse):
                         move_line.tax_code_id.vat_statement_type == 'debit')
                 ):
                     tax = tax_obj.browse(
-                        self.cr, self.uid, self.get_tax_by_tax_code(
-                            move_line.tax_code_id.id))
+                        self.cr, self.uid,
+                        move_line.tax_code_id.get_tax_by_tax_code())
                     if not res.get(tax.id):
                         res[tax.id] = {
                             'code': tax.description,
