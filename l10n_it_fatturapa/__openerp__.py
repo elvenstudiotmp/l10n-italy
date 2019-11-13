@@ -36,7 +36,7 @@
         'views/partner_view.xml',
         'security/ir.model.access.csv',
     ],
-    # "demo": ['demo/account_invoice_fatturapa.xml'],
+    "demo": ['demo/account_invoice_fatturapa.xml'],
     'installable': True,
     'external_dependencies': {
         'python': [
