@@ -5,16 +5,16 @@
             <field name="name">account.tax.registry.form</field>
             <field name="model">account.tax.registry</field>
             <field name="arch" type="xml">
-                <sheet>
-                    <form>
+                <form>
+                    <sheet>
                         <group>
                             <field name="name" />
                             <field name="type" />
                         </group>
                         <separator string="Journals" />
                         <field name="journal_ids" />
-                    </form>
-                </sheet>
+                    </sheet>
+                </form>
             </field>
         </record>
 
