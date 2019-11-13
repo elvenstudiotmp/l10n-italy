@@ -716,12 +716,12 @@ class WizardExportFatturapa(models.TransientModel):
         return True
 
     def setDatiPagamento(self, invoice, body):
-        if invoice.payment_term and not invoice.payment_mode_id:
+        if not invoice.payment_mode_id:
             raise UserError(
                 _('Invoice %s does not have a payment method')
                 % invoice.number)
 
-        if not invoice.payment_term and invoice.payment_mode_id:
+        if not invoice.payment_term:
             raise UserError(
                 _('Invoice %s does not have a payment term')
                 % invoice.number)
@@ -764,7 +764,6 @@ class WizardExportFatturapa(models.TransientModel):
                         DettaglioPagamento.BIC = (
                             invoice.partner_bank_id.bank_bic)
                 DatiPagamento.DettaglioPagamento.append(DettaglioPagamento)
-
             body.DatiPagamento.append(DatiPagamento)
         return True
 
