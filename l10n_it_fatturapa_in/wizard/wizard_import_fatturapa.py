@@ -980,8 +980,7 @@ class WizardImportFatturapa(models.TransientModel):
                 WelfareFundLineModel.create(WalferLineVals)
                 line_vals = self._prepare_generic_line_data(walfareLine)
                 line_vals.update({
-                    'name': _(
-                        "Welfare Fund: %s") % walfareLine.TipoCassa,
+                    'name': _("Welfare Fund: '%s'") % walfareLine.TipoCassa,
                     'price_unit': float(walfareLine.ImportoContributoCassa),
                     'invoice_id': invoice.id,
                     'account_id': credit_account_id,

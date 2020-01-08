@@ -930,7 +930,7 @@ msgstr ""
 #. module: l10n_it_fatturapa_in
 #: code:addons/l10n_it_fatturapa_in/wizard/wizard_import_fatturapa.py:949
 #, python-format
-msgid "Welfare Fund: %s"
+msgid "Welfare Fund: '%s'"
 msgstr ""
 
 #. module: l10n_it_fatturapa_in

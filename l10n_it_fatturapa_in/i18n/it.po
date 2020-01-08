@@ -966,8 +966,8 @@ msgstr ""
 #: code:addons/l10n_it_fatturapa_in/wizard/wizard_import_fatturapa.py:949
 #, fuzzy, python-format
 #| msgid "Welfare Fund"
-msgid "Welfare Fund: %s"
-msgstr "Cassa previdenziale"
+msgid "Welfare Fund: '%s'"
+msgstr "Cassa previdenziale '%s'"
 
 #. module: l10n_it_fatturapa_in
 #: code:addons/l10n_it_fatturapa_in/wizard/wizard_import_fatturapa.py:396
