@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* l10n_it_reverse_charge
+# * l10n_it_reverse_charge
 #
 # Translators:
 # Paolo Valier <paolo.valier@hotmail.it>, 2017
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-10-28 05:14+0000\n"
-"PO-Revision-Date: 2018-12-21 16:50+0000\n"
+"PO-Revision-Date: 2017-10-28 05:14+0000\n"
 "Last-Translator: Paolo Valier <paolo.valier@hotmail.it>, 2017\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: l10n_it_reverse_charge
-#: code:addons/l10n_it_reverse_charge/models/account_invoice.py:303
+#: code:addons/l10n_it_reverse_charge/models/account_invoice.py:254
 #, python-format
 msgid "Can't find 1 tax mapping for %s"
 msgstr "Impossibile trovare 1 mappatura di imposte per %s"
@@ -85,7 +85,7 @@ msgid "Invoice Line"
 msgstr "Righe Fattura"
 
 #. module: l10n_it_reverse_charge
-#: code:addons/l10n_it_reverse_charge/models/account_invoice.py:257
+#: code:addons/l10n_it_reverse_charge/models/account_invoice.py:223
 #, python-format
 msgid "Invoice line\n"
 "%s\n"
@@ -201,6 +201,20 @@ msgid "Reverse Charge Types"
 msgstr "Tipi reverse charge"
 
 #. module: l10n_it_reverse_charge
+#: code:addons/l10n_it_reverse_charge/models/account_invoice.py:45
+#, python-format
+msgid "Reverse charge self invoice.\n"
+"Supplier: %s\n"
+"Reference: %s\n"
+"Date: %s\n"
+"Internal reference: %s"
+msgstr "Autofattura di reverse charge.\n"
+"Fornitore: %s\n"
+"Riferimento: %s\n"
+"Data: %s\n"
+"Riferimento interno: %s"
+
+#. module: l10n_it_reverse_charge
 #: field:account.rc.type.tax,sale_tax_id:0
 msgid "Sale Tax"
 msgstr "Imposta Vendite"
@@ -283,7 +297,7 @@ msgid "Text on Self Invoice"
 msgstr "Testo su autofattura"
 
 #. module: l10n_it_reverse_charge
-#: code:addons/l10n_it_reverse_charge/models/account_invoice.py:357
+#: code:addons/l10n_it_reverse_charge/models/account_invoice.py:313
 #, python-format
 msgid "There are more than one payment line.\n"
 "In that case account entries cannot be canceledautomatically. Please proceed manually"
@@ -291,7 +305,7 @@ msgstr "C'è più di una riga di pagamento.\n"
 "In tal caso le registrazioni non possono essere annullate automaticamente. Procedere manualmente"
 
 #. module: l10n_it_reverse_charge
-#: code:addons/l10n_it_reverse_charge/models/account_invoice.py:239
+#: code:addons/l10n_it_reverse_charge/models/account_invoice.py:209
 #, python-format
 msgid "There is no default credit account defined \n"
 "on journal \"%s\"."

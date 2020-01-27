@@ -55,6 +55,15 @@ class AccountInvoice(models.Model):
     @api.multi
     def _rc_inv_vals(self, partner, account, rc_type, lines):
         self.ensure_one()
+        comment = _(
+            "Reverse charge self invoice.\n"
+            "Supplier: %s\n"
+            "Reference: %s\n"
+            "Date: %s\n"
+            "Internal reference: %s") % (
+            self.partner_id.display_name, self.reference or '', self.date,
+            self.number
+        )
         return {
             'partner_id': partner.id,
             'type': 'out_invoice',
@@ -66,6 +75,7 @@ class AccountInvoice(models.Model):
             'origin': self.number,
             'rc_purchase_invoice_id': self.id,
             'name': rc_type.self_invoice_text,
+            'comment': comment,
             }
 
     @api.multi
@@ -233,17 +243,14 @@ class AccountInvoice(models.Model):
 
     def generate_self_invoice(self):
         rc_type = self.fiscal_position.rc_type_id
-
         if not rc_type.payment_journal_id.default_credit_account_id:
             raise UserError(
                 _('There is no default credit account defined \n'
                   'on journal "%s".') % rc_type.payment_journal_id.name)
-
         if rc_type.partner_type == 'other':
             rc_partner = rc_type.partner_id
         else:
             rc_partner = self.partner_id
-
         rc_account = rc_partner.property_account_receivable
         sign = -1 if self.type in ['in_refund', 'out_refund'] else 1
 
@@ -252,23 +259,18 @@ class AccountInvoice(models.Model):
             if line.rc:
                 rc_invoice_line = self._rc_inv_line_vals(line, sign)
                 line_tax = line.invoice_line_tax_id
-
                 if not line_tax:
                     raise UserError(_(
                         "Invoice line\n%s\nis RC but has not tax") % line.name)
-
                 tax_code_id = None
                 for tax_mapping in rc_type.tax_ids:
                     if tax_mapping.purchase_tax_id == line_tax[0]:
                         tax_code_id = tax_mapping.sale_tax_id.id
-
                 if not tax_code_id:
                     raise UserError(_("Can't find tax mapping"))
-
                 if line_tax:
                     rc_invoice_line['invoice_line_tax_id'] = [
                         (6, False, [tax_code_id])]
-
                 rc_invoice_line[
                     'account_id'] = rc_type.transitory_account_id.id
                 rc_invoice_lines.append([0, False, rc_invoice_line])
@@ -289,7 +291,6 @@ class AccountInvoice(models.Model):
             else:
                 rc_invoice = self.create(inv_vals)
                 self.rc_self_invoice_id = rc_invoice.id
-
             rc_invoice.signal_workflow('invoice_open')
             if rc_type.with_supplier_self_invoice:
                 self.reconcile_supplier_invoice()
@@ -302,7 +303,6 @@ class AccountInvoice(models.Model):
         if not len(rc_type.tax_ids) == 1:
             raise UserError(_(
                 "Can't find 1 tax mapping for %s" % rc_type.name))
-
         if not self.rc_self_purchase_invoice_id:
             supplier_invoice = self.copy()
         else:
@@ -317,12 +317,10 @@ class AccountInvoice(models.Model):
         supplier_invoice.date_due = self.registration_date
         supplier_invoice.partner_id = rc_type.partner_id.id
         supplier_invoice.journal_id = rc_type.supplier_journal_id.id
-
         for inv_line in supplier_invoice.invoice_line:
             inv_line.invoice_line_tax_id = [
                 (6, 0, [rc_type.tax_ids[0].purchase_tax_id.id])]
             inv_line.account_id = rc_type.transitory_account_id.id
-
         self.rc_self_purchase_invoice_id = supplier_invoice.id
 
         # temporary disabling self invoice automations
@@ -338,7 +336,6 @@ class AccountInvoice(models.Model):
         res = super(AccountInvoice, self).invoice_validate()
         fp = self.fiscal_position
         rc_type = fp and fp.rc_type_id
-
         if rc_type and rc_type.method == 'selfinvoice':
             if not rc_type.with_supplier_self_invoice:
                 self.generate_self_invoice()
@@ -346,7 +343,6 @@ class AccountInvoice(models.Model):
                 # See with_supplier_self_invoice field help
                 self.generate_supplier_self_invoice()
                 self.rc_self_purchase_invoice_id.generate_self_invoice()
-
         return res
 
     def remove_rc_payment(self):
@@ -357,30 +353,29 @@ class AccountInvoice(models.Model):
                     _('There are more than one payment line.\n'
                       'In that case account entries cannot be canceled'
                       'automatically. Please proceed manually'))
-
             payment_move = inv.payment_ids[0].move_id
-
             # remove move reconcile related to the supplier invoice
             move = inv.move_id
             rec_partial_lines = move.mapped('line_id').filtered(
-                'reconcile_partial_id').mapped('reconcile_partial_id.line_partial_ids')
-            self.env['account.move.line']._remove_move_reconcile(rec_partial_lines.ids)
-
+                'reconcile_partial_id').mapped(
+                'reconcile_partial_id.line_partial_ids')
+            self.env['account.move.line']._remove_move_reconcile(
+                rec_partial_lines.ids)
             # also remove full reconcile, in case of with_supplier_self_invoice
             rec_partial_lines = move.mapped('line_id').filtered(
                 'reconcile_id').mapped('reconcile_id.line_id')
-            self.env['account.move.line']._remove_move_reconcile(rec_partial_lines.ids)
-
+            self.env['account.move.line']._remove_move_reconcile(
+                rec_partial_lines.ids)
             # remove move reconcile related to the self invoice
             move = inv.rc_self_invoice_id.move_id
             rec_lines = move.mapped('line_id').filtered(
                 'reconcile_id').mapped('reconcile_id.line_id')
-            self.env['account.move.line']._remove_move_reconcile(rec_lines.ids)
-
+            self.env['account.move.line']._remove_move_reconcile(
+                rec_lines.ids)
             # cancel self invoice
-            self_invoice = self.browse(inv.rc_self_invoice_id.id)
+            self_invoice = self.browse(
+                inv.rc_self_invoice_id.id)
             self_invoice.signal_workflow('invoice_cancel')
-
             # invalidate and delete the payment move generated
             # by the self invoice creation
             payment_move.button_cancel()
@@ -403,8 +398,8 @@ class AccountInvoice(models.Model):
                 inv.rc_self_purchase_invoice_id
             ):
                 inv.rc_self_purchase_invoice_id.remove_rc_payment()
-                inv.rc_self_purchase_invoice_id.signal_workflow('invoice_cancel')
-
+                inv.rc_self_purchase_invoice_id.signal_workflow(
+                    'invoice_cancel')
         return super(AccountInvoice, self).action_cancel()
 
     @api.multi
@@ -416,10 +411,8 @@ class AccountInvoice(models.Model):
                 self_invoice = invoice_model.browse(
                     inv.rc_self_invoice_id.id)
                 self_invoice.action_cancel_draft()
-
             if inv.rc_self_purchase_invoice_id:
                 self_purchase_invoice = invoice_model.browse(
                     inv.rc_self_purchase_invoice_id.id)
                 self_purchase_invoice.action_cancel_draft()
-
         return True
