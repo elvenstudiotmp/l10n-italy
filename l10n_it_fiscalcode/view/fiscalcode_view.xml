@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <openerp>
-	<data>
+    <data>
 
         <record id="view_partner_form_fiscalcode_data" model="ir.ui.view">
             <field name="name">res.partner.fiscalcode.data</field>
@@ -10,7 +10,9 @@
                 <xpath expr="//div[@name='vat_info']" position="after">
                     <label for="fiscalcode" />
                     <div name="fiscalcode_info">
-                        <field name="fiscalcode" class="oe_inline" attrs="{'required': [('individual', '=', True)]}" />
+                        <field name="fiscalcode"
+                               class="oe_inline"
+                               attrs="{'required': [('individual', '=', True)]}" />
                         <span name="individual_field">
                             (<field name="individual" nolabel="1" /> <label for="individual" string="Is an individual person?"/>)
                         </span>
@@ -29,5 +31,6 @@
                 </field>
             </field>
         </record>
-	</data>
+
+    </data>
 </openerp>

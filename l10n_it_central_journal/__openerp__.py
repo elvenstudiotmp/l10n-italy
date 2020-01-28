@@ -30,6 +30,5 @@
 
         'views/account_journal_view.xml'
     ],
-
     "installable": True,
 }
