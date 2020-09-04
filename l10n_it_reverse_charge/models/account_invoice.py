@@ -61,7 +61,7 @@ class AccountInvoice(models.Model):
             "Reference: %s\n"
             "Date: %s\n"
             "Internal reference: %s") % (
-            self.partner_id.display_name, self.reference or '', self.date,
+            self.partner_id.display_name, self.reference or '', self.registration_date,
             self.number
         )
         return {
