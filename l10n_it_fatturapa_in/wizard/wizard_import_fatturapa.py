@@ -183,10 +183,10 @@ class WizardImportFatturapa(models.TransientModel):
 
     def getCedPrest(self, cedPrest):
         partner_model = self.env['res.partner']
-        partner_id = self.getPartnerBase(cedPrest.DatiAnagrafici)
+        id_partner = self.getPartnerBase(cedPrest.DatiAnagrafici)
+        partner_id = partner_model.browse(id_partner)
         fiscalPosModel = self.env['fatturapa.fiscal_position']
         if partner_id:
-            partner_company_id = partner_model.browse(partner_id).company_id.id
             vals = {
                 'street': cedPrest.Sede.Indirizzo,
                 'zip': cedPrest.Sede.CAP,
@@ -236,19 +236,18 @@ class WizardImportFatturapa(models.TransientModel):
                 REA = cedPrest.IscrizioneREA
                 rea_partners = partner_model.search([
                     ('rea_code', '=', REA.NumeroREA),
-                    ('company_id', '=', partner_company_id),
-                    ('id', '!=', partner_id)
+                    ('company_id', '=', partner_id.company_id.id),
+                    ('id', '!=', partner_id.id)
                 ])
                 if rea_partners:
                     rea_nr = REA.NumeroREA
                     rea_names = ", ".join(rea_partners.mapped('name'))
-                    p_name = partner_model.browse(partner_id).name
                     self.log_inconsistency(
                         _("Current invoice is from {} with REA Code"
                           " {}. Yet it seems that partners {} have the same"
                           " REA Code. This code should be unique; please fix"
                           " it."
-                          .format(p_name, rea_nr, rea_names))
+                          .format(partner_id.name, rea_nr, rea_names))
                     )
                 else:
                     vals['rea_code'] = REA.NumeroREA
@@ -268,11 +267,16 @@ class WizardImportFatturapa(models.TransientModel):
                 vals['rea_liquidation_state'] = REA.StatoLiquidazione or False
 
             if cedPrest.Contatti:
-                vals['phone'] = cedPrest.Contatti.Telefono
-                vals['email'] = cedPrest.Contatti.Email
-                vals['fax'] = cedPrest.Contatti.Fax
-            partner_model.browse(partner_id).write(vals)
-        return partner_id
+                if not partner_id.phone:
+                    vals['phone'] = cedPrest.Contatti.Telefono
+
+                if not partner_id.email:
+                    vals['email'] = cedPrest.Contatti.Email
+
+                if not partner_id.fax:
+                    vals['fax'] = cedPrest.Contatti.Fax
+            partner_id.write(vals)
+        return id_partner
 
     def getCarrirerPartner(self, Carrier):
         partner_model = self.env['res.partner']
