@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
-from openerp import models, _
-from openerp.exceptions import ValidationError
-from openerp.addons.l10n_it_fatturapa.bindings.fatturapa_v_1_2 import (
+from openerp import models, fields, api, _
+from openerp.exceptions import Warning as UserError
+from openerp.tools.float_utils import float_round
+from openerp.addons.l10n_it_fatturapa.bindings.fatturapa import (
     DatiDDTType,
     DatiTrasportoType,
     DatiAnagraficiVettoreType,
@@ -15,40 +16,72 @@ from openerp.addons.l10n_it_fatturapa.bindings.fatturapa_v_1_2 import (
 class WizardExportFatturapa(models.TransientModel):
     _inherit = "wizard.export.fatturapa"
 
-    def setDatiDDT(self, invoice, body):
-        res = super(WizardExportFatturapa, self).setDatiDDT(invoice, body)
-        inv_lines_by_ddt = {}
-        for line in invoice.invoice_line:
-            for ddt in line.ddt_ids:
-                key = (ddt.ddt_number, ddt.date[:10])
-                if key not in inv_lines_by_ddt:
-                    inv_lines_by_ddt[key] = []
-                inv_lines_by_ddt[key].append(line.ftpa_line_number)
+    @api.model
+    def default_get(self, fields):
+        res = super(WizardExportFatturapa, self).default_get(fields)
+        invoice_ids = self.env.context.get('active_ids', False)
+        invoices = self.env['account.invoice'].browse(invoice_ids)
+        for invoice in invoices:
+            if invoice.picking_ids:
+                res['include_ddt_data'] = 'dati_ddt'
+                return res
+        return res
 
-        # if at least one line has ddt info,
-        # we must use DatiDDT section
-        if inv_lines_by_ddt:
+    include_ddt_data = fields.Selection([
+        ('dati_ddt', 'Include TD Data'),
+        ('dati_trasporto', 'Include transport data'),
+        ],
+        string="TD Data",
+        help="Include TD data: The field must be entered when a transport "
+             "document associated with a deferred invoice is present\n"
+             "Include transport data: The field must be entered when a "
+             "accompanying invoice to be filled with transport data is present"
+    )
+
+    def setDatiDDT(self, invoice, body):
+        res = super(WizardExportFatturapa, self).setDatiDDT(
+            invoice, body)
+        if self.include_ddt_data == 'dati_ddt':
+            inv_lines_by_ddt = {}
+            for line in invoice.invoice_line:
+                for picking in invoice.picking_ids:
+                    if (
+                        line.origin and (
+                            picking.name == line.origin or
+                            picking.origin == line.origin
+                        ) and picking.ddt_ids and
+                        picking.ddt_ids[0].ddt_number and
+                        picking.ddt_ids[0].date
+                    ):
+                        key = (
+                            picking.ddt_ids[0].ddt_number,
+                            picking.ddt_ids[0].date[:10]
+                        )
+                        if key not in inv_lines_by_ddt:
+                            inv_lines_by_ddt[key] = []
+                        inv_lines_by_ddt[key].append(line.ftpa_line_number)
             for key in sorted(inv_lines_by_ddt.iterkeys()):
-                DatiDDT = DatiDDTType(NumeroDDT=key[0], DataDDT=key[1])
+                DatiDDT = DatiDDTType(
+                    NumeroDDT=key[0],
+                    DataDDT=key[1]
+                )
                 for line_number in inv_lines_by_ddt[key]:
                     DatiDDT.RiferimentoNumeroLinea.append(line_number)
                 body.DatiGenerali.DatiDDT.append(DatiDDT)
-
-        elif invoice.ddt_into_invoice:
+        elif self.include_ddt_data == 'dati_trasporto':
             body.DatiGenerali.DatiTrasporto = DatiTrasportoType(
                 MezzoTrasporto=invoice.transportation_method_id.name or None,
                 CausaleTrasporto=invoice.transportation_reason_id.name or None,
                 NumeroColli=invoice.parcels or None,
                 Descrizione=invoice.goods_description_id.name or None,
-                PesoLordo='%.2f' % invoice.gross_weight,
-                PesoNetto='%.2f' % invoice.net_weight,
+                PesoLordo='%.2f' % float_round(invoice.gross_weight, 2),
+                PesoNetto='%.2f' % float_round(invoice.net_weight, 2),
                 TipoResa=None  # invoice.incoterms_id.code or None
             )
             if invoice.carrier_id:
                 if not invoice.carrier_id.vat:
-                    raise ValidationError(
+                    raise UserError(
                         _('TIN not set for %s.') % invoice.carrier_id.name)
-
                 body.DatiGenerali.DatiTrasporto.DatiAnagraficiVettore = (
                     DatiAnagraficiVettoreType())
                 if invoice.carrier_id.fiscalcode:
@@ -62,6 +95,4 @@ class WizardExportFatturapa(models.TransientModel):
                 body.DatiGenerali.DatiTrasporto.DatiAnagraficiVettore.\
                     Anagrafica = AnagraficaType(
                         Denominazione=invoice.carrier_id.name)
-
         return res
-

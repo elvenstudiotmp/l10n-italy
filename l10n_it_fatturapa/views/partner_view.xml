@@ -8,14 +8,16 @@
             <field name="inherit_id" ref="account.view_partner_property_form"/>
             <field name="arch" type="xml">
                 <notebook position="inside">
-                    <page name="fatturapa" string="Fattura Elettronica" groups="account.group_account_invoice">
+            <page name="fatturapa" string="Electronic Invoice" groups="account.group_account_invoice">
                         <group name="fatturapa_group">
-                            <group>
-                                <field name="electronic_invoice_subjected"/>
-                                <field name="ipa_code" placeholder="IPA123" attrs="{'invisible': ['|', ('is_pa','=', False), ('electronic_invoice_subjected', '=', False)]}"/>
-                                <field name="codice_destinatario" attrs="{'invisible': ['|', ('is_pa', '=', True), ('electronic_invoice_subjected', '=', False)]}"/>
-                                <field name="pec_destinatario" attrs="{'invisible': ['|', ('is_pa', '=', True), ('electronic_invoice_subjected', '=', False)]}"/>
-                                <field name="eori_code" attrs="{'invisible': [('electronic_invoice_subjected', '=', False)]}" />
+                            <filed name="electronic_invoice_no_contact_update" attrs="{'invisible': [('supplier', '=', False)]}"/>
+                            <field name="electronic_invoice_subjected"/>
+                            <group attrs="{'invisible': [('electronic_invoice_subjected', '=', False)]}">
+                                <field name="ipa_code" placeholder="IPA123" attrs="{'invisible': [('is_pa','=', False)]}"/>
+                                <field name="codice_destinatario" attrs="{'invisible': [('is_pa', '=', True)]}"/>
+                                <field name="pec_destinatario"
+                                       attrs="{'invisible': ['|',('is_pa', '=', True), ('codice_destinatario', '!=', '0000000')]}"/>
+                                <field name="eori_code"/>
                             </group>
                         </group>
                     </page>
@@ -32,30 +34,5 @@
             </field>
         </record>
 
-        <record id="fatturapa_res_partner_search" model="ir.ui.view">
-            <field name="name">fatturapa.res.partner.search</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_res_partner_filter"/>
-            <field name="arch" type="xml">
-
-                <group string="Group By" position="before">
-                     <group name="fatturapa_filters" string="Electronic Invoice">
-                         <filter name="fatturapa_missing_data"
-                                 string="Partners without E-Invoice data"
-                                 domain="[
-                                    ('parent_id', '=', False),
-                                    ('is_company', '=', True),
-                                    ('electronic_invoice_subjected', '=', True),
-                                    ('codice_destinatario', '=', '0000000'),
-                                    ('pec_destinatario', '=', False),
-                                    ('ipa_code', '=', False)
-                                 ]"
-                                 help="Show partners which are missing one or more e-invoice data (eg. SDI code, PEC email or fiscal code for individual person." />
-
-                     </group>
-                </group>
-
-            </field>
-        </record>
     </data>
 </openerp>
