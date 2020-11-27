@@ -165,12 +165,12 @@ class WizardImportFatturapa(models.TransientModel):
             return commercial_partner_id
         else:
             # partner to be created
-            country = False
+            country_id = False
             if DatiAnagrafici.IdFiscaleIVA:
                 CountryCode = DatiAnagrafici.IdFiscaleIVA.IdPaese
                 countries = self.CountryByCode(CountryCode)
                 if countries:
-                    country = countries[0]
+                    country_id = countries[0]
                 else:
                     raise UserError(
                         _("Country Code %s not found in system.") % CountryCode
@@ -182,10 +182,13 @@ class WizardImportFatturapa(models.TransientModel):
                 'supplier': supplier,
                 'is_company': (
                     DatiAnagrafici.Anagrafica.Denominazione and True or False),
-                'individual': country.code == 'IT' and cf and len(cf) == 16,
                 'eori_code': DatiAnagrafici.Anagrafica.CodEORI or '',
-                'country_id': country.id,
             }
+            if country_id:
+                vals.update({
+                    'individual': country_id.code == 'IT' and cf and len(cf) == 16,
+                    'country_id': country_id.id,
+                })
             if DatiAnagrafici.Anagrafica.Nome:
                 vals['firstname'] = DatiAnagrafici.Anagrafica.Nome
             if DatiAnagrafici.Anagrafica.Cognome:
@@ -814,7 +817,7 @@ class WizardImportFatturapa(models.TransientModel):
             )
         return journals[0]
 
-    def create_e_invoice_line(self, line, invoice_line_id=None):
+    def create_e_invoice_line(self, line):
         vals = {
             'line_number': int(line.NumeroLinea or 0),
             'service_type': line.TipoCessionePrestazione,
@@ -829,7 +832,6 @@ class WizardImportFatturapa(models.TransientModel):
             'wt_amount': line.Ritenuta,
             'tax_kind': line.Natura,
             'admin_ref': line.RiferimentoAmministrazione,
-            'invoice_line_id': invoice_line_id
         }
         einvoiceline = self.env['einvoice.line'].create(vals)
         if line.CodiceArticolo:
