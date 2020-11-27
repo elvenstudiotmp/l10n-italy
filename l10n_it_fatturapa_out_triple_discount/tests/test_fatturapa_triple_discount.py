@@ -19,6 +19,7 @@ class TestInvoiceTripleDiscount(FatturaPACommon):
             'journal_id': self.sales_journal.id,
             'account_id': self.a_recv.id,
             'payment_term': self.account_payment_term.id,
+            'payment_mode_id': self.account_payment_mode.id,
             'user_id': self.user_demo.id,
             'type': 'out_invoice',
             'currency_id': self.EUR.id,
