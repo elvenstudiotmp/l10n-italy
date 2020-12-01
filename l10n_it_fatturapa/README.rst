@@ -23,7 +23,7 @@ Italian Localization - Fattura Elettronica - Base
     :target: https://runbot.odoo-community.org/runbot/122/8.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5|
+|badge1| |badge2| |badge3| |badge4| |badge5| 
 
 **Italiano**
 
@@ -68,7 +68,7 @@ Configuration
 
 * Nella scheda "Fattura elettronica" del partner, selezionare "Soggetto a fattura elettronica" per i clienti e i fornitori soggetti alla fatturazione elettronica.
 * Le pubbliche amministrazioni devono avere un codice IPA
-* Gli altri devono avere il Codice Destinatario o la PEC
+* Gli altri devono avere il codice destinatario o la PEC
 * Configurare le imposte riguardo a "Natura non imponibile", "Riferimento normativo" ed "Esigibilità IVA"
 * Configurare i dati della fattura elettronica nella configurazione della contabilità, dove necessario
 * Opzionalmente configurare lo style della preview della fattura elettronica, selezionando "Preview Format Style" in "Configurazione Contabilità"
@@ -116,9 +116,7 @@ Contributors
 * Sergio Zanchetta <https://github.com/primes2h>
 * Roberto Fichera <https://github.com/robyf70>
 * Sergio Corato <https://github.com/sergiocorato>
-* Sergio Zanchetta <https://github.com/primes2h>
-* Copyright 2019 Gianluigi Tiesi - Netfarm S.r.l.
-* Copyright 2020 Vincenzo Terzulli <v.terzulli@elvenstudio.it>
+* Vincenzo Terzulli
 
 Maintainers
 ~~~~~~~~~~~
