@@ -130,10 +130,10 @@ class WizardExportFatturapa(models.TransientModel):
                 raise UserError(
                     _('Payment term %s does not have a linked e-invoice '
                       'payment term') % invoice.payment_term.name)
-            if not invoice.payment_term.fatturapa_pm_id:
+            if not invoice.payment_mode_id.fatturapa_pm_id:
                 raise UserError(
-                    _('Payment term %s does not have a linked e-invoice '
-                      'payment method') % invoice.payment_term.name)
+                    _('Payment method %s does not have a linked e-invoice '
+                      'payment associated') % invoice.payment_mode_id.name)
             DatiPagamento.CondizioniPagamento = (
                 invoice.payment_term.fatturapa_pt_id.code)
             move_line_pool = self.env['account.move.line']
@@ -143,7 +143,7 @@ class WizardExportFatturapa(models.TransientModel):
                 ImportoPagamento = '%.2f' % float_round(invoice.amount_net_pay, 2)
                 DettaglioPagamento = DettaglioPagamentoType(
                     ModalitaPagamento=(
-                        invoice.payment_term.fatturapa_pm_id.code),
+                        invoice.payment_mode_id.fatturapa_pm_id.code),
                     DataScadenzaPagamento=move_line.date_maturity,
                     ImportoPagamento=ImportoPagamento
                 )
