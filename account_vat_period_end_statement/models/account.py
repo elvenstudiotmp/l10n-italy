@@ -442,10 +442,11 @@ class AccountVatPeriodEndStatement(orm.Model):
 
         'show_zero': fields.boolean('Show zero amount lines'),
         'soggetto_codice_fiscale':
-            fields.char('Codice fiscale dichiarante',
-                        size=16, required=True,
-            help="CF del soggetto che presenta la comunicazione "
-                            "se PF o DI o con la specifica carica"),
+            fields.char(
+                'Codice fiscale dichiarante',
+                size=16,  # required=True,
+                help="CF del soggetto che presenta la comunicazione "
+                     "se PF o DI o con la specifica carica"),
         # TODO: use module l10n_it_codici_carica
         'codice_carica': fields.selection([
             ('0', 'Azienda PF (Ditta indivisuale/Professionista/eccetera)'),
@@ -474,7 +475,7 @@ class AccountVatPeriodEndStatement(orm.Model):
             size=16,
             help="CF intermediario "
                  "che effettua la trasmissione telematica",
-            required=True
+            # required=True
         ),
 
         'incaricato_trasmissione_numero_CAF': fields.integer(
@@ -483,7 +484,9 @@ class AccountVatPeriodEndStatement(orm.Model):
             help="Eventuale numero iscrizione albo del C.A.F."
         ),
 
-        'incaricato_trasmissione_data_impegno': fields.date('Data data impegno', required=True),
+        'incaricato_trasmissione_data_impegno': fields.date(
+            'Data impegno',  # required=True
+        ),
 
         'is_summary_statement': fields.function(
             _is_summary_statement,
@@ -1093,7 +1096,7 @@ class AccountVatPeriodEndStatement(orm.Model):
                             'title': 'Invalid fiscalcode!',
                             'message': 'Fiscal code could be %s' % (value)
                         }
-                     }
+                    }
             return {'value': {name: fiscalcode}}
         return {}
 
@@ -1120,7 +1123,7 @@ class AccountVatPeriodEndStatement(orm.Model):
                       ' deleting Vat Period End Statement')
                 )
         return super(AccountVatPeriodEndStatement, self).action_cancel(
-        cr, uid, ids, context)
+            cr, uid, ids, context)
 
 
 # TODO: SEPARATE IN OTHER FILES
@@ -1419,4 +1422,3 @@ class AccountVatSettlementAttachment(models.Model):
         string=_('VAT Statements'),
         readonly=True
     )
-

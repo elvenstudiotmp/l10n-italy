@@ -143,11 +143,11 @@
                             <page string="Print Options">
                                 <group>
                                     <group string="Legal Notice">
-                                        <field name="soggetto_codice_fiscale" on_change="onchange_fiscalcode(soggetto_codice_fiscale,'soggetto_codice_fiscale')" />
+                                        <field name="soggetto_codice_fiscale" required="1" on_change="onchange_fiscalcode(soggetto_codice_fiscale,'soggetto_codice_fiscale')" />
                                         <field name="codice_carica" />
-                                        <field name="incaricato_trasmissione_codice_fiscale" on_change="onchange_fiscalcode(incaricato_trasmissione_codice_fiscale,'incaricato_trasmissione_codice_fiscale')" />
+                                        <field name="incaricato_trasmissione_codice_fiscale" required="1" on_change="onchange_fiscalcode(incaricato_trasmissione_codice_fiscale,'incaricato_trasmissione_codice_fiscale')" />
                                         <field name="incaricato_trasmissione_numero_CAF" />
-                                        <field name="incaricato_trasmissione_data_impegno" />
+                                        <field name="incaricato_trasmissione_data_impegno" required="1" />
                                         <field name="progressivo_telematico" readonly="1"/>
                                     </group>
                                     <group string="Page Number">

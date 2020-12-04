@@ -79,6 +79,11 @@ class TestTax(TransactionCase):
             'payment_id': self.account_payment_term.id,
             })
 
+        self.env.user.company_id.of_account_end_vat_statement_credit_account_id \
+            = self.env.ref('account.iva').id
+        self.env.user.company_id.of_account_end_vat_statement_debit_account_id \
+            = self.env.ref('account.ova').id
+
     def test_vat_statement(self):
         out_invoice = self.invoice_model.create({
             'date_invoice': self.recent_date,

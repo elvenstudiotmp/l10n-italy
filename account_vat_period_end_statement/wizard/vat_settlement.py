@@ -6,7 +6,7 @@
 #                Odoo-Italia.org Community
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from openerp.osv import fields, orm
-from ..bindings.vat_settlement_v_1_0 import (
+from ..bindings.binding_fonitura_ivp import (
     Fornitura,
     # Intestazione,
     Intestazione_IVP_Type,

@@ -1,4 +1,3 @@
 # -*- coding: utf-8 -*-
 
-
-from . import vat_settlement_v_1_0
+from . import binding_fonitura_ivp
