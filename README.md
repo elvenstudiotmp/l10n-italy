@@ -39,12 +39,12 @@ addon | version | summary
 [l10n_it_ddt](l10n_it_ddt/) | 8.0.1.0.2 | Documento di Trasporto
 [l10n_it_ddt_delivery](l10n_it_ddt_delivery/) | 8.0.1.0.0 | Copy carrier from picking and from sale order
 [l10n_it_esigibilita_iva](l10n_it_esigibilita_iva/) | 8.0.2.0.0 | Esigibilità IVA
-[l10n_it_fatturapa](l10n_it_fatturapa/) | 8.0.3.0.2 | Electronic invoices
+[l10n_it_fatturapa](l10n_it_fatturapa/) | 8.0.3.0.3 | Electronic invoices
 [l10n_it_fatturapa_export_zip](l10n_it_fatturapa_export_zip/) | 8.0.1.0.0 | Permette di esportare in uno ZIP diversi file XML di fatture elettroniche
 [l10n_it_fatturapa_in](l10n_it_fatturapa_in/) | 8.0.2.0.2 | Electronic invoices reception
 [l10n_it_fatturapa_out](l10n_it_fatturapa_out/) | 8.0.4.0.0 | Electronic invoices emission
 [l10n_it_fatturapa_out_ddt](l10n_it_fatturapa_out_ddt/) | 8.0.2.0.0 | Modulo ponte tra emissione fatture elettroniche e DDT
-[l10n_it_fatturapa_out_sale](l10n_it_fatturapa_out_sale/) | 8.0.2.0.0 | Modulo ponte tra emissione fatture elettroniche e dati ordine di vendita
+[l10n_it_fatturapa_out_sale](l10n_it_fatturapa_out_sale/) | 8.0.2.0.1 | Modulo ponte tra emissione fatture elettroniche e dati ordine di vendita
 [l10n_it_fatturapa_out_stamp](l10n_it_fatturapa_out_stamp/) | 8.0.2.0.0 | Modulo ponte tra emissione fatture elettroniche e imposta di bollo
 [l10n_it_fatturapa_out_triple_discount](l10n_it_fatturapa_out_triple_discount/) | 8.0.2.0.0 | Modulo ponte tra emissione fatture elettroniche e sconto triplo
 [l10n_it_fatturapa_out_wt](l10n_it_fatturapa_out_wt/) | 8.0.2.0.0 | Modulo ponte tra emissione fatture elettroniche e ritenute.
@@ -64,7 +64,7 @@ addon | version | summary
 [l10n_it_sepa_bonifici](l10n_it_sepa_bonifici/) | 8.0.1.0.1 | Banking SEPA Italian Credit Transfer CBI
 [l10n_it_split_payment](l10n_it_split_payment/) | 8.0.1.0.1 | Split Payment
 [l10n_it_vat_registries](l10n_it_vat_registries/) | 8.0.3.0.0 | Italian Localization - VAT Registries
-[l10n_it_withholding_tax](l10n_it_withholding_tax/) | 8.0.4.0.0 | Italian Withholding Tax
+[l10n_it_withholding_tax](l10n_it_withholding_tax/) | 8.0.4.0.1 | Italian Withholding Tax
 [l10n_it_withholding_tax_causali](l10n_it_withholding_tax_causali/) | 8.0.2.0.0 | Causali pagamento per ritenute d'acconto
 [l10n_it_withholding_tax_payment](l10n_it_withholding_tax_payment/) | 8.0.2.0.1 | Italian Withholding Tax Payment
 
