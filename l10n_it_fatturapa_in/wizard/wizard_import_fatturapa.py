@@ -842,6 +842,10 @@ class WizardImportFatturapa(models.TransientModel):
             'tax_kind': line.Natura,
             'admin_ref': line.RiferimentoAmministrazione,
         }
+        # 'invoice_line_id' field into an e-invoice line is only present
+        # during eInvoice importation and not during link
+        if hasattr(line, 'invoice_line_id'):
+            vals.update({'invoice_line_id': line.invoice_line_id})
         einvoiceline = self.env['einvoice.line'].create(vals)
         if line.CodiceArticolo:
             for caline in line.CodiceArticolo:
@@ -1375,6 +1379,7 @@ class WizardImportFatturapa(models.TransientModel):
             invoice_line_id = invoice_line_model.create(
                 invoice_line_data).id
             invoice_lines.append(invoice_line_id)
+            line.invoice_line_id = invoice_line_id
         invoice_data['invoice_line'] = [(6, 0, invoice_lines)]
 
     def check_invoice_amount(self, invoice, FatturaElettronicaBody):
